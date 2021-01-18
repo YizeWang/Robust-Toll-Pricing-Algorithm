@@ -11,15 +11,17 @@ endPoints = dataNetwork.term_node;
 ODs = [startPoints, endPoints];
 numLinks = numel(startPoints);
 indLinks = (1:numLinks)';
+a = dataNetwork.a;
+b = dataNetwork.b;
 
 X = dataNode.X;
 Y = dataNode.Y;
 nameNode = string(dataNode.Node);
 
-nameVarsEdge = {'EndNodes', 'LinkIndex'};
+nameVarsEdge = {'EndNodes', 'LinkIndex', 'a', 'b'};
 nameVarsNode = {'Name', 'X', 'Y'};
 NodeTable = table(nameNode, X, Y, 'VariableNames', nameVarsNode);
-EdgeTable = table(ODs, indLinks, 'VariableNames', nameVarsEdge);
+EdgeTable = table(ODs, indLinks, a, b, 'VariableNames', nameVarsEdge);
 G = digraph(EdgeTable, NodeTable);
 
 % figure('Name', nameNetwork);
