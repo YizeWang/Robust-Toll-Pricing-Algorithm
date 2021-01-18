@@ -22,7 +22,7 @@ NodeTable = table(nameNode, X, Y, 'VariableNames', nameVarsNode);
 EdgeTable = table(ODs, indLinks, 'VariableNames', nameVarsEdge);
 G = digraph(EdgeTable, NodeTable);
 
-figure('Name', nameNetwork);
-plot(G, 'XData', G.Nodes.X, 'YData', G.Nodes.Y, 'EdgeLabel', G.Edges.LinkIndex, 'NodeLabel', G.Nodes.Name);
+% figure('Name', nameNetwork);
+% plot(G, 'XData', G.Nodes.X, 'YData', G.Nodes.Y, 'EdgeLabel', G.Edges.LinkIndex, 'NodeLabel', G.Nodes.Name);
 
 end
