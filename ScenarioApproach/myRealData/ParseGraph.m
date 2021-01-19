@@ -1,5 +1,7 @@
 function [G] = ParseGraph(pathData, nameNetwork)
 
+doPlot = false;
+
 pathNetwork = [pathData, nameNetwork, 'Network.tntp'];
 pathNodePos = [pathData, nameNetwork, 'Node.tntp'];
 
@@ -24,7 +26,11 @@ NodeTable = table(nameNode, X, Y, 'VariableNames', nameVarsNode);
 EdgeTable = table(ODs, indLinks, a, b, 'VariableNames', nameVarsEdge);
 G = digraph(EdgeTable, NodeTable);
 
-% figure('Name', nameNetwork);
-% plot(G, 'XData', G.Nodes.X, 'YData', G.Nodes.Y, 'EdgeLabel', G.Edges.LinkIndex, 'NodeLabel', G.Nodes.Name);
+if doPlot
+    figure('Name', nameNetwork);
+    plot(G, 'XData', G.Nodes.X, 'YData', G.Nodes.Y, 'EdgeLabel', G.Edges.LinkIndex, 'NodeLabel', G.Nodes.Name);
+    xlabel('X')
+    ylabel('Y')
+end
 
 end
