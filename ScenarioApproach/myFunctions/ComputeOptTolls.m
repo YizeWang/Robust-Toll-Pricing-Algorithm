@@ -36,6 +36,6 @@ optTolls = value(t);
 h = value(h);
 
 time = toc(tStart);
-fprintf('Elapsed Time: %.4fs\n', time);
+% fprintf('Elapsed Time: %.4fs\n', time);
 
 end

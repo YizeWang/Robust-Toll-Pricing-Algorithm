@@ -12,12 +12,7 @@ if abs(currH-optH) < tol || numNotExpl == 0
     return;
 end
 
-indNotExpl = find(statNotExpl);
-indNotExplSubs = sub2ind([numNotExpl, numSmp], 1:numNotExpl, indNotExpl);
-indToExplSmps = zeros(numNotExpl, numSmp);
-indToExplSmps(indNotExplSubs) = true;
-
-statCandSubSmps = repmat(statSubSmp, numNotExpl, 1) | indToExplSmps;
+statCandSubSmps = MakeOneEleTrue(statSubSmp);
 
 h = zeros(numNotExpl, 1);
 for k = 1:numNotExpl
