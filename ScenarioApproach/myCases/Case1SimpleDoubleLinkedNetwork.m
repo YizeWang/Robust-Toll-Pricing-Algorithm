@@ -3,7 +3,7 @@ clc
 clear all
 close all
 
-doComputeConfidence = true;
+doComputeConfidence = false;
 
 d = 1.0;
 H = diag([1.0, 0.0]);

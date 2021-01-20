@@ -1,6 +1,4 @@
-function [G] = ParseGraph(pathData, nameNetwork)
-
-doPlot = false;
+function [G] = ParseGraph(pathData, nameNetwork, doPlot)
 
 pathNetwork = [pathData, nameNetwork, 'Network.tntp'];
 pathNodePos = [pathData, nameNetwork, 'Node.tntp'];

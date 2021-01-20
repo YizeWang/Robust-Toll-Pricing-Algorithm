@@ -3,9 +3,10 @@ clc
 close all
 clear all
 
-pathData = 'Data/';
+doPlot = true;
+pathData = 'myRealData/';
 nameNetwork = 'SiouxFalls';
-G = ParseGraph(pathData, nameNetwork);
+G = ParseGraph(pathData, nameNetwork, doPlot);
 
 %% construct system model
 factorPrune = 2;
