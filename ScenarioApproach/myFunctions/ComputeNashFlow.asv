@@ -37,10 +37,6 @@ end
 xNash = value(xLink);
 costLink = FFT .* (1 + BOverC .* (xNash .^ Pow));
 costNash = sum(xNash .* costLink);
-
-% set super small values zero
-epsilon = 1e-5;
-indZeroX = xNash < epsilon;
-xNash(indZeroX) = 0;
+epsilon = 1e
 
 end

@@ -3,7 +3,7 @@ clc
 close all
 clear all
 
-doPlot = false;
+doPlot = true;
 pathData = 'myRealData/';
 nameNetwork = 'SiouxFalls';
 G = ParseGraph(pathData, nameNetwork, doPlot);
