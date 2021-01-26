@@ -4,12 +4,16 @@ function [G] = ParseTNTP(pathDataFolder, nameNetwork)
 pathDataPrefix = [pathDataFolder, nameNetwork, '\', nameNetwork, '_'];
 
 % construct paths of data files
-pathDataNode    = [pathDataPrefix, 'node.tntp'];
-pathDataNetwork = [pathDataPrefix,  'net.tntp'];
+pathDataNode    = [pathDataPrefix,  'node', '.tntp'];
+pathDataNetwork = [pathDataPrefix,   'net', '.tntp'];
+% pathDataFlow    = [pathDataPrefix,  'flow', '.tntp'];
+% pathDataTrip    = [pathDataPrefix, 'trips',  '.csv'];
 
 % read tab-delimited files
 dataNode    = tdfread(pathDataNode,    '\t');
 dataNetwork = tdfread(pathDataNetwork, '\t');
+% dataFlow    = tdfread(pathDataFlow,    '\t');
+% dataTrip    = readmatrix(pathDataTrip);
 
 % store link data
 nodeInit = dataNetwork.init_node;
@@ -23,22 +27,17 @@ linkPow  = dataNetwork.power;
 % store node data
 X        = dataNode.X;
 Y        = dataNode.Y;
-nameNode = string(dataNode.Node);
 
-% define auxiliary variables
+% define auxiliary variable
 ODs     = [nodeInit, nodeTerm];
-numLink = numel(nodeInit);
-indLink = (1:numLink)';
-numNode = numel(nameNode);
-indNode = (1:numNode)';
 
 % define names of table columns
-nameVarsEdge = {'EndNodes', 'IndexLink', 'Capacity', 'Length', 'FreeFlowTime', 'B', 'Power'};
-nameVarsNode = {'Name', 'X', 'Y', 'IndexNode'};
+nameVarsEdge = {'EndNodes', 'Capacity', 'Length', 'FreeFlowTime', 'B', 'Power'};
+nameVarsNode = {'X', 'Y'};
 
 % construct node table and edge table
-NodeTable = table(nameNode, X, Y, indNode, 'VariableNames', nameVarsNode);
-EdgeTable = table(ODs, indLink, linkCap, linkLen, linkFFT, linkB, linkPow, 'VariableNames', nameVarsEdge);
+NodeTable = table(X, Y, 'VariableNames', nameVarsNode);
+EdgeTable = table(ODs, linkCap, linkLen, linkFFT, linkB, linkPow, 'VariableNames', nameVarsEdge);
 
 % generate digraph object
 G = digraph(EdgeTable, NodeTable); % caution: edges will be rearranged

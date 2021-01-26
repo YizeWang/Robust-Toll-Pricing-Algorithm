@@ -14,11 +14,8 @@ for n = 1:numNode
     edgeIn  =  inedges(G, n); % row index in edge table
     edgeOut = outedges(G, n); % row index in edge table
     
-    indEdgeIn  =  G.Edges.IndexLink(edgeIn); % index of edge
-    indEdgeOut = G.Edges.IndexLink(edgeOut); % index of edge
-    
-    A(n, indEdgeIn)  =  1; % sum of inedge flows
-    A(n, indEdgeOut) = -1; % sum of outedge flows
+    A(n, edgeIn)  =  1; % sum of inedge flows
+    A(n, edgeOut) = -1; % sum of outedge flows
 end
 
 % construct matrix b
