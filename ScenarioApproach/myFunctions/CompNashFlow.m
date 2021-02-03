@@ -30,7 +30,8 @@ solution    = optimize(Constraints, Objective, options);
 
 % exit if optimization not feasible
 if solution.problem
-    error('optimizaton not feasible')
+    disp(solution);
+    error('optimizaton terminated because solver encountered problem');
 end
 
 % compute return values

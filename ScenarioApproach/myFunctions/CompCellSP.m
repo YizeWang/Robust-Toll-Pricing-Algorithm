@@ -11,7 +11,7 @@ Cap = G.Edges.Capacity;
 
 % compute intermediate values
 Base           = flowLink ./ Cap;
-ExpTerm        = B .* Base .^ Pow;
+ExpTerm        = B .* (Base .^ Pow);
 costLink       = FFT .* (1 + ExpTerm);
 G.Edges.Weight = costLink;
 
