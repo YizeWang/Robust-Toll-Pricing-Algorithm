@@ -29,15 +29,15 @@ for k = 1:numDmnd
 end
 
 % augmented matrix A (x stacked into vector)
-A11                        =  -eye(numEdge);   %        |     |         |
-A12      = repmat(eye(numEdge), 1, numDmnd);   %        | A11 |   A12   | 
-A21      = sparse(numNode*numDmnd, numEdge);   %        |-----+---------|
-ACell             = repmat({A}, numDmnd, 1);   % ABig = |     |         |     
-A22                     = blkdiag(ACell{:});   %        | A21 |   A22   |       
-ABig                 = [A11, A12; A21, A22];   %        |     |         |
+A11                        =  -eye(numEdge); %        |     |         |
+A12      = repmat(eye(numEdge), 1, numDmnd); %        | A11 |   A12   | 
+A21      = sparse(numNode*numDmnd, numEdge); %        |-----+---------|
+ACell             = repmat({A}, numDmnd, 1); % ABig = |     |         |     
+A22                     = blkdiag(ACell{:}); %        | A21 |   A22   |       
+ABig                 = [A11, A12; A21, A22]; %        |     |         |
 
 % augmented vector b (x stacked into vector)
-bBigDown = reshape(b, [numNode*numDmnd, 1]);   % bBD  = [b1; ... ; bK]
-bBig       = [sparse(numEdge, 1); bBigDown];   % bBig = [0; bBD];
+bBigDown = reshape(b, [numNode*numDmnd, 1]); % bBD  = [b1; ... ; bK]
+bBig       = [sparse(numEdge, 1); bBigDown]; % bBig = [0; bBD];
 
 end
