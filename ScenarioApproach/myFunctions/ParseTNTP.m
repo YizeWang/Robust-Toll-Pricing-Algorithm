@@ -6,14 +6,10 @@ pathDataPrefix = [pathDataFolder, nameNetwork, '\', nameNetwork, '_'];
 % construct paths of data files
 pathDataNode    = [pathDataPrefix,  'node', '.tntp'];
 pathDataNetwork = [pathDataPrefix,   'net', '.tntp'];
-% pathDataFlow    = [pathDataPrefix,  'flow', '.tntp'];
-% pathDataTrip    = [pathDataPrefix, 'trips',  '.csv'];
 
 % read tab-delimited files
 dataNode    = tdfread(pathDataNode,    '\t');
 dataNetwork = tdfread(pathDataNetwork, '\t');
-% dataFlow    = tdfread(pathDataFlow,    '\t');
-% dataTrip    = readmatrix(pathDataTrip);
 
 % store link data
 nodeInit = dataNetwork.init_node;

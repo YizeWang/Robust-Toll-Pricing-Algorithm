@@ -1,0 +1,29 @@
+if system_dependent('IsDebugMode')==1, dbstep in; end
+if system_dependent('IsDebugMode')==1, dbcont; end
+whos
+  Name             Size               Bytes  Class      Attributes
+
+  A               24x76                3048  double     sparse    
+  A11             76x76                1832  double     sparse    
+  A12             76x7600            182408  double     sparse    
+  A21           2400x76                 632  double     sparse    
+  A22           2400x7600            304008  double     sparse    
+  ABig          2476x7676            427448  double     sparse    
+  ACell          100x1               315200  cell                 
+  G                1x1                 7293  digraph              
+  ODs            100x3                 2400  double               
+  b               24x100               4024  double     sparse    
+  bBigDown      2400x1                 3232  double     sparse    
+  d                1x1                    8  double               
+  edgeIn           3x1                   24  double               
+  edgeOut          3x1                   24  double               
+  k                1x1                    8  double               
+  n                1x1                    8  double               
+  numDmnd          1x1                    8  double               
+  numEdge          1x1                    8  double               
+  numNode          1x1                    8  double               
+  s                1x1                    8  double               
+  t                1x1                    8  double               
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0210

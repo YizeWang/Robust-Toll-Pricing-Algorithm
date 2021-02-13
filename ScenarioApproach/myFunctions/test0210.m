@@ -13,7 +13,7 @@ nameNetwork = nameNetwork2;
 G = ParseTNTP(pathDataFolder, nameNetwork);
 ODs = readmatrix([pathDataFolder nameNetwork '\' nameNetwork '_ODs.csv']);
 ODs(:, 3) = ODs(:, 3) / 1000;
-ODs = ODs(1:50, :);
+ODs = ODs(1:100, :);
 % ODs = ODs(1:30, :);
 % PlotNetwork(G);
 
@@ -57,19 +57,24 @@ Q = diag(a);
 q = c;
 
 % define optimization problem
-O1 = xLink' * Q * xLink + q' * xLink;
-O2 = 0.5 * xLink' * Q * xLink + q' * xLink;
+O = h;
+% O1 = xLink' * Q * xLink + q' * xLink;
+% O2 = 0.5 * xLink' * Q * xLink + q' * xLink;
 % O3 = xLink' * Q * xLink + q' * xLink;
 
 % constraints
 cons = [t >= 0, x >= 0, u >= 0];
-% cons = [cons, [(T+t) + T.*B.*xLink; zeros(M*K, 1)] - u + A'*l == 0];
+cons = [cons, [(T+t) + T.*B.*xLink; zeros(M*K, 1)] - u + A'*l == 0];
 cons = [cons, A*x - b == 0];
-% cons = [cons, x' * u == 0];
-% cons = [cons, xLink' * Q * xLink + q' * xLink <= h];
+cons = [cons, x' * u == 0];
+cons = [cons, xLink' * Q * xLink + q' * xLink <= h];
 
 %% solve problem
 options = sdpsettings('solver', 'gurobi', 'verbose', 1);
+
+optimize(cons, O, options);
+value(xLink' * Q * xLink + q' * xLink)
+xLink = value(xLink);
 
 % optimize(cons, O1, options);
 % value(xLink' * Q * xLink + q' * xLink)
