@@ -9,8 +9,3 @@ nameNet3 = 'Brasse'
 pathDataFolder = '..\\myRealData\\'
 
 nameNet = nameNet2
-
-
-
-
-pass

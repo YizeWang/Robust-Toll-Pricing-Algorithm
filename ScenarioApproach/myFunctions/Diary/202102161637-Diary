@@ -178,3 +178,112 @@ Root relaxation: objective 6.402738e+02, 0 iterations, 0.49 seconds
   3675  3085  postponed   15               -  640.27427      -   0.0 1796s
   3872  3260  695.15713   27  335          -  640.27427      -   0.0 1864s
   4065  3423  postponed   47               -  640.27427      -   0.0 1939s
+  4246  3574  695.36109   63  431          -  640.27427      -   0.0 2034s
+  4413  3766  695.61879   95  356          -  640.27427      -   0.0 2132s
+  4649  3869  postponed  158               -  640.27427      -   0.0 2220s
+  4820  3991  postponed   37               -  640.27427      -   0.0 2311s
+  4994  4005 1040.79163   17   84          -  640.27427      -   0.0 2315s
+  5010  4016  postponed   19               -  640.27427      -   0.0 2320s
+  5027  4027 2060.39251   21  126          -  640.27427      -   0.0 2325s
+  5045  4038  postponed   23               -  640.27427      -   0.0 2330s
+  5064  4048  postponed   25               -  640.27427      -   0.0 2335s
+  5082  4056  postponed   27               -  640.27427      -   0.0 2340s
+  5101  4068 1464.73029   28  213          -  640.27427      -   0.0 2345s
+  5120  4082  postponed   30               -  640.27427      -   0.0 2351s
+  5133  4092 1464.27140   31  303          -  640.27427      -   0.0 2356s
+  5149  4103 1464.28748   33  375          -  640.27427      -   0.0 2362s
+  5166  4115  postponed   35               -  640.27427      -   0.0 2366s
+  5184  4127 1464.26648   37  466          -  640.27427      -   0.0 2372s
+  5202  4140  postponed   39               -  640.27427      -   0.0 2378s
+  5212  4145 1464.26935   40  493          -  640.27427      -   0.0 2381s
+  5232  4161  postponed   43               -  640.27427      -   0.0 2387s
+  5243  4167  postponed   44               -  640.27427      -   0.0 2390s
+  5265  4186 1464.25887   46  525          -  640.27427      -   0.0 2397s
+  5279  4196  postponed   48               -  640.27427      -   0.0 2401s
+  5294  4207  postponed   49               -  640.27427      -   0.0 2406s
+  5310  4216  postponed   51               -  640.27427      -   0.0 2410s
+  5340  4238  postponed   54               -  640.27427      -   0.0 2418s
+  5356  4250  postponed   56               -  640.27427      -   0.0 2423s
+  5374  4261 1464.26517   57  494          -  640.27427      -   0.0 2428s
+  5391  4273  postponed   59               -  640.27427      -   0.0 2433s
+  5408  4286  postponed   61               -  640.27427      -   0.0 2438s
+  5427  4301  postponed   63               -  640.27427      -   0.0 2443s
+  5448  4317 1464.26779   65  555          -  640.27427      -   0.0 2449s
+  5471  4328  postponed   68               -  640.27427      -   0.0 2455s
+  5490  4345  postponed   70               -  640.27427      -   0.0 2462s
+  5513  4360  postponed   72               -  640.27427      -   0.0 2468s
+  5536  4373 1464.26748   74  623          -  640.27427      -   0.0 2475s
+  5563  4387  postponed   77               -  640.27427      -   0.0 2482s
+  5588  4404 1475.64423   80  675          -  640.27427      -   0.0 2490s
+  5613  4422 1464.28821   83  650          -  640.27427      -   0.0 2499s
+  5643  4436  postponed   86               -  640.27427      -   0.0 2506s
+  5673  4461  postponed   89               -  640.27427      -   0.0 2515s
+  5712  4471 infeasible   92               -  640.27427      -   0.0 2523s
+  5741  4490  postponed   95               -  640.27427      -   0.0 2532s
+  5774  4510  postponed   99               -  640.27427      -   0.0 2541s
+  5831  4534  postponed  103               -  640.27427      -   0.0 2550s
+  5878  4564  postponed  107               -  640.27427      -   0.0 2560s
+  5926  4592  postponed  111               -  640.27427      -   0.0 2570s
+  5974  4622  postponed  115               -  640.27427      -   0.0 2580s
+  6026  4653  postponed  120               -  640.27427      -   0.0 2593s
+  6080  4677  postponed  124               -  640.27427      -   0.0 2605s
+  6130  4704  postponed  130               -  640.27427      -   0.0 2617s
+  6190  4736  postponed  136               -  640.27427      -   0.0 2630s
+  6248  4750 1464.26441  142  521          -  640.27427      -   0.0 2647s
+  6287  4771  postponed  147               -  640.27427      -   0.0 2663s
+  6327  4789  postponed  152               -  640.27427      -   0.0 2678s
+  6372  4814  postponed  157               -  640.27427      -   0.0 2696s
+  6422  4829  postponed  162               -  640.27427      -   0.0 2714s
+  6468  4839  postponed  167               -  640.27427      -   0.0 2732s
+  6513  4860  postponed  174               -  640.27427      -   0.0 2750s
+  6559  4871  postponed  179               -  640.27427      -   0.0 2771s
+  6598  4883  postponed  184               -  640.27427      -   0.0 2792s
+  6643  4902 infeasible  191               -  640.27427      -   0.0 2813s
+  6689  4915 infeasible  197               -  640.27427      -   0.0 2835s
+  6749  4924  postponed  205               -  640.27427      -   0.0 2859s
+  6804  4934  postponed  211               -  640.27427      -   0.0 2883s
+  6858  4943  postponed  217               -  640.27427      -   0.0 2910s
+  6915  4959  postponed  223               -  640.27427      -   0.0 2936s
+  6962  4976  postponed  229               -  640.27427      -   0.0 2963s
+  7013  4996  postponed  235               -  640.27427      -   0.0 2993s
+  7064  5019  postponed  240               -  640.27427      -   0.0 3023s
+  7116  5041  postponed  246               -  640.27427      -   0.0 3055s
+  7171  5064  postponed  252               -  640.27427      -   0.0 3088s
+  7227  5089 infeasible  258               -  640.27427      -   0.0 3122s
+  7282  5114 infeasible  266               -  640.27427      -   0.0 3156s
+  7342  5137  postponed  274               -  640.27427      -   0.0 3193s
+  7407  5158  postponed  285               -  640.27427      -   0.0 3233s
+  7473  5183  postponed  294               -  640.27427      -   0.0 3272s
+  7532  5199  postponed  302               -  640.27427      -   0.0 3313s
+  7602  5224  postponed  310               -  640.27427      -   0.0 3354s
+  7670  5256  postponed  319               -  640.27427      -   0.0 6095s
+
+Interrupt request received
+  7735  5261  postponed  329               -  640.27427      -   0.0 6121s
+
+Explored 7770 nodes (0 simplex iterations) in 6121.03 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Solve interrupted
+Best objective -, best bound 6.402742733560e+02, gap -
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('yalmip2gurobi', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\yalmip2gurobi.m', 185)" style="font-weight:bold">yalmip2gurobi</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\yalmip2gurobi.m',185,0)">line 185</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callgurobi', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\callgurobi.m', 12)" style="font-weight:bold">callgurobi</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\callgurobi.m',12,0)">line 12</a>)
+model = yalmip2gurobi(interfacedata);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvesdp', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\solvesdp.m', 371)" style="font-weight:bold">solvesdp</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\solvesdp.m',371,0)">line 371</a>)
+        eval(['output = ' solver.call '(interfacedata);']);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('optimize', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\optimize.m', 31)" style="font-weight:bold">optimize</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\optimize.m',31,0)">line 31</a>)
+[varargout{1:nargout}] = solvesdp(varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls2', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls2.m', 55)" style="font-weight:bold">ComputeOptimalTolls2</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls2.m',55,0)">line 55</a>)
+optimize(cons, obj, options);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 26)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',26,0)">line 26</a>)
+[xOpt2, tOpt2, hOpt2] = ComputeOptimalTolls2(G, ODs, Params);
+} 
+test0213

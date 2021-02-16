@@ -13,18 +13,19 @@ nameNetwork2   = 'SiouxFalls';
 nameNetwork3   = 'Brasse';
 pathDataFolder = '..\myRealData\';
 
-nameNetwork = nameNetwork2;
+nameNetwork = nameNetwork1;
 G = ParseTNTP(pathDataFolder, nameNetwork);
 ODs = readmatrix([pathDataFolder nameNetwork '\' nameNetwork '_ODs.csv']);
 
 %% generate data
 % ODsSampled = GenerateSamples(ODs, numSmpl);
-ODs = ODs(1:100, :);
-ODs(:, 3) = ODs(:, 3) / 1000;
+% ODs = ODs(1:30, :);
+% ODs(:, 3) = ODs(:, 3) / 1000;
 Params = ExtractParameters(G, ODs);
-[xOpt1, tOpt1, hOpt1] = ComputeOptimalTolls1(G, ODs, Params);
-[xOpt2, tOpt2, hOpt2] = ComputeOptimalTolls2(G, ODs, Params);
+[A, b] = GetEqualityConstraints(G, ODs);
+% [xOpt1, tOpt1, hOpt1] = ComputeOptimalTolls1(G, ODs, Params);
+% [xOpt2, tOpt2, hOpt2] = ComputeOptimalTolls2(G, ODs, Params);
 % [xOpt3, tOpt3, hOpt3] = ComputeOptimalTolls3(G, ODs, Params);
-[xOpt4, tOpt4, hOpt4] = ComputeOptimalTolls4(G, ODs, Params);
+% [xOpt4, tOpt4, hOpt4] = ComputeOptimalTolls4(G, ODs, Params);
 
 diary off

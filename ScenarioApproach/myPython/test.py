@@ -1,6 +1,9 @@
 import os
 import sys
 import numpy as np
+from numpy.core.fromnumeric import reshape
+from numpy.lib.function_base import quantile
+from numpy.ma.core import concatenate
 import numpy.matlib
 import pandas as pd
 import networkx as nx
@@ -38,15 +41,18 @@ uDim = xDim
 lDim = M + N * K
 
 # create decision variables
-h = m.addVar(hDim, 1, vtype=GRB.CONTINUOUS)
-t = m.addVars(xDim, 1, lb=0, vtype=GRB.CONTINUOUS)
-x = m.addVars(xDim, 1, lb=0, vtype=GRB.CONTINUOUS)
-u = m.addVars(uDim, 1, lb=0, vtype=GRB.CONTINUOUS)
-l = m.addVars(lDim, 1, vtype=GRB.CONTINUOUS)
+h = m.addMVar((hDim,), vtype=GRB.CONTINUOUS)
+t = m.addMVar((tDim,), vtype=GRB.CONTINUOUS, lb=0)
+x = m.addMVar((xDim,), vtype=GRB.CONTINUOUS, lb=0)
+u = m.addMVar((uDim,), vtype=GRB.CONTINUOUS, lb=0)
+l = m.addMVar((lDim,), vtype=GRB.CONTINUOUS)
 
 m.setObjective(h, GRB.MINIMIZE)
+m.addMConstr(A, x, '=', b)
+
+Q = np.diag(np.concatenate((G.a.reshape(-1), [0])))
+q = np.concatenate((G.q.reshape(-1), [0]))
+v = np.hstack((x, h))
 
 
-
-
-pass
+# m.addMQConstr(G.Q, G.q.reshape(-1), '<', 0.0, v, v, v)
