@@ -1,0 +1,17 @@
+x  = sdpvar(xDims, S); % x
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\sdpvar.m', 194)" style="font-weight:bold">sdpvar</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\sdpvar.m',194,0)">line 194</a>)
+The dimensions must have the same lengths
+} 
+xDim
+{Unrecognized function or variable 'xDim'.
+} 
+xDims
+
+xDims =
+
+        3876           1
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213

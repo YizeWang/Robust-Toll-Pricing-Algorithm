@@ -1,0 +1,7 @@
+{Unrecognized function or variable 'T'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 63)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',63,0)">line 63</a>)
+    cons = [cons, [(T+t)+T.*B.*xLink; zeros(M*K, 1)] - u + A'*l == 0];
+} 
+opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',63,0)
+test0213

@@ -1,0 +1,40 @@
+size(A'*l)
+
+ans =
+
+    10     1
+
+size(a)
+
+ans =
+
+     5     1
+
+size(A)
+
+ans =
+
+     4    10
+
+M
+
+M =
+
+     5
+
+M+1
+
+ans =
+
+     6
+
+size(A)
+
+ans =
+
+     4    10
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213

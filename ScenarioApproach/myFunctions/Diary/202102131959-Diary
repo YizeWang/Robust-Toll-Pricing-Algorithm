@@ -1,0 +1,135 @@
+x  = sdpvar(xDim, S); % x
+t  = sdpvar(tDim, 1); % tau
+h  = sdpvar(hDim, 1); % h
+x
+Linear matrix variable 3876x1 (full, real, 3876 variables)
+Coeffiecient range: 1 to 1
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213
+* Starting YALMIP bilevel solver.
+* Outer solver   : GUROBI-GUROBI
+* Inner solver   : GUROBI-GUROBI
+* Max iterations : Inf
+ Node       Upper       Gap(%)      Lower    Open
+    1 :          Inf      Inf      3.028E+02   2  Solved to optimality
+    2 :          Inf      Inf      3.028E+02   3  Solved to optimality
+    3 :          Inf      Inf      3.028E+02   4  Solved to optimality
+    4 :          Inf      Inf      3.028E+02   5  Solved to optimality
+    5 :          Inf      Inf      3.028E+02   6  Solved to optimality
+    6 :          Inf      Inf      3.028E+02   7  Solved to optimality
+    7 :          Inf      Inf      3.028E+02   8  Solved to optimality
+    8 :          Inf      Inf      3.028E+02   9  Solved to optimality
+    9 :          Inf      Inf      3.028E+02  10  Solved to optimality
+   10 :          Inf      Inf      3.028E+02  11  Solved to optimality
+   11 :          Inf      Inf      3.028E+02  12  Solved to optimality
+   12 :          Inf      Inf      3.028E+02  13  Infeasible solution returned, resolve => continue
+   13 :          Inf      Inf      3.028E+02  14  Solved to optimality
+   14 :          Inf      Inf      3.028E+02  15  Solved to optimality
+   15 :          Inf      Inf      3.028E+02  16  Infeasible solution returned, resolve => continue
+   16 :          Inf      Inf      3.028E+02  17  Solved to optimality
+   17 :          Inf      Inf      3.028E+02  18  Solved to optimality
+   18 :          Inf      Inf      3.028E+02  19  Solved to optimality
+   19 :          Inf      Inf      3.028E+02  20  Solved to optimality
+   20 :          Inf      Inf      3.028E+02  21  Solved to optimality
+   21 :          Inf      Inf      3.028E+02  22  Solved to optimality
+   22 :          Inf      Inf      3.028E+02  23  Solved to optimality
+   23 :          Inf      Inf      3.028E+02  24  Solved to optimality
+   24 :          Inf      Inf      3.028E+02  25  Solved to optimality
+   25 :          Inf      Inf      3.028E+02  26  Solved to optimality
+   26 :          Inf      Inf      3.028E+02  27  Solved to optimality
+   27 :          Inf      Inf      3.028E+02  28  Solved to optimality
+   28 :          Inf      Inf      3.028E+02  29  Solved to optimality
+   29 :          Inf      Inf      3.028E+02  30  Solved to optimality
+   30 :          Inf      Inf      3.028E+02  31  Solved to optimality
+   31 :          Inf      Inf      3.028E+02  32  Solved to optimality
+   32 :          Inf      Inf      3.028E+02  33  Infeasible solution returned, resolve => continue
+   33 :          Inf      Inf      3.028E+02  34  Solved to optimality
+   34 :          Inf      Inf      3.028E+02  35  Solved to optimality
+   35 :          Inf      Inf      3.028E+02  36  Infeasible solution returned, resolve => continue
+   36 :          Inf      Inf      3.028E+02  37  Solved to optimality
+   37 :          Inf      Inf      3.028E+02  38  Solved to optimality
+   38 :          Inf      Inf      3.028E+02  39  Solved to optimality
+   39 :          Inf      Inf      3.028E+02  40  Solved to optimality
+   40 :          Inf      Inf      3.028E+02  41  Solved to optimality
+   41 :          Inf      Inf      3.028E+02  42  Solved to optimality
+   42 :          Inf      Inf      3.028E+02  43  Solved to optimality
+   43 :          Inf      Inf      3.028E+02  44  Solved to optimality
+   44 :          Inf      Inf      3.028E+02  45  Solved to optimality
+   45 :          Inf      Inf      3.028E+02  46  Solved to optimality
+   46 :          Inf      Inf      3.028E+02  47  Solved to optimality
+   47 :          Inf      Inf      3.028E+02  48  Solved to optimality
+   48 :          Inf      Inf      3.028E+02  49  Solved to optimality
+   49 :          Inf      Inf      3.028E+02  50  Solved to optimality
+   50 :          Inf      Inf      3.028E+02  51  Solved to optimality
+   51 :          Inf      Inf      3.028E+02  52  Solved to optimality
+   52 :          Inf      Inf      3.028E+02  53  Solved to optimality
+   53 :          Inf      Inf      3.028E+02  54  Infeasible solution returned, resolve => continue
+   54 :          Inf      Inf      3.028E+02  55  Infeasible solution returned, resolve => continue
+   55 :          Inf      Inf      3.028E+02  56  Infeasible solution returned, resolve => continue
+   56 :          Inf      Inf      3.028E+02  57  Solved to optimality
+   57 :          Inf      Inf      3.028E+02  58  Solved to optimality
+   58 :          Inf      Inf      3.028E+02  59  Solved to optimality
+   59 :          Inf      Inf      3.028E+02  60  Solved to optimality
+   60 :          Inf      Inf      3.028E+02  61  Solved to optimality
+   61 :          Inf      Inf      3.028E+02  62  Solved to optimality
+   62 :          Inf      Inf      3.028E+02  63  Infeasible solution returned, resolve => continue
+   63 :          Inf      Inf      3.028E+02  64  Solved to optimality
+   64 :          Inf      Inf      3.028E+02  65  Solved to optimality
+   65 :          Inf      Inf      3.028E+02  66  Solved to optimality
+   66 :          Inf      Inf      3.028E+02  67  Solved to optimality
+   67 :          Inf      Inf      3.028E+02  68  Solved to optimality
+   68 :          Inf      Inf      3.028E+02  69  Solved to optimality
+   69 :          Inf      Inf      3.028E+02  70  Solved to optimality
+   70 :          Inf      Inf      3.028E+02  71  Solved to optimality
+   71 :          Inf      Inf      3.028E+02  72  Solved to optimality
+   72 :          Inf      Inf      3.028E+02  73  Infeasible solution returned, resolve => continue
+   73 :          Inf      Inf      3.028E+02  74  Solved to optimality
+   74 :          Inf      Inf      3.028E+02  75  Solved to optimality
+   75 :          Inf      Inf      3.028E+02  76  Solved to optimality
+   76 :          Inf      Inf      3.028E+02  77  Solved to optimality
+   77 :          Inf      Inf      3.028E+02  78  Solved to optimality
+   78 :          Inf      Inf      3.028E+02  79  Solved to optimality
+   79 :          Inf      Inf      3.028E+02  80  Solved to optimality
+   80 :          Inf      Inf      3.028E+02  81  Infeasible solution returned, resolve => continue
+   81 :          Inf      Inf      3.028E+02  82  Solved to optimality
+   82 :          Inf      Inf      3.028E+02  83  Infeasible solution returned, resolve => continue
+   83 :          Inf      Inf      3.028E+02  84  Infeasible solution returned, resolve => continue
+   84 :          Inf      Inf      3.028E+02  85  Solved to optimality
+   85 :          Inf      Inf      3.028E+02  86  Solved to optimality
+   86 :          Inf      Inf      3.028E+02  87  Solved to optimality
+   87 :          Inf      Inf      3.028E+02  88  Infeasible solution returned, resolve => continue
+   88 :          Inf      Inf      3.028E+02  89  Infeasible solution returned, resolve => continue
+   89 :          Inf      Inf      3.028E+02  90  Solved to optimality
+   90 :          Inf      Inf      3.028E+02  91  Solved to optimality
+   91 :          Inf      Inf      3.028E+02  92  Infeasible solution returned, resolve => continue
+   92 :          Inf      Inf      3.028E+02  93  Solved to optimality
+   93 :          Inf      Inf      3.028E+02  94  Solved to optimality
+   94 :          Inf      Inf      3.028E+02  95  Infeasible solution returned, resolve => continue
+   95 :          Inf      Inf      3.028E+02  96  Solved to optimality
+   96 :          Inf      Inf      3.028E+02  97  Solved to optimality
+   97 :          Inf      Inf      3.028E+02  98  Solved to optimality
+   98 :          Inf      Inf      3.028E+02  99  Solved to optimality
+   99 :          Inf      Inf      3.028E+02  100  Solved to optimality
+  100 :          Inf      Inf      3.028E+02  101  Infeasible solution returned, resolve => continue
+  101 :          Inf      Inf      3.028E+02  102  Solved to optimality
+  102 :          Inf      Inf      3.028E+02  103  Solved to optimality
+  103 :          Inf      Inf      3.028E+02  104  Solved to optimality
+  104 :          Inf      Inf      3.028E+02  105  Solved to optimality
+  105 :          Inf      Inf      3.028E+02  106  Solved to optimality
+  106 :          Inf      Inf      3.028E+02  107  Solved to optimality
+  107 :          Inf      Inf      3.028E+02  108  Solved to optimality
+
+Interrupt request received
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('findrows', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\findrows.m', 29)" style="font-weight:bold">findrows</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\findrows.m',29,0)">line 29</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvebilevel', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\modules\bilevel\solvebilevel.m', 474)" style="font-weight:bold">solvebilevel</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\modules\bilevel\solvebilevel.m',474,0)">line 474</a>)
+                        redundantinequality = findrows(p1.F_struc(p1.K.f+1:end,:),newequality);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m', 53)" style="font-weight:bold">ComputeOptimalTolls</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',53,0)">line 53</a>)
+solvebilevel(CO, OO, CI, OI, x);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 24)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',24,0)">line 24</a>)
+[tOpt, hOpt] = ComputeOptimalTolls(G, ODs, Params);
+} 
+test0213

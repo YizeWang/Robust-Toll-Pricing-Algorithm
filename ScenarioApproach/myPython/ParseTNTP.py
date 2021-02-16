@@ -2,7 +2,11 @@ import os
 import sys
 import numpy as np
 import pandas as pd
-from Graph import Graph
+
+class Graph:
+    
+    pass
+
 
 def ParseTNTP(pathDataFolder, nameNet):
 
@@ -14,21 +18,31 @@ def ParseTNTP(pathDataFolder, nameNet):
 
     G = Graph()
 
-    G.dataOD   = pd.read_csv(pathDataOD,   sep='\t')
-    G.dataNet  = pd.read_csv(pathDataNet,  sep='\t')
-    G.dataNode = pd.read_csv(pathDataNode, sep='\t')
+    dataOD   = pd.read_csv(pathDataOD,   sep='\t')
+    dataNet  = pd.read_csv(pathDataNet,  sep='\t')
+    dataNode = pd.read_csv(pathDataNode, sep='\t')
+
+    G.dataOD   = np.genfromtxt(pathDataOD, delimiter='\t', skip_header=0)
+    G.dataNet  = np.genfromtxt(pathDataOD, delimiter='\t', skip_header=1)
+    G.dataNode = np.genfromtxt(pathDataOD, delimiter='\t', skip_header=1)
 
     G.nameNet = nameNet
-    G.numEdge = len(G.dataNet)
-    G.numNode = len(G.dataNode)
-    G.numDmnd = len(G.dataOD)
+    G.numEdge = len(dataNet)
+    G.numNode = len(dataNode)
+    G.numDmnd = len(dataOD)
 
-    G.T = G.dataNet.free_flow_time
-    G.B = G.dataNet.b
-    G.P = G.dataNet.power
-    G.C = G.dataNet.capacity
+    G.T = np.array(dataNet.free_flow_time)
+    G.B = np.array(dataNet.b)
+    G.P = np.array(dataNet.power)
+    G.C = np.array(dataNet.capacity)
+
+    G.a = np.multiply(G.T, G.B)
+    G.c = G.T
     
-    G.initNode = G.dataNet.init_node
-    G.termNode = G.dataNet.term_node
+    G.Q = np.diag(np.transpose(G.a))
+    G.q = G.c
+
+    G.initNode = np.array(dataNet.init_node)
+    G.termNode = np.array(dataNet.term_node)
 
     return G

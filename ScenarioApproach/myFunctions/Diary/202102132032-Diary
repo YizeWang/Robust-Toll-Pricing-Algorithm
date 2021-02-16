@@ -1,0 +1,8 @@
+Elapsed time is 16.454961 seconds.
+{Output argument "tOpt" (and maybe others) not assigned during call to "ComputeOptimalTolls".
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 25)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',25,0)">line 25</a>)
+[tOpt, hOpt] = ComputeOptimalTolls(G, ODs, Params);
+} 
+opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',25,0)
+test0213

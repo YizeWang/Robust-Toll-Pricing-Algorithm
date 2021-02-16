@@ -1,0 +1,174 @@
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar/mtimes', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\mtimes.m', 485)" style="font-weight:bold"> * </a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\mtimes.m',485,0)">line 485</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m', 49)" style="font-weight:bold">ComputeOptimalTolls</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',49,0)">line 49</a>)
+    cons = [cons, xs' * us == 0];
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 23)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',23,0)">line 23</a>)
+[tOpt, hOpt] = ComputeOptimalTolls(G, ODsSampled, Params);
+} 
+test0213
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 8018 rows, 5663 columns and 21436 nonzeros
+Model fingerprint: 0xdc645429
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [3e-01, 5e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-02, 1e+01]
+Presolve removed 4818 rows and 107 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 4866 rows and 185 columns
+Presolve time: 0.02s
+Presolved: 3153 rows, 5555 columns, 16079 nonzeros
+Presolved model has 2355 SOS constraint(s)
+Presolved model has 77 quadratic constraint(s)
+Variable types: 5555 continuous, 0 integer (0 binary)
+Presolve removed 2385 rows and 3120 columns
+Presolve time: 0.17s
+Presolved: 999 rows, 2589 columns, 7271 nonzeros
+Presolved model has 77 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ Dense cols : 1
+ AA' NZ     : 6.076e+03
+ Factor NZ  : 3.011e+04 (roughly 2 MBytes of memory)
+ Factor Ops : 1.546e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.35867272e+01 -6.83448075e-01  4.28e+02 5.17e+00  6.44e+01     0s
+   1   4.47100915e+02  3.85641818e+01  2.75e+02 2.24e+00  4.15e+01     0s
+   2   6.20581601e+02  4.45731222e+01  5.66e+01 1.57e+00  9.27e+00     0s
+   3   3.60195690e+02  1.78741158e+02  1.37e+01 4.32e-01  2.35e+00     0s
+   4   3.63486659e+02  1.16836960e+02  2.87e+00 1.04e-01  5.72e-01     0s
+   5   2.78721309e+02  1.60469742e+02  3.43e-01 1.40e-02  9.46e-02     0s
+   6   2.36260848e+02  1.82757851e+02  1.13e-01 7.42e-03  3.80e-02     0s
+   7   2.17878969e+02  1.95089632e+02  3.93e-02 3.43e-03  1.52e-02     0s
+   8   2.07749401e+02  2.00254973e+02  7.59e-03 1.59e-03  4.62e-03     0s
+   9   2.05160380e+02  2.02410411e+02  1.68e-03 7.17e-04  1.64e-03     0s
+  10   2.04256686e+02  2.03472097e+02  9.17e-05 2.77e-04  4.65e-04     0s
+  11   2.04118636e+02  2.04059128e+02  2.38e-06 2.31e-05  3.59e-05     0s
+  12   2.04112878e+02  2.04104379e+02  3.17e-07 2.96e-06  4.93e-06     0s
+  13   2.04111298e+02  2.04109702e+02  3.14e-08 1.21e-06  9.48e-07     0s
+  14   2.04111136e+02  2.04110754e+02  8.40e-08 1.01e-06  2.22e-07     0s
+  15   2.04111100e+02  2.04110940e+02  1.39e-06 3.84e-05  9.14e-08     0s
+
+Barrier solved model in 15 iterations and 0.42 seconds
+Optimal objective 2.04111100e+02
+
+
+Root relaxation: objective 2.041111e+02, 0 iterations, 0.30 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  204.11110    0   30          -  204.11110      -     -    0s
+     0     0  204.11110    0   30          -  204.11110      -     -    0s
+     0     2  204.11110    0   30          -  204.11110      -     -    0s
+   237   210  278.96046   38   36          -  204.11110      -   0.0    5s
+*  562   252              92     278.9604909  204.11110  26.8%   0.0    9s
+   649   284  204.11110   58   28  278.96049  204.11110  26.8%   0.0   10s
+*  780   274             115     204.1110675  204.11107  0.00%   0.0   11s
+
+Explored 802 nodes (0 simplex iterations) in 11.77 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 2: 204.111 278.96 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.041110674749e+02, best bound 2.041110674749e+02, gap 0.0000%
+tOpt
+
+tOpt =
+
+   1.0e+06 *
+
+    0.0002
+    0.0005
+    0.0001
+    0.0011
+    0.0466
+    0.0006
+    0.0008
+    0.0000
+    0.0000
+    0.0014
+    0.0000
+    0.0001
+    0.0019
+    1.2289
+    0.0000
+    0.0007
+    0.0001
+    0.0001
+    0.0001
+    0.0015
+    0.0014
+    0.0016
+    0.0003
+    0.0004
+    0.0003
+    0.0000
+    0.0001
+    0.0003
+    0.0002
+    0.0003
+    0.0000
+    0.0008
+    0.0014
+    0.0004
+    0.0003
+    0.0012
+    0.0005
+    0.0001
+    0.0011
+    0.0000
+    0.0007
+    0.0001
+    0.0003
+    0.0001
+    0.0000
+    0.0000
+    0.0002
+    0.0000
+    0.0001
+    0.0001
+    0.0000
+    0.0000
+    0.0001
+    0.0000
+    0.0001
+    0.0002
+    0.0001
+    0.0000
+    0.0001
+    0.0000
+    0.0000
+    0.0002
+    0.0001
+    0.0002
+    0.0001
+    0.0001
+    0.0001
+    0.0002
+    0.0000
+    0.0001
+    0.0000
+    0.0006
+    0.0000
+    0.0001
+    0.0005
+    0.0000
+
+test0213

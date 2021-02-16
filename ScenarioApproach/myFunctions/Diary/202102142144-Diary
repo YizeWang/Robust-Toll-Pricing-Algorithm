@@ -1,0 +1,267 @@
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 30 rows, 26 columns and 71 nonzeros
+Model fingerprint: 0xaf87e622
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [5e-01, 4e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 2e+00]
+Presolve removed 21 rows and 9 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 27 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 11 columns, 13 nonzeros
+Presolved model has 5 quadratic constraint(s)
+Variable types: 11 continuous, 0 integer (0 binary)
+Presolve time: 0.12s
+Presolved: 23 rows, 21 columns, 52 nonzeros
+Presolved model has 5 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 1.100e+02
+ Factor NZ  : 2.260e+02
+ Factor Ops : 2.724e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   6.17022243e+00  3.95571424e-01  4.34e+00 8.29e-01  1.55e+00     0s
+   1   4.18815169e+00 -1.18553591e+00  1.21e+00 9.12e-07  2.89e-01     0s
+   2   2.69340595e+00  1.01312947e+00  2.35e-01 1.00e-12  6.59e-02     0s
+   3   2.35661714e+00  2.00427799e+00  1.07e-02 9.60e-15  1.17e-02     0s
+   4   2.25669125e+00  2.22726956e+00  3.95e-04 3.17e-14  9.60e-04     0s
+   5   2.25256994e+00  2.24955668e+00  2.83e-06 6.43e-13  9.73e-05     0s
+   6   2.25093315e+00  2.25037375e+00  3.76e-07 2.35e-12  1.81e-05     0s
+   7   2.25061659e+00  2.25050432e+00  5.54e-08 8.58e-11  3.62e-06     0s
+   8   2.25056336e+00  2.25052854e+00  1.95e-08 1.15e-09  1.12e-06     0s
+   9   2.25055171e+00  2.25052999e+00  1.21e-08 6.27e-10  7.01e-07     0s
+  10   2.25054122e+00  2.25053128e+00  6.61e-09 3.75e-10  3.21e-07     0s
+  11   2.25053599e+00  2.25053212e+00  6.40e-09 1.27e-09  1.25e-07     0s
+  12   2.25053440e+00  2.25053234e+00  3.61e-09 8.57e-10  6.64e-08     0s
+
+Barrier solved model in 12 iterations and 0.31 seconds
+Optimal objective 2.25053440e+00
+
+
+Root relaxation: objective 2.250534e+00, 0 iterations, 0.22 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       2.2505344    2.25053  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.41 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 2.25053 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.250534401552e+00, best bound 2.250534401552e+00, gap 0.0000%
+test0213
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 30 rows, 26 columns and 71 nonzeros
+Model fingerprint: 0x1cf54a41
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [5e-01, 4e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 2e+00]
+Presolve removed 21 rows and 9 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 27 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 11 columns, 13 nonzeros
+Presolved model has 5 quadratic constraint(s)
+Variable types: 11 continuous, 0 integer (0 binary)
+Presolve time: 0.13s
+Presolved: 23 rows, 21 columns, 52 nonzeros
+Presolved model has 5 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 1.100e+02
+ Factor NZ  : 2.260e+02
+ Factor Ops : 2.724e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   8.89781120e+00  1.41897616e+00  5.72e+00 8.28e-01  2.05e+00     0s
+   1   6.45324865e+00 -8.19330436e-01  1.63e+00 9.11e-07  3.87e-01     0s
+   2   5.02409672e+00  2.75733525e+00  3.03e-01 1.00e-12  8.88e-02     0s
+   3   4.57760445e+00  4.40116464e+00  6.54e-02 4.33e-15  8.19e-03     0s
+   4   4.63909685e+00  4.60005957e+00  6.28e-06 1.61e-13  1.26e-03     0s
+   5   4.62000601e+00  4.61678105e+00  1.50e-07 1.28e-12  1.04e-04     0s
+   6   4.61800896e+00  4.61732782e+00  1.54e-08 3.06e-12  2.20e-05     0s
+   7   4.61774268e+00  4.61765787e+00  3.43e-10 1.46e-10  2.74e-06     0s
+   8   4.61773132e+00  4.61769221e+00  2.35e-10 3.69e-09  1.26e-06     0s
+   9   4.61772860e+00  4.61771829e+00  9.54e-11 2.83e-09  3.33e-07     0s
+  10   4.61772821e+00  4.61772216e+00  4.09e-11 1.67e-09  1.95e-07     0s
+  11   4.61772783e+00  4.61772693e+00  6.04e-12 2.29e-10  2.91e-08     0s
+
+Barrier solved model in 11 iterations and 0.34 seconds
+Optimal objective 4.61772783e+00
+
+
+Root relaxation: objective 4.617728e+00, 0 iterations, 0.25 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       4.6177278    4.61773  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.42 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 4.61773 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.617727829933e+00, best bound 4.617727829933e+00, gap 0.0000%
+test0213
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 30 rows, 26 columns and 71 nonzeros
+Model fingerprint: 0x67193364
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [5e-01, 4e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 2e+00]
+Presolve removed 21 rows and 9 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 27 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 11 columns, 13 nonzeros
+Presolved model has 5 quadratic constraint(s)
+Variable types: 11 continuous, 0 integer (0 binary)
+Presolve time: 0.16s
+Presolved: 23 rows, 21 columns, 52 nonzeros
+Presolved model has 5 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 1.100e+02
+ Factor NZ  : 2.260e+02
+ Factor Ops : 2.724e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   8.40101338e+00  1.28860401e+00  5.40e+00 8.28e-01  1.95e+00     0s
+   1   6.07510971e+00 -8.31148729e-01  1.54e+00 9.11e-07  3.66e-01     0s
+   2   4.69727285e+00  2.56679198e+00  2.74e-01 1.00e-12  8.27e-02     0s
+   3   4.30017280e+00  4.08942245e+00  5.05e-02 7.44e-15  8.69e-03     0s
+   4   4.31131078e+00  4.27804698e+00  3.05e-04 3.22e-13  1.09e-03     0s
+   5   4.28472513e+00  4.28414677e+00  3.72e-06 9.90e-13  1.88e-05     0s
+   6   4.28446326e+00  4.28437663e+00  8.18e-07 1.11e-10  2.83e-06     0s
+   7   4.28442084e+00  4.28441283e+00  9.57e-08 2.26e-10  2.63e-07     0s
+   8   4.28441823e+00  4.28441559e+00  4.02e-08 7.12e-09  8.74e-08     0s
+
+Barrier solved model in 8 iterations and 0.34 seconds
+Optimal objective 4.28441823e+00
+
+
+Root relaxation: objective 4.284418e+00, 0 iterations, 0.22 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       4.2844182    4.28442  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.42 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 4.28442 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.284418231862e+00, best bound 4.284418231862e+00, gap 0.0000%
+test0213
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 30 rows, 26 columns and 71 nonzeros
+Model fingerprint: 0xdb8fc634
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [5e-01, 4e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 2e+00]
+Presolve removed 21 rows and 9 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 27 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 11 columns, 13 nonzeros
+Presolved model has 5 quadratic constraint(s)
+Variable types: 11 continuous, 0 integer (0 binary)
+Presolve time: 0.14s
+Presolved: 23 rows, 21 columns, 52 nonzeros
+Presolved model has 5 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ AA' NZ     : 1.100e+02
+ Factor NZ  : 2.260e+02
+ Factor Ops : 2.724e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.00007113e+01  1.70854399e+00  6.42e+00 8.27e-01  2.29e+00     0s
+   1   7.29226385e+00 -7.89721155e-01  1.84e+00 9.10e-07  4.34e-01     0s
+   2   5.76229138e+00  3.18771852e+00  3.72e-01 1.00e-12  1.03e-01     0s
+   3   5.33931619e+00  5.07711024e+00  1.28e-01 3.55e-15  1.40e-02     0s
+   4   5.47198874e+00  5.36724262e+00  1.79e-05 4.23e-14  3.38e-03     0s
+   5   5.39483633e+00  5.38737245e+00  1.06e-06 5.54e-13  2.41e-04     0s
+   6   5.39188621e+00  5.39059558e+00  2.50e-07 1.62e-12  4.17e-05     0s
+   7   5.39130589e+00  5.39110850e+00  3.79e-08 4.58e-11  6.37e-06     0s
+   8   5.39123916e+00  5.39120226e+00  1.30e-08 7.22e-10  1.19e-06     0s
+   9   5.39120706e+00  5.39120389e+00  1.16e-09 9.08e-10  1.02e-07     0s
+
+Barrier solved model in 9 iterations and 0.34 seconds
+Optimal objective 5.39120706e+00
+
+
+Root relaxation: objective 5.391207e+00, 0 iterations, 0.25 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       5.3912071    5.39121  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.44 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 5.39121 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.391207057126e+00, best bound 5.391207057126e+00, gap 0.0000%

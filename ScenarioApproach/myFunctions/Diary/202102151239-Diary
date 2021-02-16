@@ -1,0 +1,19 @@
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('yalmip2gurobi', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\yalmip2gurobi.m', 204)" style="font-weight:bold">yalmip2gurobi</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\yalmip2gurobi.m',204,0)">line 204</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('callgurobi', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\callgurobi.m', 12)" style="font-weight:bold">callgurobi</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\solvers\callgurobi.m',12,0)">line 12</a>)
+model = yalmip2gurobi(interfacedata);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solvesdp', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\solvesdp.m', 371)" style="font-weight:bold">solvesdp</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\solvesdp.m',371,0)">line 371</a>)
+        eval(['output = ' solver.call '(interfacedata);']);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('optimize', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\optimize.m', 31)" style="font-weight:bold">optimize</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\optimize.m',31,0)">line 31</a>)
+[varargout{1:nargout}] = solvesdp(varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls2', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls2.m', 55)" style="font-weight:bold">ComputeOptimalTolls2</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls2.m',55,0)">line 55</a>)
+optimize(cons, obj, options);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 23)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',23,0)">line 23</a>)
+[xOpt2, tOpt2, hOpt2] = ComputeOptimalTolls2(G, ODs, Params);
+} 
+test0213

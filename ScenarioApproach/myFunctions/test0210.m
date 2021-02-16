@@ -13,9 +13,7 @@ nameNetwork = nameNetwork2;
 G = ParseTNTP(pathDataFolder, nameNetwork);
 ODs = readmatrix([pathDataFolder nameNetwork '\' nameNetwork '_ODs.csv']);
 ODs(:, 3) = ODs(:, 3) / 1000;
-ODs = ODs(1:100, :);
-% ODs = ODs(1:30, :);
-% PlotNetwork(G);
+ODs = ODs(1:50, :);
 
 % extract dimensions
 M = G.numedges;   % number of edges
@@ -58,9 +56,6 @@ q = c;
 
 % define optimization problem
 O = h;
-% O1 = xLink' * Q * xLink + q' * xLink;
-% O2 = 0.5 * xLink' * Q * xLink + q' * xLink;
-% O3 = xLink' * Q * xLink + q' * xLink;
 
 % constraints
 cons = [t >= 0, x >= 0, u >= 0];
@@ -71,21 +66,6 @@ cons = [cons, xLink' * Q * xLink + q' * xLink <= h];
 
 %% solve problem
 options = sdpsettings('solver', 'gurobi', 'verbose', 1);
-
 optimize(cons, O, options);
-value(xLink' * Q * xLink + q' * xLink)
-xLink = value(xLink);
-
-% optimize(cons, O1, options);
-% value(xLink' * Q * xLink + q' * xLink)
-% xLink1 = value(xLink);
-
-% optimize(cons, O2, options);
-% value(xLink' * Q * xLink + q' * xLink)
-% xLink2 = value(xLink);
-
-% optimize(cons, O3, options);
-% value(xLink' * Q * xLink + q' * xLink)
-% xLink3 = value(xLink);
 
 diary off

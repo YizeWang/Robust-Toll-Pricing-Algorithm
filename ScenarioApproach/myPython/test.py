@@ -6,6 +6,10 @@ import pandas as pd
 import networkx as nx
 from scipy import sparse
 import matplotlib.pyplot as plt
+import gurobipy as gp
+from gurobipy import GRB
+from ParseTNTP import ParseTNTP
+from GetEqualityConstraints import GetEqualityConstraints
 
 
 nameNet1 = 'SimpleGeneralNetwork'
@@ -13,45 +17,34 @@ nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 pathDataFolder = '..\\myRealData\\'
 
-nameNet = nameNet2
+nameNet = nameNet1
 
-pathDataPrefix = pathDataFolder + nameNet + '\\' + nameNet + '_'
+G = ParseTNTP(pathDataFolder, nameNet)
+[A, b] = GetEqualityConstraints(G, G.dataOD)
 
-pathDataNode = pathDataPrefix + 'node' + '.tntp'
-pathDataNet  = pathDataPrefix +  'net' + '.tntp'
-pathDataOD   = pathDataPrefix +  'ODs' + '.tntp'
+# create a new model
+m = gp.Model("Toll-Calculator")
 
-dataOD   = np.genfromtxt(pathDataOD,   delimiter='\t', skip_header=0)
-dataNet  = np.genfromtxt(pathDataNet,  delimiter='\t', skip_header=1)
-dataNode = np.genfromtxt(pathDataNode, delimiter='\t', skip_header=1)
+# extract variable dimensions
+M = G.numEdge
+N = G.numNode
+K = G.numDmnd
 
-M = dataNet.shape[0]
-N = dataNode.shape[0]
-K = dataOD.shape[0]
+# compute decision variable dimensions
+tDim = M
+hDim = 1
+xDim = M + M * K
+uDim = xDim
+lDim = M + N * K
 
-A11 = -np.eye(3, dtype=np.double)
-A12 = np.matlib.repmat(np.eye(3, dtype=np.double), 1, 3)
-A1 = np.concatenate((A11, A12), axis=1)
-# A = sparse.bmat([A11, A12])
+# create decision variables
+h = m.addVar(hDim, 1, vtype=GRB.CONTINUOUS)
+t = m.addVars(xDim, 1, lb=0, vtype=GRB.CONTINUOUS)
+x = m.addVars(xDim, 1, lb=0, vtype=GRB.CONTINUOUS)
+u = m.addVars(uDim, 1, lb=0, vtype=GRB.CONTINUOUS)
+l = m.addVars(lDim, 1, vtype=GRB.CONTINUOUS)
 
-
-# G.nameNet = nameNet
-# G.numEdge = len(G.dataNet)
-# G.numNode = len(G.dataNode)
-# G.numDmnd = len(G.dataOD)
-
-# G.T = G.dataNet.free_flow_time
-# G.B = G.dataNet.b
-# G.P = G.dataNet.power
-# G.C = G.dataNet.capacity
-
-# G.initNode = G.dataNet.init_node
-# G.termNode = G.dataNet.term_node
-
-
-
-
-
+m.setObjective(h, GRB.MINIMIZE)
 
 
 

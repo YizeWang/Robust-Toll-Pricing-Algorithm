@@ -1,0 +1,508 @@
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 13058 rows, 9183 columns and 35116 nonzeros
+Model fingerprint: 0x8582449e
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [3e-01, 5e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-01, 1e+01]
+Presolve removed 7878 rows and 127 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 7912 rows and 211 columns
+Presolve time: 0.04s
+Presolved: 5147 rows, 9049 columns, 26557 nonzeros
+Presolved model has 3875 SOS constraint(s)
+Presolved model has 77 quadratic constraint(s)
+Variable types: 9049 continuous, 0 integer (0 binary)
+Presolve removed 3919 rows and 5094 columns
+Presolve time: 0.12s
+Presolved: 1459 rows, 4109 columns, 11669 nonzeros
+Presolved model has 77 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ Dense cols : 1
+ AA' NZ     : 9.633e+03
+ Factor NZ  : 4.745e+04 (roughly 3 MBytes of memory)
+ Factor Ops : 2.459e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.68922767e+01 -6.83448075e-01  8.79e+02 5.17e+00  8.08e+01     0s
+   1   5.42087839e+02  5.49971047e+01  5.71e+02 2.24e+00  5.30e+01     0s
+   2   7.71570882e+02  7.46779524e+01  1.16e+02 1.57e+00  1.15e+01     0s
+   3   4.80191923e+02  2.72106785e+02  3.28e+01 4.37e-01  3.28e+00     0s
+   4   4.80089443e+02  2.13804456e+02  1.18e+01 1.86e-01  1.29e+00     0s
+   5   4.83040399e+02  1.48244961e+02  1.31e+00 4.50e-02  2.33e-01     0s
+   6   3.85231640e+02  2.26196457e+02  3.78e-01 2.02e-02  8.32e-02     0s
+   7   3.51901875e+02  2.63514829e+02  1.52e-01 1.19e-02  4.11e-02     0s
+   8   3.36249629e+02  2.78825434e+02  8.60e-02 8.36e-03  2.60e-02     0s
+   9   3.14666911e+02  2.91728568e+02  1.78e-02 4.50e-03  9.70e-03     0s
+  10   3.05903916e+02  2.97953231e+02  2.23e-03 2.12e-03  3.37e-03     0s
+  11   3.04128118e+02  3.00508267e+02  5.22e-04 1.07e-03  1.56e-03     0s
+  12   3.03096098e+02  3.02217063e+02  2.31e-05 2.89e-04  3.87e-04     0s
+  13   3.02912375e+02  3.02767140e+02  2.45e-06 2.53e-05  5.03e-05     0s
+  14   3.02849543e+02  3.02831122e+02  2.93e-07 2.61e-06  6.01e-06     0s
+  15   3.02841775e+02  3.02838237e+02  1.40e-07 3.75e-07  1.06e-06     0s
+  16   3.02839617e+02  3.02839246e+02  3.19e-07 4.78e-07  1.03e-07     0s
+  17   3.02839410e+02  3.02839321e+02  1.12e-05 7.07e-07  2.20e-08     0s
+
+Barrier solved model in 17 iterations and 0.29 seconds
+Optimal objective 3.02839410e+02
+
+
+Root relaxation: objective 3.028394e+02, 0 iterations, 0.19 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  302.83941    0   36          -  302.83941      -     -    0s
+     0     0  302.83941    0   36          -  302.83941      -     -    0s
+     0     2  302.83947    0   37          -  302.83947      -     -    0s
+   161   115  493.82089   19   75          -  302.83947      -   0.0    5s
+   320   281  493.82089   36   76          -  302.83947      -   0.0   10s
+   480   449  493.82087   56   55          -  302.83947      -   0.0   15s
+   619   594  493.82087   74   41          -  302.83947      -   0.0   20s
+   708   692  493.82070   87   58          -  302.83947      -   0.0   25s
+   800   778  495.49714   96   83          -  302.83947      -   0.0   30s
+   900   875  493.81870  105  142          -  302.83947      -   0.0   35s
+  1018   991 infeasible  119               -  302.83947      -   0.0   41s
+  1155  1130  493.82090  135   71          -  302.83947      -   0.0   46s
+  1231  1208  493.82083  144   67          -  302.83947      -   0.0   50s
+  1394  1355  493.82095  159   60          -  302.83947      -   0.0   58s
+  1462  1407 infeasible  164               -  302.83947      -   0.0   63s
+  1528  1467  493.82112  177   42          -  302.83947      -   0.0   69s
+  1590  1541  493.82087  182   44          -  302.83947      -   0.0   77s
+  1688  1626  493.82087  199   35          -  302.83947      -   0.0   83s
+  1787  1685  494.26256  205   58          -  302.83947      -   0.0   91s
+* 1817   566             220     337.0253378  302.83947  10.1%   0.0   91s
+* 1821   550             221     337.0253275  302.83947  10.1%   0.0   91s
+  1860   625     cutoff  219       337.02533  302.83947  10.1%   0.0   97s
+  2022   793  310.39515   82   88  337.02533  302.83947  10.1%   0.0  105s
+  2371   902  308.84174   38   91  337.02533  302.83947  10.1%   0.0  110s
+  2577  1048  305.28559   63  112  337.02533  302.83947  10.1%   0.0  115s
+  2764  1196  305.28556   81  106  337.02533  302.83947  10.1%   0.0  120s
+  2964  1331  306.59212   98  128  337.02533  302.83947  10.1%   0.0  126s
+  3131  1430  305.28546  120  105  337.02533  302.83947  10.1%   0.0  131s
+  3220  1492  postponed  126       337.02533  302.83947  10.1%   0.0  136s
+  3327  1560  postponed  129       337.02533  302.83947  10.1%   0.0  141s
+  3374  1610  postponed  127       337.02533  302.83947  10.1%   0.0  145s
+  3505  1704  postponed  130       337.02533  302.83947  10.1%   0.0  154s
+  3579  1754  postponed  135       337.02533  302.83947  10.1%   0.0  158s
+  3656  1800  postponed  137       337.02533  302.83947  10.1%   0.0  163s
+* 3686   574             243     302.8393246  302.83932  0.00%   0.0  163s
+* 3696   533             244     302.8392723  302.83927  0.00%   0.0  163s
+
+Explored 3734 nodes (0 simplex iterations) in 163.92 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 4: 302.839 302.839 337.025 337.025 
+
+Optimal solution found (tolerance 1.00e-04)
+Warning: max constraint violation (5.8229e-03) exceeds tolerance
+Best objective 3.028392722776e+02, best bound 3.028392722776e+02, gap 0.0000%
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 12906 rows, 9107 columns and 34888 nonzeros
+Model fingerprint: 0x59833ccd
+Model has 3801 quadratic constraints
+Coefficient statistics:
+  Matrix range     [3e-01, 5e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-01, 1e+01]
+Presolve removed 7726 rows and 127 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 7753 rows and 204 columns
+Presolve time: 0.03s
+Presolved: 5154 rows, 8980 columns, 26505 nonzeros
+Presolved model has 3799 SOS constraint(s)
+Presolved model has 77 quadratic constraint(s)
+Variable types: 8980 continuous, 0 integer (0 binary)
+Presolve removed 3926 rows and 5025 columns
+Presolve time: 0.09s
+Presolved: 1459 rows, 4109 columns, 11669 nonzeros
+Presolved model has 77 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ Dense cols : 1
+ AA' NZ     : 9.633e+03
+ Factor NZ  : 4.745e+04 (roughly 3 MBytes of memory)
+ Factor Ops : 2.459e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.68922767e+01 -6.83448075e-01  8.79e+02 5.17e+00  8.08e+01     0s
+   1   5.42087839e+02  5.49971047e+01  5.71e+02 2.24e+00  5.30e+01     0s
+   2   7.71570882e+02  7.46779524e+01  1.16e+02 1.57e+00  1.15e+01     0s
+   3   4.80191923e+02  2.72106785e+02  3.28e+01 4.37e-01  3.28e+00     0s
+   4   4.80089443e+02  2.13804456e+02  1.18e+01 1.86e-01  1.29e+00     0s
+   5   4.83040399e+02  1.48244961e+02  1.31e+00 4.50e-02  2.33e-01     0s
+   6   3.85231640e+02  2.26196457e+02  3.78e-01 2.02e-02  8.32e-02     0s
+   7   3.51901875e+02  2.63514829e+02  1.52e-01 1.19e-02  4.11e-02     0s
+   8   3.36249629e+02  2.78825434e+02  8.60e-02 8.36e-03  2.60e-02     0s
+   9   3.14666911e+02  2.91728568e+02  1.78e-02 4.50e-03  9.70e-03     0s
+  10   3.05903916e+02  2.97953231e+02  2.23e-03 2.12e-03  3.37e-03     0s
+  11   3.04128118e+02  3.00508267e+02  5.22e-04 1.07e-03  1.56e-03     0s
+  12   3.03096098e+02  3.02217063e+02  2.31e-05 2.89e-04  3.87e-04     0s
+  13   3.02912375e+02  3.02767140e+02  2.45e-06 2.53e-05  5.03e-05     0s
+  14   3.02849543e+02  3.02831122e+02  2.93e-07 2.61e-06  6.01e-06     0s
+  15   3.02841775e+02  3.02838237e+02  1.40e-07 3.75e-07  1.06e-06     0s
+  16   3.02839617e+02  3.02839246e+02  3.19e-07 4.78e-07  1.03e-07     0s
+  17   3.02839410e+02  3.02839321e+02  1.12e-05 7.07e-07  2.20e-08     0s
+
+Barrier solved model in 17 iterations and 0.16 seconds
+Optimal objective 3.02839410e+02
+
+
+Root relaxation: objective 3.028394e+02, 0 iterations, 0.09 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  302.83941    0 3799          -  302.83941      -     -    0s
+     0     0  302.83941    0 3799          -  302.83941      -     -    0s
+     0     0  302.83941    0  227          -  302.83941      -     -    0s
+     0     0  302.83941    0  227          -  302.83941      -     -    0s
+     0     2  302.83947    0  227          -  302.83947      -     -    0s
+*    1     2               1     305.0440383  302.83947  0.72%   0.0    0s
+
+Explored 5 nodes (0 simplex iterations) in 0.52 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 305.044 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.050440383281e+02, best bound 3.050440383281e+02, gap 0.0000%
+Academic license - for non-commercial use only - expires 2021-03-11
+Warning for adding variables: zero or small (< 1e-13) coefficients, ignored
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 12754 rows, 8955 columns and 63106 nonzeros
+Model fingerprint: 0xa10c5d3a
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [1e-13, 5e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-01, 1e+01]
+Presolve removed 7726 rows and 51 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 7677 rows and 52 columns
+Presolve time: 0.03s
+Presolved: 5078 rows, 8980 columns, 47403 nonzeros
+Presolved model has 3799 SOS constraint(s)
+Presolved model has 77 quadratic constraint(s)
+Variable types: 8980 continuous, 0 integer (0 binary)
+Presolve removed 3850 rows and 5025 columns
+Presolve time: 0.09s
+Presolved: 1404 rows, 4109 columns, 28874 nonzeros
+Presolved model has 77 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ Dense cols : 1
+ AA' NZ     : 2.528e+04
+ Factor NZ  : 6.915e+04 (roughly 3 MBytes of memory)
+ Factor Ops : 4.537e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   3.29144095e+05  2.82000000e+01  1.61e+03 1.98e+00  1.20e+02     0s
+   1   2.19826373e+05  3.51965817e+01  1.08e+03 9.00e-01  8.08e+01     0s
+   2   4.70513235e+04  3.18765779e+01  2.25e+02 6.28e-01  1.77e+01     0s
+   3   1.39959139e+04  5.67435888e+01  6.59e+01 1.80e-01  5.21e+00     0s
+   4   5.72271534e+03  4.14508261e+01  2.47e+01 4.59e-02  1.97e+00     0s
+   5   1.65946639e+03  1.31016504e+02  5.57e+00 6.13e-03  4.77e-01     0s
+   6   8.99102429e+02  2.29264153e+02  2.27e+00 1.32e-03  1.98e-01     0s
+   7   6.36990222e+02  2.68242383e+02  1.24e+00 5.87e-04  1.07e-01     0s
+   8   5.11527638e+02  2.79010159e+02  7.43e-01 3.99e-04  6.65e-02     0s
+   9   3.74300525e+02  2.97063197e+02  2.14e-01 8.07e-05  2.14e-02     0s
+  10   3.35505068e+02  2.99753970e+02  8.67e-02 4.63e-05  9.72e-03     0s
+  11   3.12433180e+02  3.01933491e+02  1.99e-02 1.25e-05  2.78e-03     0s
+  12   3.09395016e+02  3.02483170e+02  1.31e-02 4.56e-06  1.83e-03     0s
+  13   3.05426982e+02  3.02667931e+02  4.56e-03 2.21e-06  7.21e-04     0s
+  14   3.04406951e+02  3.02793216e+02  2.67e-03 1.52e-06  4.21e-04     0s
+  15   3.03287519e+02  3.02811921e+02  6.38e-04 2.10e-06  1.22e-04     0s
+  16   3.03076891e+02  3.02830006e+02  3.27e-04 6.78e-06  6.35e-05     0s
+  17   3.02936498e+02  3.02838060e+02  1.22e-04 1.81e-05  2.52e-05     0s
+  18   3.02841427e+02  3.02839256e+02  2.09e-06 3.19e-05  5.49e-07     0s
+  19   3.02841259e+02  3.02839264e+02  1.95e-05 2.82e-04  5.04e-07     0s
+  20   3.02841254e+02  3.02839264e+02  1.91e-05 2.90e-04  5.03e-07     0s
+  21   3.02841254e+02  3.02839264e+02  1.90e-05 2.90e-04  5.03e-07     0s
+  22   3.02841265e+02  3.02839264e+02  1.87e-05 2.90e-04  5.03e-07     0s
+  23   3.02841270e+02  3.02839264e+02  1.97e-05 2.90e-04  5.03e-07     0s
+  24   3.02841256e+02  3.02839264e+02  1.87e-05 2.90e-04  5.03e-07     0s
+  25   3.02841267e+02  3.02839264e+02  1.82e-05 2.90e-04  5.04e-07     0s
+  26   3.02841254e+02  3.02839264e+02  2.25e-05 2.90e-04  5.04e-07     0s
+  27   3.02841238e+02  3.02839265e+02  2.66e-05 3.02e-04  5.05e-07     0s
+  28   3.02841327e+02  3.02839265e+02  4.45e-05 3.02e-04  5.32e-07     0s
+  29   3.02841328e+02  3.02839265e+02  4.25e-05 3.02e-04  5.31e-07     0s
+  30   3.02841380e+02  3.02839265e+02  4.44e-05 3.06e-04  5.34e-07     0s
+  31   3.02841830e+02  3.02839265e+02  5.07e-05 2.81e-04  6.50e-07     0s
+  32   3.02841819e+02  3.02839258e+02  3.39e-05 2.39e-04  6.34e-07     0s
+  33   3.02843231e+02  3.02839258e+02  6.31e-05 2.39e-04  9.66e-07     0s
+  34   3.02842965e+02  3.02839256e+02  5.32e-05 3.23e-04  9.03e-07     0s
+  35   3.02842783e+02  3.02839260e+02  5.25e-05 4.20e-04  8.55e-07     0s
+  36   3.02842548e+02  3.02839260e+02  1.34e-04 4.20e-04  8.32e-07     0s
+  37   3.02842519e+02  3.02839262e+02  1.09e-04 4.23e-04  8.26e-07     0s
+  38   3.02842279e+02  3.02839226e+02  4.69e-04 3.01e-04  7.50e-07     0s
+  39   3.02839354e+02  3.02839317e+02  9.07e-06 9.21e-05  1.14e-08     0s
+
+Barrier solved model in 39 iterations and 0.37 seconds
+Optimal objective 3.02839354e+02
+
+
+Root relaxation: objective 3.028394e+02, 0 iterations, 0.29 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  302.83935    0  211          -  302.83935      -     -    0s
+     0     0  302.83935    0  211          -  302.83935      -     -    0s
+     0     2  302.84120    0  241          -  302.84120      -     -    0s
+    23    28  316.35152    5  204          -  302.84120      -   0.0    5s
+    70    78  306.37928   11  141          -  302.84120      -   0.0   10s
+   130   134  310.43892   20  106          -  302.84120      -   0.0   15s
+   182   191  306.37766   26   94          -  302.84120      -   0.0   20s
+   258   264  317.20935   36   86          -  302.84120      -   0.0   25s
+   306   310  318.92108   43  104          -  302.84120      -   0.0   30s
+   345   349  318.52066   51   78          -  302.84120      -   0.0   36s
+   379   385  319.00492   55   77          -  302.84120      -   0.0   40s
+   425   430  postponed   63               -  302.84120      -   0.0   47s
+   445   443  postponed   64               -  302.84120      -   0.0   51s
+   480   485  postponed   66               -  302.84120      -   0.0   58s
+   504   513  postponed   67               -  302.84120      -   0.0   62s
+   536   530  postponed   68               -  302.84120      -   0.0   66s
+   557   552  postponed   69               -  302.84120      -   0.0   72s
+   581   570  postponed   71               -  302.84120      -   0.0   77s
+   601   598  postponed   72               -  302.84120      -   0.0   83s
+   631   628  postponed   74               -  302.84120      -   0.0   89s
+   671   663  postponed   75               -  302.84120      -   0.0   96s
+   706   706  postponed   77               -  302.84120      -   0.0  102s
+   753   744  postponed   78               -  302.84120      -   0.0  111s
+   793   802  postponed   80               -  302.84120      -   0.0  123s
+   855   853  postponed   83               -  302.84120      -   0.0  143s
+   908   902  postponed   86               -  302.84120      -   0.0  158s
+   967   947  postponed   88               -  302.84120      -   0.0  174s
+  1020   996  postponed   91               -  302.84120      -   0.0  194s
+  1079  1042  postponed   95               -  302.84120      -   0.0  210s
+  1129  1071  postponed   99               -  302.84120      -   0.0  229s
+  1162  1089 infeasible  102               -  302.84120      -   0.0  247s
+  1198  1110  postponed  106               -  302.84120      -   0.0  270s
+  1233  1130  postponed  110               -  302.84120      -   0.0  288s
+  1265  1156  postponed  114               -  302.84120      -   0.0  307s
+  1295  1176  postponed  118               -  302.84120      -   0.0  329s
+  1327  1201  postponed  121               -  302.84120      -   0.0  353s
+  1358  1225  postponed  124               -  302.84120      -   0.0  377s
+  1390  1245  postponed  128               -  302.84120      -   0.0  401s
+  1428  1267  postponed  132               -  302.84120      -   0.0  424s
+  1460  1293  postponed  135               -  302.84120      -   0.0  453s
+  1494  1320  postponed  138               -  302.84120      -   0.0  482s
+  1529  1350  postponed  142               -  302.84120      -   0.0  512s
+  1561  1381  postponed  146               -  302.84120      -   0.0  545s
+  1594  1414  postponed  150               -  302.84120      -   0.0  581s
+  1629  1445  postponed  154               -  302.84120      -   0.0  619s
+  1662  1476  postponed  158               -  302.84120      -   0.0  656s
+  1701  1505 infeasible  163               -  302.84120      -   0.0  694s
+  1746  1535  postponed  169               -  302.84120      -   0.0  734s
+  1790  1570  postponed  174               -  302.84120      -   0.0  780s
+  1833  1605  postponed  178               -  302.84120      -   0.0  823s
+  1876  1644  postponed  183               -  302.84120      -   0.0  866s
+  1915  1678  postponed  187               -  302.84120      -   0.0  914s
+  1961  1715  postponed  192               -  302.84120      -   0.0  964s
+  2004  1752  postponed  196               -  302.84120      -   0.0 1012s
+  2047  1793  postponed  201               -  302.84120      -   0.0 1064s
+  2090  1832  postponed  206               -  302.84120      -   0.0 1121s
+  2135  1875  postponed  212               -  302.84120      -   0.0 1178s
+  2184  1921  postponed  217               -  302.84120      -   0.0 1237s
+  2230  1972  postponed  223               -  302.84120      -   0.0 1302s
+  2281  2017  postponed  228               -  302.84120      -   0.0 1370s
+  2336  2057  postponed  234               -  302.84120      -   0.0 1430s
+  2398  2100  postponed  241               -  302.84120      -   0.0 1507s
+  2459  2157  postponed  249               -  302.84120      -   0.0 1579s
+  2516  2212  postponed  255               -  302.84120      -   0.0 1655s
+  2577  2264  postponed  262               -  302.84120      -   0.0 1740s
+  2645  2323  postponed  269               -  302.84120      -   0.0 1815s
+  2708  2381  postponed  276               -  302.84120      -   0.0 1889s
+  2776  2450 infeasible  284               -  302.84120      -   0.0 1971s
+  2847  2524  postponed  294               -  302.84120      -   0.0 2054s
+  2921  2586  postponed  303               -  302.84120      -   0.0 2138s
+  3007  2653  postponed  312               -  302.84120      -   0.0 2227s
+  3100  2733  postponed  324               -  302.84120      -   0.0 2321s
+  3184  2809  postponed  334               -  302.84120      -   0.0 2431s
+  3280  2895  postponed  345               -  302.84120      -   0.0 2535s
+  3374  2988  postponed  356               -  302.84120      -   0.0 2649s
+  3473  3086  postponed  368               -  302.84120      -   0.0 2766s
+  3577  3172  postponed  381               -  302.84120      -   0.0 2886s
+  3707  3284  postponed  397               -  302.84120      -   0.0 3023s
+  3819  3386  postponed  411               -  302.84120      -   0.0 3150s
+  3951  3570  postponed  425               -  302.84120      -   0.0 3279s
+  4163  3883  302.84120   56   76          -  302.84120      -   0.0 3412s
+  4520  4398  postponed  158               -  302.84120      -   0.0 3546s
+  5087  4875  postponed  183               -  302.84120      -   0.0 3694s
+  5609  4877  321.31423  125    0          -  302.84120      -   0.0 3695s
+  5638  4902  306.37928   20  176          -  302.84120      -   0.0 3700s
+  5681  4933  306.37928   26  141          -  302.84120      -   0.0 3705s
+  5741  4969  310.43892   35  106          -  302.84120      -   0.0 3710s
+  5793  5009  306.37766   41   94          -  302.84120      -   0.0 3715s
+  5869  5057  317.20935   51   86          -  302.84120      -   0.0 3721s
+  5917  5087  318.92108   58  104          -  302.84120      -   0.0 3725s
+  5955  5114  317.64963   66   71          -  302.84120      -   0.0 3730s
+  5992  5140  319.00492   70   77          -  302.84120      -   0.0 3735s
+  6035  5168  postponed   78               -  302.84120      -   0.0 3740s
+  6065  5186  postponed   80               -  302.84120      -   0.0 3746s
+  6083  5208  postponed   81               -  302.84120      -   0.0 3750s
+  6138  5233  postponed   83               -  302.84120      -   0.0 3757s
+  6156  5250  postponed   84               -  302.84120      -   0.0 3762s
+  6185  5260  postponed   85               -  302.84120      -   0.0 3769s
+  6207  5278  postponed   87               -  302.84120      -   0.0 3776s
+  6234  5299  postponed   88               -  302.84120      -   0.0 3782s
+  6272  5323  postponed   90               -  302.84120      -   0.0 3788s
+  6313  5354  postponed   91               -  302.84120      -   0.0 3794s
+  6361  5379  postponed   93               -  302.84120      -   0.0 3802s
+  6402  5414  postponed   95               -  302.84120      -   0.0 3811s
+  6455  5446  postponed   98               -  302.84120      -   0.0 3821s
+  6505  5491  postponed  100               -  302.84120      -   0.0 3833s
+  6568  5510 infeasible  103               -  302.84120      -   0.0 3846s
+  6620  5537  postponed  106               -  302.84120      -   0.0 3859s
+  6675  5563  postponed  110               -  302.84120      -   0.0 3874s
+  6725  5583  postponed  113               -  302.84120      -   0.0 3889s
+  6770  5589  postponed  116               -  302.84120      -   0.0 3906s
+  6801  5598 infeasible  120               -  302.84120      -   0.0 3922s
+  6834  5609 infeasible  124               -  302.84120      -   0.0 3942s
+  6870  5624  postponed  128               -  302.84120      -   0.0 3961s
+  6899  5639  postponed  132               -  302.84120      -   0.0 3980s
+  6930  5649  postponed  135               -  302.84120      -   0.0 4002s
+  6970  5662  postponed  138               -  302.84120      -   0.0 4025s
+  7002  5674  postponed  142               -  302.84120      -   0.0 4049s
+  7037  5686  postponed  146               -  302.84120      -   0.0 4073s
+  7069  5700  postponed  149               -  302.84120      -   0.0 4100s
+  7103  5716  postponed  152               -  302.84120      -   0.0 4128s
+  7135  5733  postponed  156               -  302.84120      -   0.0 4166s
+  7172  5749  postponed  159               -  302.84120      -   0.0 4204s
+  7205  5767  postponed  163               -  302.84120      -   0.0 4242s
+  7240  5789  postponed  167               -  302.84120      -   0.0 4279s
+  7273  5809  postponed  172               -  302.84120      -   0.0 4329s
+  7310  5828  postponed  176               -  302.84120      -   0.0 4372s
+  7352  5844  postponed  181               -  302.84120      -   0.0 4415s
+  7394  5863  postponed  187               -  302.84120      -   0.0 4462s
+  7435  5885  postponed  191               -  302.84120      -   0.0 4509s
+  7476  5907  postponed  196               -  302.84120      -   0.0 4554s
+  7518  5932  postponed  200               -  302.84120      -   0.0 4604s
+  7559  5953  postponed  205               -  302.84120      -   0.0 4657s
+  7602  5975  postponed  209               -  302.84120      -   0.0 4712s
+  7644  6002  postponed  214               -  302.84120      -   0.0 4768s
+  7685  6025  postponed  218               -  302.84120      -   0.0 4836s
+  7730  6051  postponed  224               -  302.84120      -   0.0 4897s
+  7773  6075  postponed  229               -  302.84120      -   0.0 4958s
+  7823  6104  postponed  235               -  302.84120      -   0.0 5022s
+  7871  6136  postponed  240               -  302.84120      -   0.0 5091s
+  7919  6163  postponed  246               -  302.84120      -   0.0 5160s
+  7972  6183  postponed  252               -  302.84120      -   0.0 5231s
+  8037  6211 infeasible  259               -  302.84120      -   0.0 5301s
+  8095  6246  postponed  267               -  302.84120      -   0.0 5370s
+  8151  6282  postponed  273               -  302.84120      -   0.0 5455s
+  8210  6316  postponed  280               -  302.84120      -   0.0 5543s
+  8276  6351  postponed  287               -  302.84120      -   0.0 5636s
+  8341  6390  postponed  295               -  302.84120      -   0.0 5745s
+  8409  6435  postponed  303               -  302.84120      -   0.0 5841s
+  8479  6485  postponed  312               -  302.84120      -   0.0 5942s
+  8552  6522  postponed  322               -  302.84120      -   0.0 6051s
+  8638  6568  postponed  332               -  302.84120      -   0.0 6163s
+  8724  6615  postponed  343               -  302.84120      -   0.0 6272s
+  8810  6662  postponed  353               -  302.84120      -   0.0 6398s
+  8904  6717  postponed  363               -  302.84120      -   0.0 6519s
+  8996  6778 infeasible  374               -  302.84120      -   0.0 6640s
+  9098  6836  postponed  387               -  302.84120      -   0.0 6769s
+  9208  6900  postponed  400               -  302.84120      -   0.0 6895s
+  9322  6971  postponed  416               -  302.84120      -   0.0 7025s
+  9435  7023  postponed  430               -  302.84120      -   0.0 7171s
+  9571  7076  postponed  443               -  302.84120      -   0.0 7326s
+  9711  7128  postponed  459               -  302.84120      -   0.0 7491s
+  9862  7174  postponed  475               -  302.84120      -   0.0 7644s
+
+Interrupt request received
+ 10030  7142  postponed  494               -  302.84120      -   0.0 7682s
+
+Explored 10066 nodes (0 simplex iterations) in 7682.39 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Solve interrupted
+Best objective -, best bound 3.028412003669e+02, gap -
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('appendYALMIPvariables', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\appendYALMIPvariables.m', 22)" style="font-weight:bold">appendYALMIPvariables</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\appendYALMIPvariables.m',22,0)">line 22</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\sdpvar.m', 731)" style="font-weight:bold">sdpvar</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\sdpvar.m',731,0)">line 731</a>)
+appendYALMIPvariables(lmi_variables,mt,variabletype,hashed_monoms,current_hash);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls4', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls4.m', 22)" style="font-weight:bold">ComputeOptimalTolls4</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls4.m',22,0)">line 22</a>)
+h    = sdpvar(hDim, 1); % h
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 29)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',29,0)">line 29</a>)
+[xOpt4, tOpt4, hOpt4] = ComputeOptimalTolls4(G, ODs, Params);
+} 
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cell/unique', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\ops\@cell\unique.m', 142)" style="font-weight:bold">cell/unique</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\ops\@cell\unique.m',142,0)">line 142</a>)
+
+
+In
+<a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.NameResolver/resolveImplicitPath>convertClassToPackage', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\resolveImplicitPath.m', 234)" style="font-weight:bold">matlab.internal.language.introspective.NameResolver/resolveImplicitPath>convertClassToPackage</a>
+(<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\resolveImplicitPath.m',234,0)">line 234</a>)
+    [~, i] = unique({newPackageInfo.path}, 'stable');
+
+In
+<a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.NameResolver/resolveImplicitPath>innerResolveImplicitPath', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\resolveImplicitPath.m', 29)" style="font-weight:bold">matlab.internal.language.introspective.NameResolver/resolveImplicitPath>innerResolveImplicitPath</a>
+(<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\resolveImplicitPath.m',29,0)">line 29</a>)
+                [objectParts, allPackageInfo] = convertClassToPackage(obj,
+                objectParts, allPackageInfo);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.NameResolver/resolveImplicitPath', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\resolveImplicitPath.m', 11)" style="font-weight:bold">matlab.internal.language.introspective.NameResolver/resolveImplicitPath</a>
+(<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\resolveImplicitPath.m',11,0)">line 11</a>)
+        innerResolveImplicitPath(obj, topic);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.NameResolver/innerDoResolve', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\innerDoResolve.m', 13)" style="font-weight:bold">matlab.internal.language.introspective.NameResolver/innerDoResolve</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\innerDoResolve.m',13,0)">line
+13</a>)
+        obj.resolveImplicitPath(topic);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.NameResolver/doResolve', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\doResolve.m', 31)" style="font-weight:bold">matlab.internal.language.introspective.NameResolver/doResolve</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\doResolve.m',31,0)">line 31</a>)
+        obj.innerDoResolve(topic);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.NameResolver/executeResolve', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\executeResolve.m', 7)" style="font-weight:bold">matlab.internal.language.introspective.NameResolver/executeResolve</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\@NameResolver\executeResolve.m',7,0)">line
+7</a>)
+            obj.doResolve(obj.topicInput, true);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.internal.language.introspective.resolveName', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\resolveName.m', 20)" style="font-weight:bold">matlab.internal.language.introspective.resolveName</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\+matlab\+internal\+language\+introspective\resolveName.m',20,0)">line 20</a>)
+    nameResolver.executeResolve();
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('open', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\open.m', 64)" style="font-weight:bold">open</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\general\open.m',64,0)">line 64</a>)
+nameResolver = matlab.internal.language.introspective.resolveName(name);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('uiopen', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\uitools\uiopen.m', 159)" style="font-weight:bold">uiopen</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\uitools\uiopen.m',159,0)">line 159</a>)
+        open(fn);
+} 
+test0213

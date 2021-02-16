@@ -1,0 +1,20 @@
+
+s =
+
+     1
+
+
+s =
+
+     2
+
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar/mtimes', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\mtimes.m', 496)" style="font-weight:bold"> * </a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\mtimes.m',496,0)">line 496</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m', 49)" style="font-weight:bold">ComputeOptimalTolls</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',49,0)">line 49</a>)
+    cons = [cons, xLink'*Q*xLink+q'*xLink <= h];
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 27)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',27,0)">line 27</a>)
+[tOpt, hOpt] = ComputeOptimalTolls(G, ODsSampled, Params, canTax);
+} 
+test0213

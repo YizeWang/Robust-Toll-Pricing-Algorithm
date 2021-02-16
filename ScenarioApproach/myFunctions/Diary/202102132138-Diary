@@ -1,0 +1,35 @@
+if system_dependent('IsDebugMode')==1, dbstep in; end
+t
+Linear matrix variable 5x1 (full, real, 5 variables)
+Coeffiecient range: 1 to 1
+M
+
+M =
+
+     5
+
+t
+Linear matrix variable 5x1 (full, real, 5 variables)
+Coeffiecient range: 1 to 1
+canTax
+
+canTax =
+
+     0
+     0
+     0
+     1
+     0
+
+t(canTax)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar/subsref', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\subsref.m', 161)" style="font-weight:bold">sdpvar/subsref</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\subsref.m',161,0)">line 161</a>)
+Array indices must be positive integers or logical values.
+} 
+t([false, false, false, false, false])
+
+ans =
+
+  0×1 empty <a href="matlab:helpPopup double" style="font-weight:bold">double</a> column vector
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213

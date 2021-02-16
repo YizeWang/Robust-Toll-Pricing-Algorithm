@@ -1,0 +1,18 @@
+{Out of memory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('lmiBasis', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\lmiBasis.m', 4)" style="font-weight:bold">lmiBasis</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\extras\lmiBasis.m',4,0)">line 4</a>)
+Y = (Y+Y')-diag(sparse(diag(Y)));
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sdpvar', 'C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\sdpvar.m', 539)" style="font-weight:bold">sdpvar</a> (<a href="matlab: opentoline('C:\Program Files (x86)\yalmip\yalmip\YALMIP-master\@sdpvar\sdpvar.m',539,0)">line 539</a>)
+                    basis{blk} = lmiBasis(n(blk));
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m', 14)" style="font-weight:bold">ComputeOptimalTolls</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',14,0)">line 14</a>)
+x  = sdpvar(xDims); % x
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 24)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',24,0)">line 24</a>)
+[tOpt, hOpt] = ComputeOptimalTolls(G, ODs, Params);
+
+<a href="matlab:helpview('matlab','error_nomem')" style="font-weight:bold">Related documentation</a>
+} 
+opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',14,0)
+test0213

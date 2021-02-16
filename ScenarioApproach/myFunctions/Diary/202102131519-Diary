@@ -1,0 +1,90 @@
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 13058 rows, 9183 columns and 35116 nonzeros
+Model fingerprint: 0xcbbe8a16
+Model has 2 quadratic constraints
+Coefficient statistics:
+  Matrix range     [3e-01, 5e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-01, 1e+01]
+Presolve removed 7878 rows and 127 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 7912 rows and 211 columns
+Presolve time: 0.05s
+Presolved: 5147 rows, 9049 columns, 26557 nonzeros
+Presolved model has 3875 SOS constraint(s)
+Presolved model has 77 quadratic constraint(s)
+Variable types: 9049 continuous, 0 integer (0 binary)
+Presolve removed 3919 rows and 5094 columns
+Presolve time: 0.28s
+Presolved: 1459 rows, 4109 columns, 11669 nonzeros
+Presolved model has 77 second-order cone constraints
+Root barrier log...
+
+Ordering time: 0.00s
+
+Barrier statistics:
+ Dense cols : 1
+ AA' NZ     : 9.633e+03
+ Factor NZ  : 4.745e+04 (roughly 3 MBytes of memory)
+ Factor Ops : 2.459e+06 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.68922767e+01 -6.83448075e-01  8.79e+02 5.17e+00  8.08e+01     0s
+   1   5.42087839e+02  5.49971047e+01  5.71e+02 2.24e+00  5.30e+01     0s
+   2   7.71570882e+02  7.46779524e+01  1.16e+02 1.57e+00  1.15e+01     0s
+   3   4.80191923e+02  2.72106785e+02  3.28e+01 4.37e-01  3.28e+00     0s
+   4   4.80089443e+02  2.13804456e+02  1.18e+01 1.86e-01  1.29e+00     0s
+   5   4.83040399e+02  1.48244961e+02  1.31e+00 4.50e-02  2.33e-01     0s
+   6   3.85231640e+02  2.26196457e+02  3.78e-01 2.02e-02  8.32e-02     0s
+   7   3.51901875e+02  2.63514829e+02  1.52e-01 1.19e-02  4.11e-02     0s
+   8   3.36249629e+02  2.78825434e+02  8.60e-02 8.36e-03  2.60e-02     0s
+   9   3.14666911e+02  2.91728568e+02  1.78e-02 4.50e-03  9.70e-03     0s
+  10   3.05903916e+02  2.97953231e+02  2.23e-03 2.12e-03  3.37e-03     0s
+  11   3.04128118e+02  3.00508267e+02  5.22e-04 1.07e-03  1.56e-03     0s
+  12   3.03096098e+02  3.02217063e+02  2.31e-05 2.89e-04  3.87e-04     0s
+  13   3.02912375e+02  3.02767140e+02  2.45e-06 2.53e-05  5.03e-05     0s
+  14   3.02849543e+02  3.02831122e+02  2.93e-07 2.61e-06  6.01e-06     1s
+  15   3.02841775e+02  3.02838237e+02  1.40e-07 3.75e-07  1.06e-06     1s
+  16   3.02839617e+02  3.02839246e+02  3.19e-07 4.78e-07  1.03e-07     1s
+  17   3.02839410e+02  3.02839321e+02  1.12e-05 7.07e-07  2.20e-08     1s
+
+Barrier solved model in 17 iterations and 0.56 seconds
+Optimal objective 3.02839410e+02
+
+
+Root relaxation: objective 3.028394e+02, 0 iterations, 0.32 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  302.83941    0   36          -  302.83941      -     -    0s
+     0     0  302.83941    0   36          -  302.83941      -     -    0s
+     0     2  302.83947    0   37          -  302.83947      -     -    0s
+   161   115  493.82089   19   75          -  302.83947      -   0.0    5s
+   336   295  493.82089   38   84          -  302.83947      -   0.0   10s
+   506   480  493.82087   61   53          -  302.83947      -   0.0   15s
+   708   692  493.82070   87   58          -  302.83947      -   0.0   20s
+   847   831  493.82081  103   67          -  302.83947      -   0.0   25s
+
+Interrupt request received
+
+Explored 1011 nodes (0 simplex iterations) in 29.70 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Solve interrupted
+Best objective -, best bound 3.028394669937e+02, gap -
+
+ans =
+
+     0
+

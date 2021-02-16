@@ -1,0 +1,63 @@
+Academic license - for non-commercial use only - expires 2021-03-11
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+Optimize a model with 140 rows, 111 columns and 308 nonzeros
+Model fingerprint: 0x5645ae88
+Model has 6 quadratic constraints
+Coefficient statistics:
+  Matrix range     [5e-01, 4e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 2e+00]
+Presolve removed 68 rows and 8 columns
+
+Continuous model is non-convex -- solving as a MIP.
+
+Presolve removed 116 rows and 62 columns
+Presolve time: 0.01s
+Presolved: 27 rows, 64 columns, 116 nonzeros
+Presolved model has 26 SOS constraint(s)
+Presolved model has 15 quadratic constraint(s)
+Variable types: 63 continuous, 1 integer (1 binary)
+
+Root relaxation: objective 1.526395e+00, 9 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    1.52639    0    2          -    1.52639      -     -    0s
+     0     0    3.07147    0    4          -    3.07147      -     -    0s
+     0     0    3.40820    0    5          -    3.40820      -     -    0s
+     0     0    4.12346    0    4          -    4.12346      -     -    0s
+     0     0    4.37709    0    5          -    4.37709      -     -    0s
+     0     0    4.49660    0    5          -    4.49660      -     -    0s
+     0     0    4.69849    0    5          -    4.69849      -     -    0s
+     0     0    4.71482    0    5          -    4.71482      -     -    0s
+     0     0    4.80595    0    5          -    4.80595      -     -    0s
+     0     0    4.83781    0    5          -    4.83781      -     -    0s
+     0     0    4.88740    0    5          -    4.88740      -     -    0s
+     0     0    4.89863    0    5          -    4.89863      -     -    0s
+     0     0    4.89905    0    5          -    4.89905      -     -    0s
+     0     0    4.89916    0    5          -    4.89916      -     -    0s
+     0     2    4.89916    0    5          -    4.89916      -     -    0s
+H   14    14                       5.4877703    4.89953  10.7%   4.7    0s
+H   33    12                       5.0750179    4.89953  3.46%   4.0    0s
+H   40     6                       4.9679077    4.89953  1.38%   3.5    0s
+H   87     7                       4.9561403    4.90787  0.97%   3.9    0s
+*   87     7              13       4.9561403    4.90787  0.97%   3.9    0s
+*  243     4              16       4.9561397    4.90971  0.94%   4.4    0s
+
+Cutting planes:
+  MIR: 2
+  Flow cover: 1
+
+Explored 289 nodes (1374 simplex iterations) in 0.44 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 5: 4.95614 4.95614 4.96791 ... 5.48777
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.956139657824e+00, best bound 4.956139657824e+00, gap 0.0000%
+test0213
+Warning: Solver not applicable (gurobi does not support semidefinite constraints)

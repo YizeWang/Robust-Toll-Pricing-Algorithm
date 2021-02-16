@@ -1,0 +1,15 @@
+{Not enough input arguments.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('GetEqualityConstraintsA', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\GetEqualityConstraintsA.m', 6)" style="font-weight:bold">GetEqualityConstraintsA</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\GetEqualityConstraintsA.m',6,0)">line 6</a>)
+numDmnd = size(ODs, 1);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ComputeOptimalTolls', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m', 34)" style="font-weight:bold">ComputeOptimalTolls</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',34,0)">line 34</a>)
+[ABig] = GetEqualityConstraintsA(G);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 27)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',27,0)">line 27</a>)
+[tOpt, hOpt] = ComputeOptimalTolls(G, ODsSampled, Params, canTax);
+} 
+opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\GetEqualityConstraintsA.m',6,0)
+opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\ComputeOptimalTolls.m',34,0)
+opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\GetEqualityConstraintsA.m',6,0)
+test0213

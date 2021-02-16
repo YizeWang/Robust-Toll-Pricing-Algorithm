@@ -1,0 +1,19 @@
+tDims
+
+tDims =
+
+    76     1
+
+x  = sdpvar(xDims); % x
+t  = sdpvar(tDims); % tau
+h  = sdpvar(hDims); % h
+x
+
+x =
+
+  1×2 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {3876×3876 sdpvar}    {1×1 sdpvar}
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+test0213
