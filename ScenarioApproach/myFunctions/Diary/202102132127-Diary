@@ -1,9 +1,0 @@
-{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('readmatrix', 'C:\Program Files\MATLAB\R2020b\toolbox\matlab\iofun\readmatrix.m', 157)" style="font-weight:bold">readmatrix</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020b\toolbox\matlab\iofun\readmatrix.m',157,0)">line 157</a>)
-Unable to find or open
-'..\myRealData\SimpleGeneralNetwork\SimpleGeneralNetwork_ODs.csv'. Check the
-path and filename or file permissions.
-
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 14)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',14,0)">line 14</a>)
-ODs = readmatrix([pathDataFolder nameNetwork '\' nameNetwork '_ODs.csv']);
-} 
-test0210

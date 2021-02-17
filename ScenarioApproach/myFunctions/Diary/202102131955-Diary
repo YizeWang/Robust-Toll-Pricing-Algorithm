@@ -1,8 +1,0 @@
-xDims
-
-xDims =
-
-       40204           1
-
-if system_dependent('IsDebugMode')==1, dbquit; end
-test0213

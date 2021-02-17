@@ -1,7 +1,0 @@
-{Unrecognized function or variable 'numSmpl'.
-
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0213', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m', 17)" style="font-weight:bold">test0213</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',17,0)">line 17</a>)
-ODsSampled = GenerateSamples(ODs, numSmpl);
-} 
-opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0213.m',17,0)
-test0213

@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import matlib
 
 
 def GetEqualityConstraints(G, ODs):
@@ -33,7 +34,7 @@ def GetEqualityConstraints(G, ODs):
         b[idxInit][k] = -demand # net out-flows equal demand
         b[idxTerm][k] =  demand # net in-flows equal demand
     
-    bBigLow = b.reshape((N*K, 1))                    #        |    0    |
+    bBigLow = np.reshape(b, (N*K, 1), order='F')     #        |    0    |
     bBigUp = np.zeros((M, 1), dtype=np.double)       # bBig = |---------|
     bBig = np.concatenate((bBigUp, bBigLow), axis=0) #        | bBigLow |
 

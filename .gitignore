@@ -3,6 +3,7 @@
 
 # Visual Studio Code
 .vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -16,3 +17,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Diary
+Diary/

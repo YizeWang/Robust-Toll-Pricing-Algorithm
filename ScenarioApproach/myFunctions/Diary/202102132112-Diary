@@ -1,6 +1,0 @@
-{Unable to perform assignment because the indices on the left side are not compatible with the size of the right side.
-
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test0210', 'C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0210.m', 15)" style="font-weight:bold">test0210</a> (<a href="matlab: opentoline('C:\Users\Elden\Documents\Repositories\robust-toll-pricing-algorithm\ScenarioApproach\myFunctions\test0210.m',15,0)">line 15</a>)
-ODs(:, 3) = ODs(1:50, 3) / 1000;
-} 
-test0210
