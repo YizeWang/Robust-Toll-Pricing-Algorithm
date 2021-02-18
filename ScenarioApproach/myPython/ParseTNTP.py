@@ -46,10 +46,17 @@ def ParseTNTP(pathDataFolder, nameNet):
 
 def TruncateODs(G, numODs=0, scaleFactor=1.0):
 
-    if numODs != 0:
-        G.dataOD = G.dataOD[:numODs] # truncate OD pairs
+    if scaleFactor < 0.0:
+        scaleFactor = 1.0
+        print('Negative Scale Factor, Reset to 1')
+
+    if numODs < 0 or numODs > G.numDmnd:
+        print('Invalid Number of Demands, Reset to All Demands')
+    elif numODs != 0:
+        G.dataOD = G.dataOD[:numODs, :] # truncate OD pairs
         G.numDmnd = numODs # update number of demands
 
+    print('Considering %d Demands with Scale Factor %f' % (G.numDmnd, scaleFactor))
     G.dataOD[:, 2] = G.dataOD[:, 2] * scaleFactor # scale demands
 
     return G
