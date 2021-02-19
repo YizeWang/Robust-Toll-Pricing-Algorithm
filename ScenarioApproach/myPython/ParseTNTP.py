@@ -31,9 +31,9 @@ def ParseTNTP(pathDataFolder, nameNet):
     G.numDmnd = len(dataOD)
 
     G.T = np.array(dataNet.free_flow_time, dtype=np.double)
-    G.B = np.array(dataNet.b, dtype=np.double)
-    G.P = np.array(dataNet.power, dtype=np.double)
-    G.C = np.array(dataNet.capacity, dtype=np.double)
+    G.B = np.array(dataNet.b,              dtype=np.double)
+    G.P = np.array(dataNet.power,          dtype=np.double)
+    G.C = np.array(dataNet.capacity,       dtype=np.double)
 
     G.a = np.multiply(G.T, G.B)
     G.c = G.T
@@ -42,8 +42,7 @@ def ParseTNTP(pathDataFolder, nameNet):
     G.q = G.c
 
     return G
-
-
+1
 def TruncateODs(G, numODs=0, scaleFactor=1.0):
 
     if scaleFactor < 0.0:

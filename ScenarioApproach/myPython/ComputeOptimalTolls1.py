@@ -3,9 +3,10 @@ import gurobipy as gp
 from gurobipy import GRB
 from ParseTNTP import *
 from GetEqualityConstraints import *
+import csv
 
 
-def ComputeOptimalTolls(G, sampleODs):
+def ComputeOptimalTolls1(G, sampleODs, pathSolFile):
 
     # create a new model
     m = gp.Model("Toll-Calculator")
@@ -52,7 +53,7 @@ def ComputeOptimalTolls(G, sampleODs):
         m.addConstr(A @ xs == bs.reshape(-1))
         m.addConstr(xLink @ Q @ xLink + q @ xLink <= h)
         m.addConstr(us @ xs == 0)
-        m.addConstrs(T[i] + t[i] + a[i] * xs[i] - us[i] + (np.transpose(A)[i]) @ ls == 0 for i in range(0,    M))
+        m.addConstrs(T[i] + t[i] + a[i] * xs[i] - us[i] + (np.transpose(A)[i]) @ ls == 0 for i in range(0, M   ))
         m.addConstrs(                           - us[i] + (np.transpose(A)[i]) @ ls == 0 for i in range(M, xDim))
 
     # gurobi paramters
@@ -63,7 +64,14 @@ def ComputeOptimalTolls(G, sampleODs):
     m.optimize()
 
     # print results
-    for variable in m.getVars():
-        print('%s %g' % (variable.varName, variable.x))
+    varNames = []
+    varValues = []
 
-    print('Objective Value: %g' % m.objVal)
+    for var in m.getVars():
+        varNames.append(str(var.varName))
+        varValues.append(var.X)
+
+    with open(pathSolFile, 'wt') as solFile:
+        wr = csv.writer(solFile, quoting=csv.QUOTE_ALL)
+        wr.writerows(zip(varNames, varValues))
+        solFile.close()
