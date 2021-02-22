@@ -3,10 +3,10 @@ from gurobipy import GRB
 from GetEqualityConstraints import *
 
 
-def ComputeNashFlow(G, ODs, tolls=None):
+def ComputeOptimalFlow(G, ODs):
 
     # create a new model
-    m = gp.Model("Nash Flow Calculator")
+    m = gp.Model("Optimal Flow Calculator")
 
     # extract variable dimensions
     M = G.numEdge
@@ -16,10 +16,6 @@ def ComputeNashFlow(G, ODs, tolls=None):
     # extract cost coefficients
     Q = G.Q
     q = G.q
-    halfQ = 0.5 * Q
-
-    # generalized linear cost
-    qGen = q if np.array_equal(tolls, -1) else q + tolls
 
     # compute decision variable dimensions
     xDim = M + M * K
@@ -29,7 +25,7 @@ def ComputeNashFlow(G, ODs, tolls=None):
     xLink = x[:M]
 
     # specify model
-    m.setObjective(xLink @ halfQ @ xLink + qGen @ xLink, GRB.MINIMIZE)
+    m.setObjective(xLink @ Q @ xLink + q @ xLink, GRB.MINIMIZE)
 
     # add constraints
     [A, b] = GetEqualityConstraints(G, ODs)
@@ -47,8 +43,8 @@ def ComputeNashFlow(G, ODs, tolls=None):
     for var in m.getVars():
         varValues.append(var.X)
     
-    xNash = np.array(varValues)
-    xLink = xNash[:M]
-    costNash = xLink @ Q @ xLink + q @ xLink
+    xOpt = np.array(varValues)
+    xLink = xOpt[:M]
+    costOpt = xLink @ Q @ xLink + q @ xLink
 
-    return xNash, costNash
+    return xOpt, costOpt

@@ -59,6 +59,8 @@ def ComputeOptimalTolls1(G, sampleODs, pathSolFile):
     # gurobi paramters
     m.Params.NonConvex = 2
     m.Params.OutputFlag = 1
+    m.Params.MIPGap = 1e-2
+    m.Params.MIPFocus = 1
 
     # solve optimization
     m.optimize()

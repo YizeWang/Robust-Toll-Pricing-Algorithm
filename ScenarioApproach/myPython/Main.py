@@ -8,6 +8,7 @@ from ComputeOptimalTolls2 import *
 from ComputeOptimalTolls4 import *
 from ComputeOptimalTolls5 import *
 from ComputeNashFlow import *
+from ComputeOptimalFlow import *
 from datetime import datetime
 import winsound
 
@@ -25,26 +26,35 @@ nameNet1 = 'SimpleGeneralNetwork'
 nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 
-nameNet = nameNet2
-numSmpl = 2
+nameNet = nameNet3
+numSmpl = 5
 
 with open(pathLogFile, 'wt') as logFile:
     
     sys.stdout = logFile
 
     G = ParseTNTP(pathDataFolder, nameNet)
-    G = TruncateODs(G, numODs=0, scaleFactor=0.001)
+    G = TruncateODs(G, numODs=0, scaleFactor=1)
+    sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    ComputeOptimalTolls5(G, G.dataOD, pathSolFile)
-    ComputeOptimalTolls4(G, G.dataOD, pathSolFile)
-    ComputeOptimalTolls2(G, G.dataOD, pathSolFile)
-    ComputeOptimalTolls1(G, G.dataOD, pathSolFile)
+    xNash, costNash = ComputeNashFlow(G, G.dataOD)
+    print("Nash Flow Cost: %f" % costNash)
 
-    # ComputeNashFlow(G, G.dataOD, pathSolFile)
+    xOpt, costOpt = ComputeOptimalFlow(G, G.dataOD)
+    print("Optimal Flow Cost: %f" % costOpt)
+
+    xMax = np.max(xNash)
+    bigM = np.ceil(15 * xMax)
+    print("big-M: %d" % bigM)
+
+    # ComputeOptimalTolls1(G, G.dataOD, pathSolFile)
+    # ComputeOptimalTolls2(G, G.dataOD, pathSolFile)
+    # ComputeOptimalTolls4(G, G.dataOD, pathSolFile, bigM)
+    # ComputeOptimalTolls5(G, G.dataOD, pathSolFile, bigM)
 
     logFile.close()
 
-pass
+winsound.Beep(frequency=800, duration=2000)
 
-# winsound.Beep(frequency=800, duration=2000)
+pass

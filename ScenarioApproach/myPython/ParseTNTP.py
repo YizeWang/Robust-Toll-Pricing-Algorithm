@@ -42,7 +42,8 @@ def ParseTNTP(pathDataFolder, nameNet):
     G.q = G.c
 
     return G
-1
+
+
 def TruncateODs(G, numODs=0, scaleFactor=1.0):
 
     if scaleFactor < 0.0:

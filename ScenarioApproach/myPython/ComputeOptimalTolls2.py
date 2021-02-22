@@ -31,11 +31,11 @@ def ComputeOptimalTolls2(G, sampleODs, pathSolFile):
     lDim = M + N * K
 
     # create decision variables
-    h = m.addMVar(hDim,      vtype=GRB.CONTINUOUS,       name='h')
-    t = m.addMVar(tDim,      vtype=GRB.CONTINUOUS, lb=0, name='tau')
-    x = m.addMVar((xDim, S), vtype=GRB.CONTINUOUS,       name='x')
-    u = m.addMVar((uDim, S), vtype=GRB.CONTINUOUS, lb=0, name='mu')
-    l = m.addMVar((lDim, S), vtype=GRB.CONTINUOUS,       name='lambda')
+    h = m.addMVar(hDim,      vtype=GRB.CONTINUOUS,               name='h')
+    t = m.addMVar(tDim,      vtype=GRB.CONTINUOUS, lb=0, ub=100, name='tau')
+    x = m.addMVar((xDim, S), vtype=GRB.CONTINUOUS,               name='x')
+    u = m.addMVar((uDim, S), vtype=GRB.CONTINUOUS, lb=0,         name='mu')
+    l = m.addMVar((lDim, S), vtype=GRB.CONTINUOUS,               name='lambda')
 
     # specify model
     m.setObjective(h, GRB.MINIMIZE)
@@ -60,6 +60,8 @@ def ComputeOptimalTolls2(G, sampleODs, pathSolFile):
     # gurobi paramters
     m.Params.NonConvex = 2
     m.Params.OutputFlag = 1
+    m.Params.MIPGap = 1e-2
+    m.Params.MIPFocus = 1
 
     # solve optimization
     m.optimize()

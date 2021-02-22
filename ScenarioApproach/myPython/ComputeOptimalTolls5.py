@@ -6,7 +6,7 @@ from GetEqualityConstraints import *
 import csv
 
 
-def ComputeOptimalTolls5(G, sampleODs, pathSolFile, bigM=1e4):
+def ComputeOptimalTolls5(G, sampleODs, pathSolFile, bigM):
 
     # create a new model
     m = gp.Model("Toll-Calculator")
@@ -32,12 +32,12 @@ def ComputeOptimalTolls5(G, sampleODs, pathSolFile, bigM=1e4):
     dDim = uDim
 
     # create decision variables
-    h = m.addMVar(hDim,      vtype=GRB.CONTINUOUS,       name='h')
-    t = m.addMVar(tDim,      vtype=GRB.CONTINUOUS, lb=0, name='tau')
-    x = m.addMVar((xDim, S), vtype=GRB.CONTINUOUS,       name='x')
-    u = m.addMVar((uDim, S), vtype=GRB.CONTINUOUS, lb=0, name='mu')
-    l = m.addMVar((lDim, S), vtype=GRB.CONTINUOUS,       name='lambda')
-    d = m.addMVar((dDim, S), vtype=GRB.BINARY,           name='delta')
+    h = m.addMVar(hDim,      vtype=GRB.CONTINUOUS,               name='h')
+    t = m.addMVar(tDim,      vtype=GRB.CONTINUOUS, lb=0, ub=100, name='tau')
+    x = m.addMVar((xDim, S), vtype=GRB.CONTINUOUS,               name='x')
+    u = m.addMVar((uDim, S), vtype=GRB.CONTINUOUS, lb=0,         name='mu')
+    l = m.addMVar((lDim, S), vtype=GRB.CONTINUOUS,               name='lambda')
+    d = m.addMVar((dDim, S), vtype=GRB.BINARY,                   name='delta')
 
     # specify model
     m.setObjective(h, GRB.MINIMIZE)
@@ -62,8 +62,9 @@ def ComputeOptimalTolls5(G, sampleODs, pathSolFile, bigM=1e4):
         m.addConstrs(                           - us[i-M] + (np.transpose(A)[i]) @ ls == 0 for i in range(M, xDim))
 
     # gurobi paramters
-    m.Params.NonConvex = 2
     m.Params.OutputFlag = 1
+    m.Params.MIPGap = 1e-2
+    m.Params.MIPFocus = 1
 
     # solve optimization
     m.optimize()
