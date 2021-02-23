@@ -19,7 +19,7 @@ def ComputeNashFlow(G, ODs, tolls=None):
     halfQ = 0.5 * Q
 
     # generalized linear cost
-    qGen = q if np.array_equal(tolls, -1) else q + tolls
+    qGen = q if (tolls is None) else q + tolls
 
     # compute decision variable dimensions
     xDim = M + M * K

@@ -81,3 +81,8 @@ def ComputeOptimalTolls5(G, sampleODs, pathSolFile, bigM):
         wr = csv.writer(solFile, quoting=csv.QUOTE_ALL)
         wr.writerows(zip(varNames, varValues))
         solFile.close()
+
+    hOpt = varValues[0]
+    tOpt = varValues[1:hDim+tDim+1]
+
+    return hOpt, tOpt

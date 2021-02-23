@@ -10,9 +10,9 @@ def ComputeBigH(A, bMat, tolls, Q, q):
     halfQ = 0.5 * Q
     qGen = q + tolls
 
-    S = bMat.shape[1]
-    M = q.shape[0]
-    xDim = A.shape[1]
+    S = bMat.shape[1] # number of samples
+    M = q.shape[0]    # number of edges
+    xDim = A.shape[1] # dimension of x
 
     x = m.addMVar(xDim, vtype=GRB.CONTINUOUS, name='x')
     xLink = x[:M]
@@ -24,7 +24,7 @@ def ComputeBigH(A, bMat, tolls, Q, q):
 
     for s in range(S):
 
-        b = bMat[:, 0]
+        b = bMat[:, s]
 
         m.remove(m.getConstrs())
 

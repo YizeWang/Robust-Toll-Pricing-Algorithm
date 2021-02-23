@@ -1,7 +1,7 @@
 import numpy as np
 from ComputeBigH import *
 
-def ComputeGradientDescent(G, tolls, A, bMat, Q, q, deltaToll=0.01):
+def ComputeGradient(tolls, A, bMat, Q, q, deltaToll=0.01):
 
     M = q.shape[0]
     gradH = np.zeros(M, dtype=np.double)

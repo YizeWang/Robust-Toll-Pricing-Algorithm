@@ -11,9 +11,10 @@ diary(nameDiary);
 nameNetwork1   = 'SimpleGeneralNetwork';
 nameNetwork2   = 'SiouxFalls';
 nameNetwork3   = 'Brasse';
+nameNetwork4   = 'SiouxFallsSmall';
 pathDataFolder = '..\myRealData\';
 
-nameNetwork = nameNetwork2;
+nameNetwork = nameNetwork4;
 G = ParseTNTP(pathDataFolder, nameNetwork);
 ODs = readmatrix([pathDataFolder nameNetwork '\' nameNetwork '_ODs.csv']);
 
