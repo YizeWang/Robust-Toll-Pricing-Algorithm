@@ -9,8 +9,11 @@ from ComputeOptimalTolls4 import *
 from ComputeOptimalTolls5 import *
 from ComputeNashFlow import *
 from ComputeOptimalFlow import *
+from ComputeNashFlowPoly import *
+from ComputeOptimalFlowPoly import *
 from datetime import datetime
 import winsound
+from ComputePoA import *
 
 
 pathDataFolder = '..\\myRealData\\'
@@ -27,27 +30,29 @@ nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 nameNet4 = 'SiouxFallsSmall'
 
-nameNet = nameNet3
+nameNet = nameNet2
 numSmpl = 5
 
 with open(pathLogFile, 'wt') as logFile:
-    
+
     sys.stdout = logFile
 
     G = ParseTNTP(pathDataFolder, nameNet)
-    G = TruncateODs(G, numODs=0, scaleFactor=0.853)
-    sampleODs = G.dataOD
-    # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    xNash, costNash = ComputeNashFlow(G, G.dataOD)
-    print("Nash Flow Cost: %f" % costNash)
+    sfs = np.logspace(-1, 0.5, num=30)
+    PoAs = []
 
-    xOpt, costOpt = ComputeOptimalFlow(G, G.dataOD)
-    print("Optimal Flow Cost: %f" % costOpt)
+    for sf in sfs:
 
-    xMax = np.max(xNash)
-    bigM = np.ceil(15 * xMax)
-    print("big-M: %d" % bigM)
+        G = ParseTNTP(pathDataFolder, nameNet)
+        G = TruncateODs(G, numODs=0, scaleFactor=sf)
+        sampleODs = G.dataOD
+
+        PoA = ComputePoA(G, sampleODs)
+        PoAs.append(PoA)
+
+    np.savetxt("scaleFactors.csv", sfs, delimiter=",")
+    np.savetxt("PoAs.csv", PoAs, delimiter=",")
 
     logFile.close()
 
