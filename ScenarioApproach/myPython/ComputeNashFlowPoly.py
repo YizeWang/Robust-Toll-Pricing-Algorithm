@@ -5,8 +5,9 @@ from scipy import sparse
 from GetRowColDict import *
 from ComputeSocialCost import *
 
+eps = np.finfo(np.float64).eps
 
-def ComputeNashFlowPoly(G, ODs):
+def ComputeNashFlowPoly(G, ODs, tolls=None):
 
     # create a new model
     m = gp.Model("Nash Flow Calculator")
@@ -27,7 +28,7 @@ def ComputeNashFlowPoly(G, ODs):
     a = np.multiply(a, np.power(normC, G.P))
     a = a * C0
     a = np.divide(a, PPlus)
-    c = G.T * C0
+    c = G.T * C0 if tolls == None else (G.T + tolls) * C0
 
     # compute decision variable dimensions
     xDim = M
@@ -39,15 +40,15 @@ def ComputeNashFlowPoly(G, ODs):
     rows, cols = sparseA.nonzero()
     setRows, dictCols = GetRowColDict(rows, cols)
 
-    x = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='x')
-    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y')
+    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='z') # z = x / C0
+    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y') # y = z ^ (P + 1)
 
-    m.addConstrs(gp.quicksum(A[row, col] * x[col] for col in dictCols[row]) == b[row]/C0 for row in setRows) # Ax == b
+    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row]/C0 for row in setRows) # Ax == b
 
     for i in range(xDim):
-        m.addGenConstrPow(x[i], y[i], PPlus[i]) # y = x ^ (P + 1)
+        m.addGenConstrPow(z[i], y[i], PPlus[i])
 
-    m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * x[i] for i in range(xDim)))
+    m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * z[i] for i in range(xDim)))
 
     # solve optimization
     m.optimize()
@@ -55,15 +56,20 @@ def ComputeNashFlowPoly(G, ODs):
     # print results
     varValues = []
     idxZero = []
+    idxNonZero = []
+    idxUsed = []
 
     for idx, var in enumerate(m.getVars()):
-        realFlow = var.X * C0
-        varValues.append(realFlow)
+        x = var.X * C0 # x = z * C0
+        varValues.append(x)
 
-        if idx >= M and realFlow < np.finfo(np.float64).eps: # keep track of indices of zero-valued elements
-            idxZero.append(idx)
+        if idx >= M and idx < XDim:
+            idxZero.append(idx) if x < eps else idxNonZero.append(idx) # keep track of indices of zero-valued elements
+
+        if idx < M and x > eps:
+            idxUsed.append(idx)
 
     xNash = varValues[:M]
     costNash = ComputeSocialCost(xNash, G)
 
-    return xNash, costNash, idxZero, varValues
+    return xNash, costNash, idxZero, idxNonZero, idxUsed, varValues

@@ -3,16 +3,15 @@ import numpy as np
 from ParseTNTP import *
 from GetEqualityConstraints import *
 from GenerateSamples import *
-from ComputeOptimalTolls1 import *
-from ComputeOptimalTolls2 import *
-from ComputeOptimalTolls4 import *
-from ComputeOptimalTolls5 import *
 from ComputeNashFlow import *
 from ComputeOptimalFlow import *
-from ComputeOptimalTollsPolyNew import *
 from datetime import datetime
 import winsound
+from ComputeOptimalTollsPoly import *
 from ComputeOptimalFlowPoly import *
+from ComputeNashFlowPoly import *
+from ComputeOptimalTollsPolyNew import *
+from ComputeOptimalTolls1 import *
 
 
 pathDataFolder = '..\\myRealData\\'
@@ -29,34 +28,23 @@ nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 nameNet4 = 'SiouxFallsSmall'
 
-nameNet = nameNet2
-numSmpl = 5
+nameNet = nameNet1
 
 with open(pathLogFile, 'wt') as logFile:
     
     sys.stdout = logFile
 
     G = ParseTNTP(pathDataFolder, nameNet)
-    G = TruncateODs(G, numODs=0, scaleFactor=0.853)
-    # G = TruncateODs(G, numODs=0, scaleFactor=1)
+    G = TruncateODs(G, numODs=0, scaleFactor=1)
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    xNash, costNash, _, _, _, _ = ComputeNashFlowPoly(G, G.dataOD)
-    print("Nash Flow Cost: %f" % costNash)
-
-    xOpt, costOpt = ComputeOptimalFlowPoly(G, G.dataOD)
-    print("Optimal Flow Cost: %f" % costOpt)
-
-    xMax = np.max(xNash)
-    bigM = np.ceil(15 * xMax)
-    print("big-M: %d" % bigM)
-
-    tOpt = ComputeOptimalTollsPolyNew(G, G.dataOD, pathSolFile)
-    xToll, costToll, _, _, _, _ = ComputeNashFlowPoly(G, sampleODs, tOpt)
-
-    print("costNash: %f, costOpt: %f, costToll: %f" % (costNash, costOpt, costToll))
-    print("tOpt: ", tOpt)
+    tVal = ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile)
+    xNash, costNash, _, _, _, _ = ComputeNashFlowPoly(G, sampleODs)
+    xOpt, costOpt = ComputeOptimalFlowPoly(G, sampleODs)
+    xToll, costToll, _, _, _, _ = ComputeNashFlowPoly(G, sampleODs, tVal)
+    _, toll2 = ComputeOptimalTollsPoly(G, sampleODs, pathSolFile)
+    xToll2, costToll2, _, _, _, _ = ComputeNashFlowPoly(G, sampleODs, toll2)
 
     logFile.close()
 

@@ -83,9 +83,14 @@ def ComputeOptimalTollsPoly(G, sampleODs, pathSolFile):
 
     for var in m.getVars():
         varNames.append(str(var.varName))
-        varValues.append(var.X * minC)
+        varValues.append(var.X)
 
     with open(pathSolFile, 'wt') as solFile:
         wr = csv.writer(solFile, quoting=csv.QUOTE_ALL)
         wr.writerows(zip(varNames, varValues))
         solFile.close()
+
+    hOpt = varValues[0]
+    tOpt = varValues[1:tDim+1]
+
+    return hOpt, tOpt

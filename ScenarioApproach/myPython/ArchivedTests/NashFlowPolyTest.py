@@ -34,7 +34,7 @@ with open(pathLogFile, 'wt') as logFile:
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    xNash, costNash, idxZeroNash, xAllNash = ComputeNashFlowPoly(G, G.dataOD)
+    xNash, costNash, idxZeroNash, idxNonZeroNash, xAllNash = ComputeNashFlowPoly(G, G.dataOD)
     print("Nash Flow Cost: %f" % costNash)
 
     np.savetxt("TempData\\xNash.csv", xNash, delimiter=',')

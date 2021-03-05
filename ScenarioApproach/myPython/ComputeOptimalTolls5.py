@@ -83,6 +83,6 @@ def ComputeOptimalTolls5(G, sampleODs, pathSolFile, bigM):
         solFile.close()
 
     hOpt = varValues[0]
-    tOpt = varValues[1:hDim+tDim+1]
+    tOpt = varValues[1:tDim+1]
 
     return hOpt, tOpt

@@ -24,8 +24,8 @@ def ComputeOptimalTolls1(G, sampleODs, pathSolFile):
     a = G.a
 
     # compute decision variable dimensions
-    tDim = M
     hDim = 1
+    tDim = M
     xDim = M + M * K
     uDim = xDim
     lDim = M + N * K
@@ -77,3 +77,8 @@ def ComputeOptimalTolls1(G, sampleODs, pathSolFile):
         wr = csv.writer(solFile, quoting=csv.QUOTE_ALL)
         wr.writerows(zip(varNames, varValues))
         solFile.close()
+
+    hOpt = varValues[0]
+    tOpt = varValues[1:tDim+1]
+
+    return hOpt, tOpt
