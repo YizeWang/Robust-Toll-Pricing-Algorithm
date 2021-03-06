@@ -9,10 +9,10 @@ from ComputeSocialCost import *
 eps = np.finfo(np.float64).eps
 
 
-def ComputeFlowPoly(G, ODs, toll=None, type='Nash'):
+def ComputeFlow(G, ODs, toll=None, type='Nash'):
 
     # create a new model
-    nameModel = type + 'Flow Calculator'
+    nameModel = type + ' Flow Calculator'
     m = gp.Model(nameModel)
     m.Params.OutputFlag = 0
 
@@ -54,19 +54,20 @@ def ComputeFlowPoly(G, ODs, toll=None, type='Nash'):
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], PPlusOne[i])  # y = z ^ (P + 1)
 
-    m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * z[i] for i in range(xDim)))  # obj = a * x ^ (P + 1) + c * z
+    # obj = a * x ^ (P + 1) + c * z
+    m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * z[i] for i in range(xDim)))
 
     # solve optimization
     m.optimize()
 
     # print results
-    flow           = []  # flow values
-    idxZeroFlow    = []  # indicies of zero-flow links, range: [M, M + M * K]
+    flow = []            # flow values
+    idxZeroFlow = []     # indicies of zero-flow links, range: [M, M + M * K]
     idxNonZeroFlow = []  # indicies of non-zero-flow links, range: [M, M + M * K]
-    idxUsed        = []  # indicies of used links, range: [0, M]
+    idxUsed = []         # indicies of used links, range: [0, M]
 
     for idx, var in enumerate(m.getVars()):
-        x = var.X * C0  # x = z * C0
+        x = var.X * C0 if idx < XDim else var.X * (C0 ** (G.P[idx-XDim] + 1))  # x = z * C0
         flow.append(x)
 
         if idx >= M and idx < XDim:

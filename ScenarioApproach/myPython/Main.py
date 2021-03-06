@@ -1,20 +1,11 @@
 import sys
 import numpy as np
 from ParseTNTP import *
-from GetEqualityConstraints import *
 from GenerateSamples import *
-from ComputeOptimalTolls1 import *
-from ComputeOptimalTolls2 import *
-from ComputeOptimalTolls4 import *
-from ComputeOptimalTolls5 import *
-from ComputeNashFlow import *
-from ComputeOptimalFlow import *
-from ComputeOptimalTollsPolyNew import *
 from datetime import datetime
 import winsound
-from ComputeOptimalFlowPoly import *
-from ComputeOptimalTollsPoly import *
-
+from ComputeOptimalTolls import *
+from ComputeFlow import *
 
 pathDataFolder = '..\\myRealData\\'
 pathLogFolder = '.\\Log\\'
@@ -30,34 +21,34 @@ nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 nameNet4 = 'SiouxFallsSmall'
 
-nameNet = nameNet2
-numSmpl = 5
+nameNet = nameNet1
+numSmpl = 0
 
 with open(pathLogFile, 'wt') as logFile:
     
     sys.stdout = logFile
 
     G = ParseTNTP(pathDataFolder, nameNet)
-    G = TruncateODs(G, numODs=0, scaleFactor=0.853)
     # G = TruncateODs(G, numODs=0, scaleFactor=1)
+    G = TruncateODs(G, numODs=0, scaleFactor=0.853)
+
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    xNash, costNash, idxZeroNash, _, _, _ = ComputeNashFlowPoly(G, G.dataOD)
+    xNash, costNash, _, _, _, _ = ComputeFlow(G, G.dataOD, type='Nash')
     print("Nash Flow Cost: %f" % costNash)
 
-    xOpt, costOpt = ComputeOptimalFlowPoly(G, G.dataOD)
+    xOpt, costOpt, _, _, _, _ = ComputeFlow(G, G.dataOD, type='Optimal')
     print("Optimal Flow Cost: %f" % costOpt)
 
-    # xMax = np.max(xNash)
-    # bigM = np.ceil(15 * xMax)
-    # print("big-M: %d" % bigM)
+    tOpt1 = ComputeOptimalTolls(G, G.dataOD, pathSolFile, baseType='Nash')
+    xToll1, costToll1, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt1, type='Nash')
 
-    tOpt = ComputeOptimalTollsPolyNew(G, G.dataOD, pathSolFile)
-    xToll, costToll, idxZeroToll, _, _, _ = ComputeNashFlowPoly(G, sampleODs, tOpt)
+    tOpt2 = ComputeOptimalTolls(G, G.dataOD, pathSolFile, baseType='Optimal')
+    xToll2, costToll2, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt2, type='Nash')
 
-    print("costNash: %f, costOpt: %f, costToll: %f" % (costNash, costOpt, costToll))
-    print("tOpt: ", tOpt)
+    print("costNash: %f, costOpt: %f, costToll1: %f, costToll2: %f" % (costNash, costOpt, costToll1, costToll2))
+    print("tOpt1: ", tOpt1, " tOpt2: ", tOpt2)
 
     logFile.close()
 

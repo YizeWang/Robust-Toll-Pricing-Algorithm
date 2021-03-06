@@ -4,13 +4,13 @@ from GetEqualityConstraints import *
 from scipy import sparse
 from GetRowColDict import *
 from ComputeSocialCost import *
-from ComputeNashFlowPoly import *
+from ComputeFlow import *
 
 
-def ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile):
+def ComputeOptimalTolls(G, sampleODs, pathSolFile, baseType='Nash'):
 
     # create a new model
-    m = gp.Model("Toll-Calculator")
+    m = gp.Model("Toll Calculator")
     m.Params.OutputFlag = 1
 
     # extract variable dimensions
@@ -19,8 +19,8 @@ def ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile):
     K = G.numDmnd
 
     # extract cost coefficients
-    C0 = np.min(G.C) # use min capacity as rescale factor
-    normC = C0 / G.C # reciprocal of normalized capacity
+    C0 = np.min(G.C)  # use min capacity as rescale factor
+    normC = C0 / G.C  # reciprocal of normalized capacity
 
     # coefficients in objective function
     ao = C0 * np.multiply(np.multiply(G.B, G.T), np.power(normC, G.P))
@@ -50,9 +50,9 @@ def ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile):
 
     sparseAT = sparse.csc_matrix(AT)
     rowsAT, colsAT = sparseAT.nonzero()
-    setRowsAT, dictColsAT = GetRowColDict(rowsAT, colsAT)
+    _, dictColsAT = GetRowColDict(rowsAT, colsAT)
 
-    _, _, idxZero, idxNonZero, idxUsed, _ = ComputeNashFlowPoly(G, sampleODs)
+    _, _, idxZero, idxNonZero, idxUsed, _ = ComputeFlow(G, sampleODs, type=baseType)
 
     h = m.addVars(hDim, vtype=GRB.CONTINUOUS,       name='h')
     t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0, name='t')
@@ -74,6 +74,7 @@ def ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile):
     m.addConstrs(                            - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in idxZero)     # x = 0
 
     # primal feasibility
+    m.addConstrs(z[i] >= 0 for i in idxUsed)
     m.addConstrs(z[i] >= 0 for i in idxNonZero)
     m.addConstrs(z[i] == 0 for i in idxZero)
 
