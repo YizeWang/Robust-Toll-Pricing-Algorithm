@@ -13,6 +13,7 @@ from ComputeOptimalTollsPolyNew import *
 from datetime import datetime
 import winsound
 from ComputeOptimalFlowPoly import *
+from ComputeOptimalTollsPoly import *
 
 
 pathDataFolder = '..\\myRealData\\'
@@ -42,24 +43,24 @@ with open(pathLogFile, 'wt') as logFile:
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    xNash, costNash, _, _, _, _ = ComputeNashFlowPoly(G, G.dataOD)
+    xNash, costNash, idxZeroNash, _, _, _ = ComputeNashFlowPoly(G, G.dataOD)
     print("Nash Flow Cost: %f" % costNash)
 
     xOpt, costOpt = ComputeOptimalFlowPoly(G, G.dataOD)
     print("Optimal Flow Cost: %f" % costOpt)
 
-    xMax = np.max(xNash)
-    bigM = np.ceil(15 * xMax)
-    print("big-M: %d" % bigM)
+    # xMax = np.max(xNash)
+    # bigM = np.ceil(15 * xMax)
+    # print("big-M: %d" % bigM)
 
     tOpt = ComputeOptimalTollsPolyNew(G, G.dataOD, pathSolFile)
-    xToll, costToll, _, _, _, _ = ComputeNashFlowPoly(G, sampleODs, tOpt)
+    xToll, costToll, idxZeroToll, _, _, _ = ComputeNashFlowPoly(G, sampleODs, tOpt)
 
     print("costNash: %f, costOpt: %f, costToll: %f" % (costNash, costOpt, costToll))
     print("tOpt: ", tOpt)
 
     logFile.close()
 
-winsound.Beep(frequency=800, duration=2000)
+winsound.Beep(frequency=800, duration=1000)
 
 pass

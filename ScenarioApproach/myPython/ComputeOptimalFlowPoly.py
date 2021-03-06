@@ -6,6 +6,9 @@ from GetRowColDict import *
 from ComputeSocialCost import *
 
 
+eps = np.finfo(np.float64).eps
+
+
 def ComputeOptimalFlowPoly(G, ODs):
 
     # create a new model

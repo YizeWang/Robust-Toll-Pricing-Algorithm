@@ -5,12 +5,15 @@ from scipy import sparse
 from GetRowColDict import *
 from ComputeSocialCost import *
 
+
 eps = np.finfo(np.float64).eps
 
-def ComputeNashFlowPoly(G, ODs, tolls=None):
+
+def ComputeNashFlowPoly(G, ODs, toll=None, type='Nash'):
 
     # create a new model
-    m = gp.Model("Nash Flow Calculator")
+    nameModel = type + 'Flow Calculator'
+    m = gp.Model(nameModel)
     m.Params.OutputFlag = 0
 
     # extract network dimensions
@@ -19,8 +22,8 @@ def ComputeNashFlowPoly(G, ODs, tolls=None):
     K = G.numDmnd
 
     # regularize capacity
-    C0 = np.min(G.C) # use min capacity as rescale factor
-    normC = C0 / G.C # reciprocal of normalized capacity
+    C0 = np.min(G.C)  # use min capacity as rescale factor
+    normC = C0 / G.C  # reciprocal of normalized capacity
 
     PPlus = G.P + 1
 
@@ -28,7 +31,7 @@ def ComputeNashFlowPoly(G, ODs, tolls=None):
     a = np.multiply(a, np.power(normC, G.P))
     a = a * C0
     a = np.divide(a, PPlus)
-    c = G.T * C0 if tolls == None else (G.T + tolls) * C0
+    c = G.T * C0 if toll == None else (G.T + toll) * C0
 
     # compute decision variable dimensions
     xDim = M
@@ -40,10 +43,12 @@ def ComputeNashFlowPoly(G, ODs, tolls=None):
     rows, cols = sparseA.nonzero()
     setRows, dictCols = GetRowColDict(rows, cols)
 
-    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='z') # z = x / C0
-    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y') # y = z ^ (P + 1)
+    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='z')  # z = x / C0
+    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,
+                  name='y')  # y = z ^ (P + 1)
 
-    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row]/C0 for row in setRows) # Ax == b
+    m.addConstrs(gp.quicksum(A[row, col] * z[col]
+                             for col in dictCols[row]) == b[row]/C0 for row in setRows)  # Ax == b
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], PPlus[i])
@@ -60,11 +65,12 @@ def ComputeNashFlowPoly(G, ODs, tolls=None):
     idxUsed = []
 
     for idx, var in enumerate(m.getVars()):
-        x = var.X * C0 # x = z * C0
+        x = var.X * C0  # x = z * C0
         varValues.append(x)
 
         if idx >= M and idx < XDim:
-            idxZero.append(idx) if x < eps else idxNonZero.append(idx) # keep track of indices of zero-valued elements
+            idxZero.append(idx) if x < eps else idxNonZero.append(
+                idx)  # keep track of indices of zero-valued elements
 
         if idx < M and x > eps:
             idxUsed.append(idx)

@@ -45,8 +45,12 @@ def ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile):
     AT = np.transpose(A)
 
     sparseA = sparse.csc_matrix(A)
-    rows, cols = sparseA.nonzero()
-    setRows, dictCols = GetRowColDict(rows, cols)
+    rowsA, colsA = sparseA.nonzero()
+    setRowsA, dictColsA = GetRowColDict(rowsA, colsA)
+
+    sparseAT = sparse.csc_matrix(AT)
+    rowsAT, colsAT = sparseAT.nonzero()
+    setRowsAT, dictColsAT = GetRowColDict(rowsAT, colsAT)
 
     _, _, idxZero, idxNonZero, idxUsed, _ = ComputeNashFlowPoly(G, sampleODs)
 
@@ -62,12 +66,12 @@ def ComputeOptimalTollsPolyNew(G, sampleODs, pathSolFile):
         m.addGenConstrPow(z[i], y[i], G.P[i] + 1) # y = z ^ (P + 1)
         m.addGenConstrPow(z[i], w[i], G.P[i])     # w = z ^ P
 
-    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows) # C0 * A * z = b
+    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictColsA[row]) == b[row] / C0 for row in setRowsA) # C0 * A * z = b
 
     # stationarity
-    m.addConstrs(ak[i] * w[i] + ck[i] + t[i] - u[i] + gp.quicksum(AT[i, j] * l[j] for j in range(lDim)) == 0 for i in range(xDim)) # xLink
-    m.addConstrs(                                     gp.quicksum(AT[i, j] * l[j] for j in range(lDim)) == 0 for i in idxNonZero)  # u = 0
-    m.addConstrs(                            - u[i] + gp.quicksum(AT[i, j] * l[j] for j in range(lDim)) == 0 for i in idxZero)     # x = 0
+    m.addConstrs(ak[i] * w[i] + ck[i] + t[i] - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim)) # xLink
+    m.addConstrs(                                     gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in idxNonZero)  # u = 0
+    m.addConstrs(                            - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in idxZero)     # x = 0
 
     # primal feasibility
     m.addConstrs(z[i] >= 0 for i in idxNonZero)
