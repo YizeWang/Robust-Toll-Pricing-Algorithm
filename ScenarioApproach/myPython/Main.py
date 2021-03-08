@@ -7,6 +7,7 @@ import winsound
 from ComputeOptimalTolls import *
 from ComputeFlow import *
 
+
 pathDataFolder = '..\\myRealData\\'
 pathLogFolder = '.\\Log\\'
 
@@ -21,7 +22,7 @@ nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 nameNet4 = 'SiouxFallsSmall'
 
-nameNet = nameNet1
+nameNet = nameNet3
 numSmpl = 0
 
 with open(pathLogFile, 'wt') as logFile:

@@ -7,6 +7,7 @@ import winsound
 from ComputeOptimalTolls import *
 from ComputeFlow import *
 
+
 pathDataFolder = '..\\myRealData\\'
 pathLogFolder = '.\\Log\\'
 
@@ -20,8 +21,9 @@ nameNet1 = 'SimpleGeneralNetwork'
 nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 nameNet4 = 'SiouxFallsSmall'
+nameNet5 = 'Friedrichshain'
 
-nameNet = nameNet2
+nameNet = nameNet5
 numSmpl = 0
 
 with open(pathLogFile, 'wt') as logFile:
@@ -29,8 +31,8 @@ with open(pathLogFile, 'wt') as logFile:
     sys.stdout = logFile
 
     resMat = np.array([[], [], [], [], []])
-    scaleFactors = np.logspace(-1, 0.5, num=50)
-    # scaleFactors = [3.5]
+    # scaleFactors = np.logspace(-1, 0.5, num=50)
+    scaleFactors = [1]
 
     for scaleFactor in scaleFactors:
 
