@@ -1,13 +1,11 @@
 import gurobipy as gp
 from gurobipy import GRB
 from GetEqualityConstraints import *
-from scipy import sparse
 from GetNonZeroDictionary import *
 from ComputeSocialCost import *
-from ComputeFlow import *
 
 
-def ComputeOptimalTolls(G, sampleODs, pathSolFile, baseType='Nash'):
+def ComputeOptimalTolls(G, sampleODs, pathSolFile):
 
     # create a new model
     m = gp.Model("Toll Calculator")
@@ -60,14 +58,14 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, baseType='Nash'):
         m.addGenConstrPow(z[i], w[i], G.P[i])      # w = z ^ P
 
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictColsA[row]) == b[row] / C0 for row in setRowsA)  # C0 * A * z = b
-    m.addConstrs(ak[i] * w[i] + ck[i] + t[i] - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim))
+    m.addConstrs(ak[i] * w[i] + ck[i] + t[i]        + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim))
     m.addConstrs(                            - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim, XDim))
-    m.addConstrs(z[i] * u[i] == 0 for i in range(XDim))
+    m.addConstrs(z[i] * u[i] == 0 for i in range(xDim, XDim))
 
     # objective function
     m.setObjective(gp.quicksum(ao[i] * y[i] + co[i] * z[i] for i in range(xDim)))
 
-    # solve optimization
+     # solve optimization
     m.optimize()
 
     # print results
