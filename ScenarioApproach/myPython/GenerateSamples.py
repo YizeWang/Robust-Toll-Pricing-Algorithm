@@ -1,14 +1,14 @@
 import numpy as np
 
 
-def GenerateSamples(ODs, numSmpl, range=0.5):
+def GenerateSamples(ODs, numSmpl, range=0.2):
     
     numDmnd = len(ODs)
-    baseDemands = ODs[:, 2:2+1]
+    baseDemands = ODs[:, 2:]
 
-    coeff = 2 * range * np.random.rand(numDmnd, numSmpl) - range + 1 # coeffs lie in [1-range, 1+range]
-    sampleDmnd = np.multiply(coeff, baseDemands)
+    coeff = 2 * range * np.random.rand(numDmnd, numSmpl) - range + 1  # coeffs lie in [1-range, 1+range]
+    sampleDmnd = np.multiply(coeff, baseDemands)                      # scale base demands with coefficients
 
-    sampleODs = np.concatenate((ODs[:, 0:2], sampleDmnd), axis=1)
+    sampleODs = np.hstack((ODs[:, :2], sampleDmnd))
 
     return sampleODs

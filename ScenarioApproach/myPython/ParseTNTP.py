@@ -12,8 +12,8 @@ def ParseTNTP(pathDataFolder, nameNet):
     pathDataPre  = pathDataFolder + nameNet + '\\' + nameNet + '_'
 
     pathDataNode = pathDataPre + 'node' + '.tntp'
-    pathDataNet  = pathDataPre +  'net' + '.tntp'
-    pathDataOD   = pathDataPre +  'ODs' + '.tntp'
+    pathDataNet  = pathDataPre + 'net'  + '.tntp'
+    pathDataOD   = pathDataPre + 'ODs'  + '.tntp'
 
     G = Graph()
 
@@ -35,28 +35,22 @@ def ParseTNTP(pathDataFolder, nameNet):
     G.P = np.array(dataNet.power,          dtype=np.double)
     G.C = np.array(dataNet.capacity,       dtype=np.double)
 
-    G.a = np.multiply(G.T, G.B)
-    G.c = G.T
-    
-    G.Q = np.diag(G.a)
-    G.q = G.c
-
     return G
 
 
-def TruncateODs(G, numODs=0, scaleFactor=1.0):
+def ModifyODs(G, numODs=0, scaleFactor=1.0):
 
     if scaleFactor < 0.0:
         scaleFactor = 1.0
-        print('Negative Scale Factor, Reset to 1')
+        print('Invalid Negative Scale Factor, Reset to 1')
 
     if numODs < 0 or numODs > G.numDmnd:
         print('Invalid Number of Demands, Reset to All Demands')
     elif numODs != 0:
-        G.dataOD = G.dataOD[:numODs, :] # truncate OD pairs
-        G.numDmnd = numODs # update number of demands
+        G.dataOD = G.dataOD[:numODs, :]  # truncate OD pairs
+        G.numDmnd = numODs               # update number of demands
 
+    G.dataOD[:, 2] = G.dataOD[:, 2] * scaleFactor  # scale demands
     print('Considering %d Demands with Scale Factor %f' % (G.numDmnd, scaleFactor))
-    G.dataOD[:, 2] = G.dataOD[:, 2] * scaleFactor # scale demands
 
     return G

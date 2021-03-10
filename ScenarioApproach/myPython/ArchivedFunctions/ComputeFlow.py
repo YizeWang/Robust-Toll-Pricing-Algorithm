@@ -1,6 +1,6 @@
 import gurobipy as gp
 from gurobipy import GRB
-from GetSparseEqualityConstraints import *
+from GetEqualityConstraints import *
 from scipy import sparse
 from GetRowColDict import *
 from ComputeSocialCost import *
@@ -9,12 +9,12 @@ from ComputeSocialCost import *
 eps = np.finfo(np.float64).eps
 
 
-def ComputeFlowSparse(G, ODs, toll=None, type='Nash'):
+def ComputeFlow(G, ODs, toll=None, type='Nash'):
 
     # create a new model
     nameModel = type + ' Flow Calculator'
     m = gp.Model(nameModel)
-    m.Params.OutputFlag = 0
+    m.Params.OutputFlag = 1
 
     # extract network dimensions
     M = G.numEdge
@@ -40,18 +40,16 @@ def ComputeFlowSparse(G, ODs, toll=None, type='Nash'):
     xDim = M
     XDim = M + M * K
 
-    A, b = GetSparseEqualityConstraints(G, ODs)
-    b = b.toarray()
+    A, b = GetEqualityConstraints(G, ODs)
 
-    rows, cols = A.nonzero()
+    sparseA = sparse.csc_matrix(A)
+    rows, cols = sparseA.nonzero()
     setRows, dictCols = GetRowColDict(rows, cols)
 
     z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='z')  # z = x / C0
     y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y')  # y = z ^ (P + 1)
 
-    for row in setRows:
-        rowA = A[row, :].toarray()[0]
-        m.addConstr(gp.quicksum(rowA[col] * z[col] for col in dictCols[row]) == b[row] / C0)
+    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows)  # Ax == b
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], PPlusOne[i])  # y = z ^ (P + 1)

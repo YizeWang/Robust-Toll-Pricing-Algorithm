@@ -6,6 +6,7 @@ from datetime import datetime
 import winsound
 from ComputeOptimalTolls import *
 from ComputeFlow import *
+from ComputeOptimalTollsApproximate import *
 
 
 pathDataFolder = '..\\myRealData\\'
@@ -21,31 +22,32 @@ nameNet1 = 'SimpleGeneralNetwork'
 nameNet2 = 'SiouxFalls'
 nameNet3 = 'Brasse'
 nameNet4 = 'SiouxFallsSmall'
+nameNet5 = 'Friedrichshain'
+nameNet6 = 'Massachusetts'
 
-nameNet = nameNet3
+nameNet = nameNet2
 numSmpl = 0
 
 with open(pathLogFile, 'wt') as logFile:
-    
+
     sys.stdout = logFile
 
     G = ParseTNTP(pathDataFolder, nameNet)
-    # G = TruncateODs(G, numODs=0, scaleFactor=1)
-    G = TruncateODs(G, numODs=0, scaleFactor=0.853)
+    G = ModifyODs(G, numODs=0, scaleFactor=1.2)
 
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
 
-    xNash, costNash, _, _, _, _ = ComputeFlow(G, G.dataOD, type='Nash')
+    xNash, costNash, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash, flowNash = ComputeFlow(G, G.dataOD, type='Nash')
     print("Nash Flow Cost: %f" % costNash)
 
-    xOpt, costOpt, _, _, _, _ = ComputeFlow(G, G.dataOD, type='Optimal')
+    xOpt, costOpt, idxZeroFlowOpt, idxNonZeroFlowOpt, idxUsedOpt, flowOpt = ComputeFlow(G, G.dataOD, type='Optimal')
     print("Optimal Flow Cost: %f" % costOpt)
 
-    tOpt1 = ComputeOptimalTolls(G, G.dataOD, pathSolFile, baseType='Nash')
+    tOpt1 = ComputeOptimalTollsApproximate(G, sampleODs, pathSolFile, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash)
     xToll1, costToll1, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt1, type='Nash')
 
-    tOpt2 = ComputeOptimalTolls(G, G.dataOD, pathSolFile, baseType='Optimal')
+    tOpt2 = ComputeOptimalTollsApproximate(G, sampleODs, pathSolFile, idxZeroFlowOpt, idxNonZeroFlowOpt, idxUsedOpt)
     xToll2, costToll2, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt2, type='Nash')
 
     print("costNash: %f, costOpt: %f, costToll1: %f, costToll2: %f" % (costNash, costOpt, costToll1, costToll2))

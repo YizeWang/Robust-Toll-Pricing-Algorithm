@@ -2,7 +2,7 @@ import gurobipy as gp
 from gurobipy import GRB
 from GetEqualityConstraints import *
 from scipy import sparse
-from GetRowColDict import *
+from GetNonZeroDictionary import *
 from ComputeSocialCost import *
 
 
@@ -14,7 +14,7 @@ def ComputeFlow(G, ODs, toll=None, type='Nash'):
     # create a new model
     nameModel = type + ' Flow Calculator'
     m = gp.Model(nameModel)
-    m.Params.OutputFlag = 0
+    m.Params.OutputFlag = 1
 
     # extract network dimensions
     M = G.numEdge
@@ -41,20 +41,17 @@ def ComputeFlow(G, ODs, toll=None, type='Nash'):
     XDim = M + M * K
 
     A, b = GetEqualityConstraints(G, ODs)
-
-    sparseA = sparse.csc_matrix(A)
-    rows, cols = sparseA.nonzero()
-    setRows, dictCols = GetRowColDict(rows, cols)
+    setRows, dictCols = GetNonZeroDictionary(A)
 
     z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='z')  # z = x / C0
     y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y')  # y = z ^ (P + 1)
 
-    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows)  # Ax == b
+    m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows)
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], PPlusOne[i])  # y = z ^ (P + 1)
 
-    # obj = a * x ^ (P + 1) + c * z
+    # obj = a * z ^ (P + 1) + c * z
     m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * z[i] for i in range(xDim)))
 
     # solve optimization
@@ -62,8 +59,8 @@ def ComputeFlow(G, ODs, toll=None, type='Nash'):
 
     # print results
     flow = []            # flow values
-    idxZeroFlow = []     # indicies of zero-flow links, range: [M, M + M * K]
-    idxNonZeroFlow = []  # indicies of non-zero-flow links, range: [M, M + M * K]
+    idxZeroFlow = []     # indicies of zero-flow links, range: [M, M+M*K]
+    idxNonZeroFlow = []  # indicies of non-zero-flow links, range: [M, M+M*K]
     idxUsed = []         # indicies of used links, range: [0, M]
 
     for idx, var in enumerate(m.getVars()):
