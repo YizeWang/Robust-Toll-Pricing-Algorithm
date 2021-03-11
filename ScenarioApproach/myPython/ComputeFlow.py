@@ -9,12 +9,12 @@ from ComputeSocialCost import *
 eps = np.finfo(np.float64).eps
 
 
-def ComputeFlow(G, ODs, toll=None, type='Nash'):
+def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
 
     # create a new model
     nameModel = type + ' Flow Calculator'
     m = gp.Model(nameModel)
-    m.Params.OutputFlag = 1
+    m.Params.OutputFlag = verbose
 
     # extract network dimensions
     M = G.numEdge
@@ -56,6 +56,11 @@ def ComputeFlow(G, ODs, toll=None, type='Nash'):
 
     # solve optimization
     m.optimize()
+
+    # if model was not solved to optimality
+    if m.Status != 2:
+        print("Fail to Solve the Model to Optimality, Error Code: %d" % m.Status)
+        return [], -1, [], [], [], []
 
     # print results
     flow = []            # flow values

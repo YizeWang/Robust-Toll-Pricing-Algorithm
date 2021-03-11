@@ -5,11 +5,11 @@ from GetNonZeroDictionary import *
 from ComputeSocialCost import *
 
 
-def ComputeOptimalTolls(G, sampleODs, pathSolFile):
+def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
 
     # create a new model
     m = gp.Model("Toll Calculator")
-    m.Params.OutputFlag = 1
+    m.Params.OutputFlag = verbose
 
     # extract variable dimensions
     M = G.numEdge
@@ -68,6 +68,11 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile):
      # solve optimization
     m.optimize()
 
+    # if model was not solved to optimality
+    if m.Status != 2:
+        print("Fail to Solve the Model to Optimality, Error Code: %d" % m.Status)
+        return [0 for x in range(M)]
+        
     # print results
     varNames = []
     varValues = []
@@ -92,5 +97,15 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile):
     yVal = [varValues[i] for i in yPos]
     wVal = [varValues[i] for i in wPos]
     xVal = np.array(zVal) * C0
+
+    if verbose:
+        print("hVal: " % hVal)
+        print("tVal: " % tVal)
+        print("zVal: " % zVal)
+        print("uVal: " % uVal)
+        print("lVal: " % lVal)
+        print("yVal: " % yVal)
+        print("wVal: " % wVal)
+        print("xVal: " % xVal)
 
     return tVal
