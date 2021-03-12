@@ -59,8 +59,7 @@ def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
 
     # if model was not solved to optimality
     if m.Status != 2:
-        print("Fail to Solve the Model to Optimality, Error Code: %d" % m.Status)
-        return [], -1, [], [], [], []
+        raise Exception("Fail to Solve the Model to Optimality, Error Code: %d" % m.Status)
 
     # print results
     flow = []            # flow values

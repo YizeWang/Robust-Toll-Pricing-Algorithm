@@ -3,6 +3,7 @@ from gurobipy import GRB
 from GetEqualityConstraints import *
 from GetNonZeroDictionary import *
 from ComputeSocialCost import *
+from ComputeInitialPoint import *
 
 
 def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
@@ -10,6 +11,9 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     # create a new model
     m = gp.Model("Toll Calculator")
     m.Params.OutputFlag = verbose
+    m.Params.MIPFocus = 0
+    m.Params.Heuristics = 0.2
+    m.Params.MIPGap = 1e-2
 
     # extract variable dimensions
     M = G.numEdge
@@ -45,13 +49,13 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     setRowsA, dictColsA = GetNonZeroDictionary(A)
     setRowsAT, dictColsAT = GetNonZeroDictionary(AT)
 
-    h = m.addVars(hDim, vtype=GRB.CONTINUOUS, lb=0, name='h')
-    t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0, name='t')
-    z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0, name='z')  # z = x / C0
-    u = m.addVars(uDim, vtype=GRB.CONTINUOUS, lb=0, name='u')
-    l = m.addVars(lDim, vtype=GRB.CONTINUOUS, lb=0, name='l')
-    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y')  # y = z ^ (P + 1)
-    w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='w')  # w = z ^ P
+    h = m.addVars(hDim, vtype=GRB.CONTINUOUS, lb=0,       name='h')
+    t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0, ub=0, name='t')
+    z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0,       name='z')  # z = x / C0
+    u = m.addVars(uDim, vtype=GRB.CONTINUOUS, lb=0,       name='u')
+    l = m.addVars(lDim, vtype=GRB.CONTINUOUS,             name='l')
+    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
+    w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='w')  # w = z ^ P
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], G.P[i] + 1)  # y = z ^ (P + 1)
@@ -70,42 +74,26 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
 
     # if model was not solved to optimality
     if m.Status != 2:
-        print("Fail to Solve the Model to Optimality, Error Code: %d" % m.Status)
-        return [0 for x in range(M)]
-        
-    # print results
-    varNames = []
-    varValues = []
+        raise Exception("Fail to Solve the Model to Optimality, Error Code: %d" % m.Status)
 
-    for var in m.getVars():
-        varNames.append(str(var.varName))
-        varValues.append(var.X)
-
-    hPos = range(0, hDim)
-    tPos = range(np.max(hPos) + 1, np.max(hPos) + tDim + 1)
-    zPos = range(np.max(tPos) + 1, np.max(tPos) + zDim + 1)
-    uPos = range(np.max(zPos) + 1, np.max(zPos) + uDim + 1)
-    lPos = range(np.max(uPos) + 1, np.max(uPos) + lDim + 1)
-    yPos = range(np.max(lPos) + 1, np.max(lPos) + yDim + 1)
-    wPos = range(np.max(yPos) + 1, np.max(yPos) + wDim + 1)
-
-    hVal = [varValues[i] for i in hPos]
-    tVal = [varValues[i] for i in tPos]
-    zVal = [varValues[i] for i in zPos]
-    uVal = [varValues[i] for i in uPos]
-    lVal = [varValues[i] for i in lPos]
-    yVal = [varValues[i] for i in yPos]
-    wVal = [varValues[i] for i in wPos]
+    # retrieve results
+    hVal = [h[i].X for i in range(hDim)]
+    tVal = [t[i].X for i in range(tDim)]
+    zVal = [z[i].X for i in range(zDim)]
+    uVal = [u[i].X for i in range(uDim)]
+    lVal = [l[i].X for i in range(lDim)]
+    yVal = [y[i].X for i in range(yDim)]
+    wVal = [w[i].X for i in range(wDim)]
     xVal = np.array(zVal) * C0
 
     if verbose:
-        print("hVal: " % hVal)
-        print("tVal: " % tVal)
-        print("zVal: " % zVal)
-        print("uVal: " % uVal)
-        print("lVal: " % lVal)
-        print("yVal: " % yVal)
-        print("wVal: " % wVal)
-        print("xVal: " % xVal)
+        print("hVal: ", hVal)
+        print("tVal: ", tVal)
+        print("zVal: ", zVal)
+        print("uVal: ", uVal)
+        print("lVal: ", lVal)
+        print("yVal: ", yVal)
+        print("wVal: ", wVal)
+        print("xVal: ", xVal)
 
     return tVal
