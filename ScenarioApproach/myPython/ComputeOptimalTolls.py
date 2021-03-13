@@ -3,7 +3,6 @@ from gurobipy import GRB
 from GetEqualityConstraints import *
 from GetNonZeroDictionary import *
 from ComputeSocialCost import *
-from ComputeInitialPoint import *
 
 
 def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):

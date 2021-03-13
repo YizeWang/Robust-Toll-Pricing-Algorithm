@@ -27,7 +27,7 @@ nameNet4 = 'SiouxFallsSmall'
 nameNet5 = 'Friedrichshain'
 nameNet6 = 'Massachusetts'
 
-nameNet = nameNet2
+nameNet = nameNet3
 numSmpl = 0
 
 with open(pathLogFile, 'wt') as logFile:
