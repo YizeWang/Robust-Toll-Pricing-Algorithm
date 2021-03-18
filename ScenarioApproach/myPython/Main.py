@@ -27,7 +27,7 @@ nameNet4 = 'SiouxFallsSmall'
 nameNet5 = 'Friedrichshain'
 nameNet6 = 'Massachusetts'
 
-nameNet = nameNet3             
+nameNet = nameNet3
 numSmpl = 0
 
 with open(pathLogFile, 'wt') as logFile:
@@ -41,28 +41,16 @@ with open(pathLogFile, 'wt') as logFile:
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
     
-    xNash, costNash, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash, flowNash = ComputeFlow(G, G.dataOD, type='Nash', verbose=verbose)
-    print("Nash Flow Cost: %f" % costNash)
-    print("xNash: ", xNash)
+    # xNash, costNash, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash, flowNash = ComputeFlow(G, G.dataOD, type='Nash', verbose=verbose)
+    # print("Nash Flow Cost: %f" % costNash)
 
     # xOpt, costOpt, idxZeroFlowOpt, idxNonZeroFlowOpt, idxUsedOpt, flowOpt = ComputeFlow(G, G.dataOD, type='Optimal', verbose=False)
     # print("Optimal Flow Cost: %f" % costOpt)
 
-
-    # tOpt1 = ComputeOptimalTollsApproximate(G, sampleODs, pathSolFile, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash, verbose=verbose)
-    # xToll1, costToll1, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt1, verbose=verbose)
-    # print("costToll1: %f" % costToll1)
-    # print("tOpt1: ", tOpt1)
-
-    # tOpt2 = ComputeOptimalTollsApproximate(G, sampleODs, pathSolFile, idxZeroFlowOpt, idxNonZeroFlowOpt, idxUsedOpt, verbose=verbose)
-    # xToll2, costToll2, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt2, verbose=verbose)
-    # print("costToll2: %f" % costToll2)
-    # print("tOpt2: ", tOpt2)
-
-    # tOpt = ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=True)
-    # xToll, costToll, _, _, _, _ = ComputeFlow(G, sampleODs, tOpt, verbose=verbose)
-    # print("costToll: %f" % costToll)
-    # print("tOpt: ", tOpt)
+    tOpt = ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=True)
+    xToll, costToll, _, _, _, flowNash = ComputeFlow(G, sampleODs, tOpt, verbose=True)
+    print("costToll: %f" % costToll)
+    print("tOpt: ", tOpt)
 
     logFile.close()
 

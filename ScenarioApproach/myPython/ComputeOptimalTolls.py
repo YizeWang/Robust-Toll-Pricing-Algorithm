@@ -22,14 +22,14 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
 
     # extract cost coefficients
     C0 = np.min(G.C)  # use min capacity as rescale factor
-    normC = C0 / G.C  # reciprocal of normalized capacity
+    regC = C0 / G.C   # reciprocal of regularized capacity
 
     # coefficients in objective function
-    ao = C0 * np.multiply(np.multiply(G.B, G.T), np.power(normC, G.P))
+    ao = C0 * np.multiply(np.multiply(G.B, G.T), np.power(regC, G.P))
     co = C0 * G.T
 
     # coefficients in KKT conditions
-    ak = np.multiply(np.multiply(G.B, G.T), np.power(normC, G.P))
+    ak = np.multiply(np.multiply(G.B, G.T), np.power(regC, G.P))
     ck = G.T
 
     # compute decision variable dimensions
@@ -56,7 +56,6 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     l = m.addVars(lDim, vtype=GRB.CONTINUOUS,             name='l')
     y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
     w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='w')  # w = z ^ P
-    e = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='e')  # w = z ^ P
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], G.P[i] + 1)  # y = z ^ (P + 1)
@@ -65,7 +64,7 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictColsA[row]) == b[row] / C0 for row in setRowsA)  # C0 * A * z = b
     m.addConstrs(ak[i] * w[i] + ck[i] + t[i]        + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim))
     m.addConstrs(                            - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim, XDim))
-    m.addConstr(gp.quicksum(z[i] * u[i] for i in range(XDim)) - e <= 0)
+    m.addConstrs(z[i] * u[i] == 0 for i in range(xDim, XDim))
 
     # objective function
     m.setObjective(gp.quicksum(ao[i] * y[i] + co[i] * z[i] for i in range(xDim)))

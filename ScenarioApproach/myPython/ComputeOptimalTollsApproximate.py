@@ -18,14 +18,14 @@ def ComputeOptimalTollsApproximate(G, sampleODs, pathSolFile, idxZero, idxNonZer
 
     # extract cost coefficients
     C0 = np.min(G.C)  # use min capacity as rescale factor
-    normC = C0 / G.C  # reciprocal of normalized capacity
+    regC = C0 / G.C   # reciprocal of regularized capacity
 
     # coefficients in objective function
-    ao = C0 * np.multiply(np.multiply(G.B, G.T), np.power(normC, G.P))
+    ao = C0 * np.multiply(np.multiply(G.B, G.T), np.power(regC, G.P))
     co = C0 * G.T
 
     # coefficients in KKT conditions
-    ak = np.multiply(np.multiply(G.B, G.T), np.power(normC, G.P))
+    ak = np.multiply(np.multiply(G.B, G.T), np.power(regC, G.P))
     ck = G.T
 
     # compute decision variable dimensions
