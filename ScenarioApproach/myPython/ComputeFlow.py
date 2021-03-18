@@ -29,7 +29,7 @@ def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
 
     if type == 'Nash':
         a = np.divide(np.multiply(np.multiply(G.T, G.B), np.power(regC, G.P)), PPlusOne) * C0
-        c = G.T * C0 if toll == None else (G.T + toll) * C0
+        c = G.T * C0 if toll is None else (G.T + toll) * C0
     elif type == 'Optimal':
         a = np.multiply(np.multiply(G.T, G.B), np.power(regC, G.P)) * C0
         c = G.T * C0

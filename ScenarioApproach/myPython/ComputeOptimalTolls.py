@@ -13,6 +13,7 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     m.Params.MIPFocus = 0
     m.Params.Heuristics = 0.2
     m.Params.MIPGap = 1e-2
+    m.Params.NonConvex = 2
 
     # extract variable dimensions
     M = G.numEdge
@@ -49,12 +50,13 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     setRowsAT, dictColsAT = GetNonZeroDictionary(AT)
 
     h = m.addVars(hDim, vtype=GRB.CONTINUOUS, lb=0,       name='h')
-    t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0, ub=0, name='t')
+    t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0,       name='t')
     z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0,       name='z')  # z = x / C0
     u = m.addVars(uDim, vtype=GRB.CONTINUOUS, lb=0,       name='u')
     l = m.addVars(lDim, vtype=GRB.CONTINUOUS,             name='l')
     y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
     w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='w')  # w = z ^ P
+    e = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='e')  # w = z ^ P
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], G.P[i] + 1)  # y = z ^ (P + 1)
@@ -63,7 +65,7 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictColsA[row]) == b[row] / C0 for row in setRowsA)  # C0 * A * z = b
     m.addConstrs(ak[i] * w[i] + ck[i] + t[i]        + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim))
     m.addConstrs(                            - u[i] + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim, XDim))
-    m.addConstrs(z[i] * u[i] == 0 for i in range(xDim, XDim))
+    m.addConstr(gp.quicksum(z[i] * u[i] for i in range(XDim)) - e <= 0)
 
     # objective function
     m.setObjective(gp.quicksum(ao[i] * y[i] + co[i] * z[i] for i in range(xDim)))
