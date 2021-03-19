@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 
@@ -9,11 +10,11 @@ class Graph:
 
 def ParseTNTP(pathDataFolder, nameNet):
 
-    pathDataPre  = pathDataFolder + nameNet + '\\' + nameNet + '_'
+    pathDataPre  = os.path.join(pathDataFolder, nameNet)
 
-    pathDataNode = pathDataPre + 'node' + '.tntp'
-    pathDataNet  = pathDataPre + 'net'  + '.tntp'
-    pathDataOD   = pathDataPre + 'ODs'  + '.tntp'
+    pathDataNode = os.path.join(pathDataPre, nameNet + '_' + 'node' + '.tntp')
+    pathDataNet  = os.path.join(pathDataPre, nameNet + '_' + 'net'  + '.tntp')
+    pathDataOD   = os.path.join(pathDataPre, nameNet + '_' + 'ODs'  + '.tntp')
 
     G = Graph()
 

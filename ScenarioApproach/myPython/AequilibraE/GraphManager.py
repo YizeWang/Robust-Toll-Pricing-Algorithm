@@ -1,3 +1,4 @@
+import time
 import numpy as np
 from aequilibrae.paths import TrafficAssignment, TrafficClass
 from copy import copy
@@ -12,10 +13,10 @@ class GraphManager:
         self.graph.set_graph('distance')
         self.graph.set_blocked_centroid_flows(False)
 
-        self.FFT = self.graph.graph['free_flow_time'].to_numpy()
-        self.B   = self.graph.graph['b'].to_numpy()
-        self.C   = self.graph.graph['capacity'].to_numpy()
-        self.P   = self.graph.graph['power'].to_numpy()
+        self.FFT = copy(self.graph.graph['free_flow_time'].to_numpy())
+        self.B   = copy(self.graph.graph['b'].to_numpy())
+        self.C   = copy(self.graph.graph['capacity'].to_numpy())
+        self.P   = copy(self.graph.graph['power'].to_numpy())
 
         self.demand = demand
         self.toll = np.zeros(self.graph.num_links)
@@ -35,7 +36,7 @@ class GraphManager:
     def ImposeToll(self, toll):
 
         self.graph.graph['free_flow_time'] = self.FFT + toll
-        self.graph.graph['b'] = np.divide(np.multiply(self.B, self.FFT), self.FFT)
+        self.graph.graph['b'] = np.divide(np.multiply(self.B, self.FFT), self.FFT + toll)
 
 
     def ComputeNashFlow(self, alg='bfw', maxIter=1000, gap=0.0001):
@@ -88,18 +89,19 @@ class GraphManager:
 
     def GradientDescent(self):
 
-        maxIteration = 1
-        currIteration = 1
+        maxIteration = 100
+        currIteration = 0
         nashFlow, _ = self.ComputeNashFlow()
         H = self.ComputeSocialCost(nashFlow)
         Hs = [H]
         tolls = np.zeros((1, self.graph.num_links))
         gammas = []
+        times = []
         print(H)
 
         while currIteration < maxIteration:
 
-            
+            start = time.time()
             currIteration = currIteration + 1
             grad = self.ComputeGradient(self.toll)
             gamma = 0.001 / currIteration
@@ -111,9 +113,10 @@ class GraphManager:
             nashFlow, _ = self.ComputeNashFlow()
             H = self.ComputeSocialCost(nashFlow)
             Hs.append(H)
-            print(H)
+            print("Iteration: %d, H: %.1f" % (currIteration, H))
+            times.append(float(time.time()-start))
             gammas.append(gamma)
-            if abs(prevH - H) < 10:
+            if abs(prevH - H) < 50:
                 break
 
-        return Hs, tolls, gammas
+        return Hs, tolls, gammas, times
