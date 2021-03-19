@@ -19,4 +19,5 @@ for line in lines:
 f = open(path, "w")
 f.writelines(newLines)
 f.close()
+
 pass

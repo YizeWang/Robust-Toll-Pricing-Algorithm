@@ -5,6 +5,7 @@ from aequilibrae.matrix import AequilibraeMatrix
 
 
 def InitProject(pathFolder, nameProject):
+    
     dmndFolder = join(pathFolder, '0_tntp_data')
     projFolder = join(pathFolder, '1_project')
     AssgFolder = join(pathFolder, '4_assignment_results')

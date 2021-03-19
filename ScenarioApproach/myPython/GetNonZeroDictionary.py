@@ -11,7 +11,7 @@ def GetNonZeroDictionary(A):
         currRow = rows[i]
         currCol = cols[i]
 
-        if currRow != prevRow and prevRow != None:
+        if currRow != prevRow and prevRow is not None:
             retCols[prevRow] = currColList
             currColList = []
         
