@@ -3,6 +3,7 @@ from InitProject import *
 import numpy as np
 from os.path import join
 import time
+import os
 
 
 pathFolder = '/home/onion/SiouxFalls'
@@ -13,9 +14,10 @@ graphManager = GraphManager(project, demand)
 
 Hs, tolls, gammas, times = graphManager.GradientDescent()
 
-np.savetxt(join("TempData", "xLink.csv"),     xLink,     delimiter=',')
 np.savetxt(join("TempData", "Hs.csv"),     Hs,     delimiter=',')
 np.savetxt(join("TempData", "tolls.csv"),  tolls,  delimiter=',')
 np.savetxt(join("TempData", "gammas.csv"), gammas, delimiter=',')
 np.savetxt(join("TempData", "times.csv"),  times,  delimiter=',')
 print("Total Time %.1fs" % np.sum(times))
+
+os.system('shutdown -t 1')

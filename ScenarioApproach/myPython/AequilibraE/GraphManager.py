@@ -89,7 +89,7 @@ class GraphManager:
 
     def GradientDescent(self):
 
-        maxIteration = 100
+        maxIteration = 200
         currIteration = 0
         nashFlow, _ = self.ComputeNashFlow()
         H = self.ComputeSocialCost(nashFlow)
@@ -97,7 +97,6 @@ class GraphManager:
         tolls = np.zeros((1, self.graph.num_links))
         gammas = []
         times = []
-        print(H)
 
         while currIteration < maxIteration:
 
