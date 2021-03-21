@@ -51,15 +51,15 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
 
     h = m.addVars(hDim, vtype=GRB.CONTINUOUS, lb=0,       name='h')
     t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0,       name='t')
-    z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0,       name='z')  # z = x / C0
+    z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0, ub=3, name='z')  # z = x / C0
     u = m.addVars(uDim, vtype=GRB.CONTINUOUS, lb=0,       name='u')
     l = m.addVars(lDim, vtype=GRB.CONTINUOUS,             name='l')
     y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
     w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='w')  # w = z ^ P
 
     for i in range(xDim):
-        m.addGenConstrPow(z[i], y[i], G.P[i] + 1)  # y = z ^ (P + 1)
-        m.addGenConstrPow(z[i], w[i], G.P[i])      # w = z ^ P
+        m.addGenConstrPow(z[i], y[i], G.P[i] + 1, options="FuncPieces=-2 FuncPieceError=1e-3")  # y = z ^ (P + 1)
+        m.addGenConstrPow(z[i], w[i], G.P[i], options="FuncPieces=-2 FuncPieceError=1e-3")      # w = z ^ P
 
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictColsA[row]) == b[row] / C0 for row in setRowsA)  # C0 * A * z = b
     m.addConstrs(ak[i] * w[i] + ck[i] + t[i]        + gp.quicksum(AT[i, j] * l[j] for j in dictColsAT[i]) == 0 for i in range(xDim))

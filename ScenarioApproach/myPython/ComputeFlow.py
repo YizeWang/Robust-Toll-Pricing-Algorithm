@@ -15,6 +15,8 @@ def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
     nameModel = type + ' Flow Calculator'
     m = gp.Model(nameModel)
     m.Params.OutputFlag = verbose
+    m.Params.Presolve = 0
+    m.Params.Aggregate = 0
 
     # extract network dimensions
     M = G.numEdge
@@ -43,13 +45,13 @@ def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
     A, b = GetEqualityConstraints(G, ODs)
     setRows, dictCols = GetNonZeroDictionary(A)
 
-    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, name='z')  # z = x / C0
-    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0, name='y')  # y = z ^ (P + 1)
+    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, ub=3, name='z')  # z = x / C0
+    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
 
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows)
 
     for i in range(xDim):
-        m.addGenConstrPow(z[i], y[i], PPlusOne[i])  # y = z ^ (P + 1)
+        m.addGenConstrPow(z[i], y[i], PPlusOne[i], options="FuncPieces=-2 FuncPieceError=1e-3")  # y = z ^ (P + 1)
 
     # obj = a * z ^ (P + 1) + c * z
     m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * z[i] for i in range(xDim)))
