@@ -1,7 +1,8 @@
 import time
 import numpy as np
-from aequilibrae.paths import TrafficAssignment, TrafficClass
 from copy import copy
+import numpy as nameProject
+from aequilibrae.paths import TrafficAssignment, TrafficClass
 
 
 class GraphManager:
@@ -66,56 +67,76 @@ class GraphManager:
 
         for m in range(numEdge):
 
-            minusTolls = copy(toll)
-            plusTolls = copy(toll)
-            minusTolls[m] = minusTolls[m] - deltaToll if minusTolls[m] - deltaToll > 0 else 0
-            plusTolls[m] = plusTolls[m] + deltaToll
+            minusToll = copy(toll)
+            plusToll = copy(toll)
+            minusToll[m] = max(minusToll[m]-deltaToll, 0)
+            plusToll[m] = plusToll[m] + deltaToll
 
-            self.ImposeToll(minusTolls)
+            self.ImposeToll(minusToll)
             minusFlow, _ = self.ComputeNashFlow()
             minusH = self.ComputeSocialCost(minusFlow)
 
-            self.ImposeToll(plusTolls)
+            self.ImposeToll(plusToll)
             plusFlow, _ = self.ComputeNashFlow()
             plusH = self.ComputeSocialCost(plusFlow)
 
             num = plusH - minusH
-            den = deltaToll * 2 if minusTolls[m] - deltaToll > 0 else deltaToll + minusTolls[m]
+            den = deltaToll * 2 if minusToll[m] > 0 else deltaToll + toll[m]
 
             gradient = num / den
             grad[m] = gradient
 
         return grad
 
-    def GradientDescent(self):
+    def ComputeTollNash(self, toll):
+        
+        self.ImposeToll(toll)
+        nashFlow, _ = self.ComputeNashFlow()
+        H = self.ComputeSocialCost(nashFlow)
+
+        return H
+
+    def GradientDescent(self, toll=None):
 
         maxIteration = 200
         currIteration = 0
-        nashFlow, _ = self.ComputeNashFlow()
-        H = self.ComputeSocialCost(nashFlow)
+
+        self.toll = np.zeros(self.graph.num_links) if toll is None else toll
+        H = self.ComputeTollNash(self.toll)
+
         Hs = [H]
-        tolls = np.zeros((1, self.graph.num_links))
         gammas = []
         times = []
+        tolls = np.reshape(self.toll, (1, -1))
+
+        print("Iteration: %d, H: %.1f" % (currIteration, H))
 
         while currIteration < maxIteration:
 
-            start = time.time()
+            startTime = time.time()
             currIteration = currIteration + 1
+
             grad = self.ComputeGradient(self.toll)
+
             gamma = 0.001 / currIteration
-            self.toll = self.toll - grad * gamma
+            step = grad * gamma
+            maxMagStep = np.max(np.abs(step))
+            step = step / maxMagStep
+
+            self.toll = self.toll - step
             self.toll[self.toll<0] = 0
-            tolls = np.vstack((tolls, self.toll))
+
+            tolls = np.vstack((tolls, np.reshape(self.toll, (1, -1))))
+
             prevH = copy(H)
-            self.ImposeToll(self.toll)
-            nashFlow, _ = self.ComputeNashFlow()
-            H = self.ComputeSocialCost(nashFlow)
+            H = self.ComputeTollNash(self.toll)
+            
             Hs.append(H)
-            print("Iteration: %d, H: %.1f" % (currIteration, H))
-            times.append(float(time.time()-start))
+            tElapsed = float(time.time()-startTime)
+            print("Iteration: %d, H: %.1f, Time: %.1f, Gamma: %f, dH: %.1f" % (currIteration, H, tElapsed, gamma, H-prevH))
+            times.append(tElapsed)
             gammas.append(gamma)
-            if abs(prevH - H) < 50:
-                break
+
+            if abs(prevH - H) < 200: break
 
         return Hs, tolls, gammas, times
