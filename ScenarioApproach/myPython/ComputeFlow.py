@@ -45,7 +45,7 @@ def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
     A, b = GetEqualityConstraints(G, ODs)
     setRows, dictCols = GetNonZeroDictionary(A)
 
-    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, ub=3, name='z')  # z = x / C0
+    z = m.addVars(XDim, vtype=GRB.CONTINUOUS, lb=0, ub=10, name='z')  # z = x / C0
     y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
 
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows)
