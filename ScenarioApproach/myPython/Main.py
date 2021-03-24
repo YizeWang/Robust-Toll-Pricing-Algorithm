@@ -43,17 +43,17 @@ with open(pathLogFile, 'wt') as logFile:
     sampleODs = G.dataOD
     # sampleODs = GenerateSamples(G.dataOD, numSmpl, range=0.05)
     
-    xNash, costNash, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash, flowNash = ComputeFlow(G, G.dataOD, type='Nash', verbose=verbose)
-    print("Nash Flow Cost: %f" % costNash)
+    # xNash, costNash, idxZeroFlowNash, idxNonZeroFlowNash, idxUsedNash, flowNash = ComputeFlow(G, G.dataOD, type='Nash', verbose=verbose)
+    # print("Nash Flow Cost: %f" % costNash)
 
-    xOpt, costOpt, idxZeroFlowOpt, idxNonZeroFlowOpt, idxUsedOpt, flowOpt = ComputeFlow(G, G.dataOD, type='Optimal', verbose=False)
-    print("Optimal Flow Cost: %f" % costOpt)
+    # xOpt, costOpt, idxZeroFlowOpt, idxNonZeroFlowOpt, idxUsedOpt, flowOpt = ComputeFlow(G, G.dataOD, type='Optimal', verbose=False)
+    # print("Optimal Flow Cost: %f" % costOpt)
 
     # tOpt = []
-    # tOpt = ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=True)
-    # xToll, costToll, _, _, _, flowNash = ComputeFlow(G, sampleODs, tOpt, verbose=True)
-    # print("costToll: %f" % costToll)
-    # print("tOpt: ", tOpt)
+    tOpt = ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=True)
+    xToll, costToll, _, _, _, flowNash = ComputeFlow(G, sampleODs, tOpt, verbose=True)
+    print("costToll: %f" % costToll)
+    print("tOpt: ", tOpt)
 
     logFile.close()
 

@@ -1,15 +1,20 @@
+import os
+import sys
 import numpy as np
 from os.path import join
 import matplotlib.pyplot as plt
 
 costNash = 7472359.874570
 costOpt = 7194810.972165
+costRestrictedOptToll = 7200479.683378
+         
+currPath = os.path.abspath(os.path.dirname(sys.argv[0]))
 
-H0 = np.genfromtxt(join("Test0322", "Hs0.csv"))
-H1 = np.genfromtxt(join("Test0322", "Hs1.csv"))
-H2 = np.genfromtxt(join("Test0322", "Hs2.csv"))
-H3 = np.genfromtxt(join("Test0322", "Hs3.csv"))
-H4 = np.genfromtxt(join("Test0322", "Hs4.csv"))
+H0 = np.genfromtxt(join(currPath, "Hs0.csv"))
+H1 = np.genfromtxt(join(currPath, "Hs1.csv"))
+H2 = np.genfromtxt(join(currPath, "Hs2.csv"))
+H3 = np.genfromtxt(join(currPath, "Hs3.csv"))
+H4 = np.genfromtxt(join(currPath, "Hs4.csv"))
 
 it0 = range(len(H0))
 it1 = range(len(H1))
@@ -28,6 +33,7 @@ ax1.plot(it3, H3, color='c', label='Init Toll: All 3')
 ax1.plot(it4, H4, color='m', label='Init Toll: All 4')
 ax1.hlines(costNash, 0, maxIteration, color='y', linestyle='dashed', label='Nash Cost')
 ax1.hlines(costOpt, 0, maxIteration, color='k', linestyle='dashed', label='Optimal Cost')
+ax1.hlines(costRestrictedOptToll, 0, maxIteration, color='lime', linestyle='dashed', label='Gurobi Optimal Cost (Toll < 10)')
 ax1.set_xlabel("Number of Iteration")
 ax1.set_ylabel("Social Cost")
 ax1.set_title("Gradient Descent")
@@ -46,11 +52,11 @@ ax2.set_title("Step Size")
 ax2.legend()
 
 ## figure 3 ##
-T0 = np.genfromtxt(join("Test0322", "times0.csv"))
-T1 = np.genfromtxt(join("Test0322", "times1.csv"))
-T2 = np.genfromtxt(join("Test0322", "times2.csv"))
-T3 = np.genfromtxt(join("Test0322", "times3.csv"))
-T4 = np.genfromtxt(join("Test0322", "times4.csv"))
+T0 = np.genfromtxt(join(currPath, "times0.csv"))
+T1 = np.genfromtxt(join(currPath, "times1.csv"))
+T2 = np.genfromtxt(join(currPath, "times2.csv"))
+T3 = np.genfromtxt(join(currPath, "times3.csv"))
+T4 = np.genfromtxt(join(currPath, "times4.csv"))
 fig3 = plt.figure(3)
 ax3 = fig3.add_subplot(111)
 ax3.plot(range(len(T0)), T0, color='b', label='Init Toll: All 0')
@@ -64,11 +70,12 @@ ax3.set_title("Time of Each Iteration")
 ax3.legend()
 
 # figure 4 ##
-Toll0 = np.genfromtxt(join("Test0322", "tolls0.csv"), delimiter=',')
-Toll1 = np.genfromtxt(join("Test0322", "tolls1.csv"), delimiter=',')
-Toll2 = np.genfromtxt(join("Test0322", "tolls2.csv"), delimiter=',')
-Toll3 = np.genfromtxt(join("Test0322", "tolls3.csv"), delimiter=',')
-Toll4 = np.genfromtxt(join("Test0322", "tolls4.csv"), delimiter=',')
+Toll0 = np.genfromtxt(join(currPath, "tolls0.csv"), delimiter=',')
+Toll1 = np.genfromtxt(join(currPath, "tolls1.csv"), delimiter=',')
+Toll2 = np.genfromtxt(join(currPath, "tolls2.csv"), delimiter=',')
+Toll3 = np.genfromtxt(join(currPath, "tolls3.csv"), delimiter=',')
+Toll4 = np.genfromtxt(join(currPath, "tolls4.csv"), delimiter=',')
+TollGurobi = np.genfromtxt(join(currPath, "tollOptGurobi.csv"), delimiter=',')
 fig4 = plt.figure(4)
 ax41 = fig4.add_subplot(221)
 ax42 = fig4.add_subplot(222)
