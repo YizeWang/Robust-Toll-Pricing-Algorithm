@@ -1,7 +1,6 @@
 import time
 import numpy as np
 from copy import copy
-import numpy as nameProject
 from aequilibrae.paths import TrafficAssignment, TrafficClass
 
 
@@ -43,6 +42,7 @@ class GraphManager:
     def ComputeNashFlow(self, alg='bfw', maxIter=1000, gap=0.0001):
 
         assig = TrafficAssignment()
+        assig.set_cores(4)
         assigclass = TrafficClass(self.graph, self.demand)
         assig.set_classes([assigclass])
         assig.set_vdf("BPR")
