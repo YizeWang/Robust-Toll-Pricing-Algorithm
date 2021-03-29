@@ -49,13 +49,13 @@ def ComputeOptimalTolls(G, sampleODs, pathSolFile, verbose=False):
     setRowsA, dictColsA = GetNonZeroDictionary(A)
     setRowsAT, dictColsAT = GetNonZeroDictionary(AT)
 
-    h = m.addVars(hDim, vtype=GRB.CONTINUOUS, lb=0,       name='h')
-    t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0,       name='t')
-    z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0, ub=3, name='z')  # z = x / C0
-    u = m.addVars(uDim, vtype=GRB.CONTINUOUS, lb=0,       name='u')
-    l = m.addVars(lDim, vtype=GRB.CONTINUOUS,             name='l')
-    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='y')  # y = z ^ (P + 1)
-    w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,       name='w')  # w = z ^ P
+    h = m.addVars(hDim, vtype=GRB.CONTINUOUS, lb=0,        name='h')
+    t = m.addVars(tDim, vtype=GRB.CONTINUOUS, lb=0,        name='t')
+    z = m.addVars(zDim, vtype=GRB.CONTINUOUS, lb=0, ub=10, name='z')  # z = x / C0
+    u = m.addVars(uDim, vtype=GRB.CONTINUOUS, lb=0,        name='u')
+    l = m.addVars(lDim, vtype=GRB.CONTINUOUS,              name='l')
+    y = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,        name='y')  # y = z ^ (P + 1)
+    w = m.addVars(xDim, vtype=GRB.CONTINUOUS, lb=0,        name='w')  # w = z ^ P
 
     for i in range(xDim):
         m.addGenConstrPow(z[i], y[i], G.P[i] + 1, options="FuncPieces=-2 FuncPieceError=1e-3")  # y = z ^ (P + 1)
