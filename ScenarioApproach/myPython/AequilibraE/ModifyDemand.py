@@ -16,13 +16,13 @@ demand.load(join(dmndFolder, 'demand.omx'))
 demand.computational_view(['matrix'])
 baseDemand = demand.matrix_view
 
-numSample = 3
+numSample = 10
 randRange = 0.2
 
 for s in range(numSample):
-    randCoeff = np.random.randn(baseDemand.shape[0], baseDemand.shape[1]) * randRange + numSample
+    randCoeff = (np.random.rand(baseDemand.shape[0], baseDemand.shape[1]) - 0.5) * 2 * randRange + 1
     randDemand = np.multiply(randCoeff, baseDemand)
-    nameMatrix = 'Demand' + str(s+1)
+    nameMatrix = 'Demand' + str(s)
     demand.matrix_view = randDemand
     demand.save([nameMatrix])
 

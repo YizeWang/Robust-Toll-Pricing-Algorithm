@@ -2,12 +2,15 @@ import time
 import numpy as np
 from copy import copy
 from aequilibrae.paths import TrafficAssignment, TrafficClass
+from os.path import join
+from aequilibrae.project import Project
+from aequilibrae.matrix import AequilibraeMatrix
 import matplotlib.pyplot as plt
 
 
-class GraphManager:
+class ScenarioApproachManager:
 
-    def __init__(self, project, demand):
+    def __init__(self, project, demand, numSample):
 
         project.network.build_graphs()
         self.graph = project.network.graphs['c']
@@ -20,6 +23,7 @@ class GraphManager:
         self.P   = copy(self.graph.graph['power'].to_numpy())
 
         self.demand = demand
+        self.numSample = numSample
         self.toll = np.zeros(self.graph.num_links)
 
 
@@ -40,7 +44,9 @@ class GraphManager:
         self.graph.graph['b'] = np.divide(np.multiply(self.B, self.FFT), self.FFT + toll)
 
 
-    def ComputeNashFlow(self, alg='bfw', maxIter=1000, gap=0.0001):
+    def ComputeNashFlow(self, indSample, alg='bfw', maxIter=1000, gap=0.0001):
+
+        self.demand.computational_view(['Demand'+str(indSample)])
 
         assig = TrafficAssignment()
         assigclass = TrafficClass(self.graph, self.demand)
@@ -62,6 +68,17 @@ class GraphManager:
         return nashFlow, rgap
         
 
+    def ComputeBigH(self):
+
+        hList = np.zeros(self.numSample)
+
+        for indSample in range(self.numSample):
+            nashFlow, _ = self.ComputeNashFlow(indSample)
+            hList[indSample] = self.ComputeSocialCost(nashFlow)
+
+        return np.max(hList), hList
+
+
     def ComputeGradient(self, toll, deltaToll=0.1):
         
         numEdge = self.graph.num_links
@@ -75,12 +92,10 @@ class GraphManager:
             plusToll[m] = plusToll[m] + deltaToll
 
             self.ImposeToll(minusToll)
-            minusFlow, _ = self.ComputeNashFlow()
-            minusH = self.ComputeSocialCost(minusFlow)
+            minusH, _ = self.ComputeBigH()
 
             self.ImposeToll(plusToll)
-            plusFlow, _ = self.ComputeNashFlow()
-            plusH = self.ComputeSocialCost(plusFlow)
+            plusH, _ = self.ComputeBigH()
 
             num = plusH - minusH
             den = deltaToll * 2 if minusToll[m] > 0 else deltaToll + toll[m]
@@ -90,15 +105,6 @@ class GraphManager:
 
         return grad
 
-
-    def ComputeTollNash(self, toll):
-        
-        self.ImposeToll(toll)
-        nashFlow, _ = self.ComputeNashFlow()
-        H = self.ComputeSocialCost(nashFlow)
-
-        return H
-
         
     def GradientDescent(self, toll=None):
 
@@ -106,9 +112,10 @@ class GraphManager:
         currIteration = 0
 
         self.toll = np.zeros(self.graph.num_links) if toll is None else toll
-        H = self.ComputeTollNash(self.toll)
+        H, hList = self.ComputeBigH()
 
         Hs = [H]
+        hLists = hList
         gammas = []
         times = []
         tolls = np.reshape(self.toll, (1, -1))
@@ -116,9 +123,12 @@ class GraphManager:
         print("Iteration: %d, H: %.1f" % (currIteration, H))
 
         fig = plt.figure()
-        ax = fig.add_subplot(111)
+        ax1 = fig.add_subplot(121)
         plt.xlim((0, maxIteration))
-        ax.scatter(0, H)
+        ax1.scatter(0, H)
+
+        ax2 = fig.add_subplot(122)
+        plt.xlim((0, maxIteration))
         plt.pause(0.00001)
 
         while currIteration < maxIteration:
@@ -139,17 +149,19 @@ class GraphManager:
             tolls = np.vstack((tolls, np.reshape(self.toll, (1, -1))))
 
             prevH = copy(H)
-            H = self.ComputeTollNash(self.toll)
+            H, hList = self.ComputeBigH()
             
             Hs.append(H)
+            hLists = np.vstack((hLists, hList))
             tElapsed = float(time.time()-startTime)
             print("Iteration: %d, H: %.1f, Time: %.1f, Gamma: %f, dH: %.1f" % (currIteration, H, tElapsed, gamma, H-prevH))
             times.append(tElapsed)
             gammas.append(gamma)
 
-            ax.plot(range(len(Hs)), Hs)
+            ax1.plot(range(len(Hs)), Hs)
+            ax2.plot(range(len(Hs)), hLists)
             plt.pause(0.00001)
 
             if abs(prevH - H) < 200: break
 
-        return Hs, tolls, gammas, times
+        return Hs, tolls, gammas, times, hLists
