@@ -2,8 +2,6 @@ import os
 import time
 import numpy as np
 from os.path import join
-from InitProject import *
-from GraphManager import *
 from ScenarioApproachManager import *
 
 
@@ -18,7 +16,7 @@ pathProjDir = join(pathFolder, '1_project')
 
 SAM = ScenarioApproachManager(pathDmndDir, pathProjDir, numSample)
 
-Hs, tolls, gammas, times, hLists = SAM.GradientDescent(np.zeros(76))
+Hs, tolls, gammas, times, hLists = SAM.GreedyGradientDescent(np.zeros(76))
 
 np.savetxt(join("TempData", "Hs.csv"),     Hs,     delimiter=',')
 np.savetxt(join("TempData", "tolls.csv"),  tolls,  delimiter=',')

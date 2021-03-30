@@ -85,7 +85,7 @@ class ScenarioApproachManager:
             nashFlow, _ = self.ComputeNashFlow(indSample, toll)
             hList[indSample] = self.ComputeSocialCost(nashFlow)
 
-        return np.max(hList), hList
+        return np.max(hList), hList, np.argmax(hList)
 
 
     def ComputeGradient(self, toll, deltaToll=0.1):
@@ -100,8 +100,8 @@ class ScenarioApproachManager:
             minusToll[m] = max(minusToll[m]-deltaToll, 0)
             plusToll[m] = plusToll[m] + deltaToll
 
-            minusH, _ = self.ComputeBigH(minusToll)
-            plusH, _ = self.ComputeBigH(plusToll)
+            minusH, _, _ = self.ComputeBigH(minusToll)
+            plusH, _, _ = self.ComputeBigH(plusToll)
 
             num = plusH - minusH
             den = deltaToll * 2 if minusToll[m] > 0 else deltaToll + toll[m]
@@ -118,7 +118,7 @@ class ScenarioApproachManager:
         currIteration = 0
 
         toll = np.zeros(self.graph.num_links) if toll is None else toll
-        H, hList = self.ComputeBigH(toll)
+        H, hList, _ = self.ComputeBigH(toll)
 
         Hs = [H]
         hLists = np.reshape(hList, (1, -1))
@@ -151,7 +151,8 @@ class ScenarioApproachManager:
             tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
 
             prevH = copy(H)
-            H, hList = self.ComputeBigH(toll)
+
+            H, hList, _ = self.ComputeBigH(toll)
             
             Hs.append(H)
             hLists = np.vstack((hLists, hList))
@@ -160,10 +161,101 @@ class ScenarioApproachManager:
             times.append(tElapsed)
             gammas.append(gamma)
 
-            plt.clf()
             ax.plot(range(len(Hs)), hLists)
             plt.pause(0.05)
 
             if abs(prevH - H) < 300: break
+
+        return Hs, tolls, gammas, times, hLists
+
+
+    def GreedyComputeBigH(self, indSampleList, toll):
+
+        h = -1
+
+        for indSample in indSampleList:
+
+            self.demand.computational_view(['Demand'+str(indSample)])
+            nashFlow, _ = self.ComputeNashFlow(indSample, toll)
+            h = max(h, self.ComputeSocialCost(nashFlow))
+
+        return h
+
+
+    def GreedyComputeGradient(self, indSampleList, toll, deltaToll=0.1):
+
+        numEdge = self.graph.num_links
+        grad = np.zeros(numEdge, dtype=np.double)
+
+        for m in range(numEdge):
+
+            minusToll = copy(toll)
+            plusToll = copy(toll)
+            minusToll[m] = max(minusToll[m]-deltaToll, 0)
+            plusToll[m] = plusToll[m] + deltaToll
+
+            minusH = self.GreedyComputeBigH(indSampleList, minusToll)
+            plusH = self.GreedyComputeBigH(indSampleList, plusToll)
+
+            num = plusH - minusH
+            den = deltaToll * 2 if minusToll[m] > 0 else deltaToll + toll[m]
+
+            gradient = num / den
+            grad[m] = gradient
+
+        return grad
+
+
+    def GreedyGradientDescent(self, toll):
+
+        maxIteration = 2
+        currIteration = 0
+
+        toll = np.zeros(self.graph.num_links) if toll is None else toll
+        H, hList, _ = self.ComputeBigH(toll)
+        prevH = copy(H)
+
+        Hs = [H]
+        hLists = np.reshape(hList, (1, -1))
+        gammas = []
+        times = []
+        tolls = np.reshape(toll, (1, -1))
+
+        while currIteration < maxIteration:
+            startTime = time.time()
+            currIteration = currIteration + 1
+
+            indSampleList = []
+            H, hList, indMaxH = self.ComputeBigH(toll)
+            indSampleList.append(indMaxH)
+
+            while True:
+                grad = self.GreedyComputeGradient(indSampleList, toll)
+                gamma = 0.001 / currIteration
+                step = grad * gamma
+                maxMagStep = np.max(np.abs(step))
+                normStep = step / maxMagStep
+
+                tollTry = toll - normStep
+                tollTry[tollTry<0] = 0
+
+                H, hList, indMaxH = self.ComputeBigH(tollTry)
+                if indMaxH not in indSampleList:
+                    indSampleList.append(indMaxH)
+                else:
+                    toll = tollTry
+                    indSampleList.clear()
+                    break
+
+            Hs.append(H)
+            hLists = np.vstack((hLists, hList))
+            tElapsed = float(time.time()-startTime)
+            gammas.append(gamma)
+            times.append(tElapsed)
+            tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
+            print("Iteration: %d, H: %.1f, Time: %.1f, Gamma: %f, dH: %.1f" % (currIteration, H, tElapsed, gamma, H-prevH))
+
+            if abs(prevH - H) < 300: break
+            prevH = copy(H)
 
         return Hs, tolls, gammas, times, hLists
