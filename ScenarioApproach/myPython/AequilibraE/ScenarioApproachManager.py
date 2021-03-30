@@ -208,7 +208,7 @@ class ScenarioApproachManager:
 
     def GreedyGradientDescent(self, toll):
 
-        maxIteration = 2
+        maxIteration = 200
         currIteration = 0
 
         toll = np.zeros(self.graph.num_links) if toll is None else toll
@@ -244,7 +244,6 @@ class ScenarioApproachManager:
                     indSampleList.append(indMaxH)
                 else:
                     toll = tollTry
-                    indSampleList.clear()
                     break
 
             Hs.append(H)
@@ -253,8 +252,9 @@ class ScenarioApproachManager:
             gammas.append(gamma)
             times.append(tElapsed)
             tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
-            print("Iteration: %d, H: %.1f, Time: %.1f, Gamma: %f, dH: %.1f" % (currIteration, H, tElapsed, gamma, H-prevH))
-
+            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.1f}, dH: {4:.1f}, SupportSet: {5}'.format(currIteration, H, tElapsed, gamma, H-prevH, indSampleList))
+            indSampleList.clear()
+            
             if abs(prevH - H) < 300: break
             prevH = copy(H)
 
