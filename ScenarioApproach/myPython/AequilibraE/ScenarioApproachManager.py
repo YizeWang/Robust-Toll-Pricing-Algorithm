@@ -1,18 +1,26 @@
 import time
 import numpy as np
 from copy import copy
-from aequilibrae.paths import TrafficAssignment, TrafficClass
 from os.path import join
+import matplotlib.pyplot as plt
 from aequilibrae.project import Project
 from aequilibrae.matrix import AequilibraeMatrix
-import matplotlib.pyplot as plt
+from aequilibrae.paths import TrafficAssignment, TrafficClass
 
 
 class ScenarioApproachManager:
 
-    def __init__(self, project, demand, numSample):
+    def __init__(self, pathDmndDir, pathProjDir, numSample):
 
+        project = Project()
+        project.load(pathProjDir)
         project.network.build_graphs()
+        project.close()
+
+        demand = AequilibraeMatrix()
+        demand.load(join(pathDmndDir, 'demand.omx'))
+        demand.computational_view(['matrix'])
+
         self.graph = project.network.graphs['c']
         self.graph.set_graph('distance')
         self.graph.set_blocked_centroid_flows(False)
@@ -24,8 +32,7 @@ class ScenarioApproachManager:
 
         self.demand = demand
         self.numSample = numSample
-        self.toll = np.zeros(self.graph.num_links)
-
+    
 
     def ComputeSocialCost(self, xLink):
 
@@ -44,7 +51,9 @@ class ScenarioApproachManager:
         self.graph.graph['b'] = np.divide(np.multiply(self.B, self.FFT), self.FFT + toll)
 
 
-    def ComputeNashFlow(self, indSample, alg='bfw', maxIter=1000, gap=0.0001):
+    def ComputeNashFlow(self, indSample, toll, alg='bfw', maxIter=1000, gap=0.0001):
+
+        self.ImposeToll(toll)
 
         self.demand.computational_view(['Demand'+str(indSample)])
 
@@ -68,12 +77,12 @@ class ScenarioApproachManager:
         return nashFlow, rgap
         
 
-    def ComputeBigH(self):
+    def ComputeBigH(self, toll):
 
         hList = np.zeros(self.numSample)
 
         for indSample in range(self.numSample):
-            nashFlow, _ = self.ComputeNashFlow(indSample)
+            nashFlow, _ = self.ComputeNashFlow(indSample, toll)
             hList[indSample] = self.ComputeSocialCost(nashFlow)
 
         return np.max(hList), hList
@@ -91,11 +100,8 @@ class ScenarioApproachManager:
             minusToll[m] = max(minusToll[m]-deltaToll, 0)
             plusToll[m] = plusToll[m] + deltaToll
 
-            self.ImposeToll(minusToll)
-            minusH, _ = self.ComputeBigH()
-
-            self.ImposeToll(plusToll)
-            plusH, _ = self.ComputeBigH()
+            minusH, _ = self.ComputeBigH(minusToll)
+            plusH, _ = self.ComputeBigH(plusToll)
 
             num = plusH - minusH
             den = deltaToll * 2 if minusToll[m] > 0 else deltaToll + toll[m]
@@ -111,45 +117,41 @@ class ScenarioApproachManager:
         maxIteration = 200
         currIteration = 0
 
-        self.toll = np.zeros(self.graph.num_links) if toll is None else toll
-        H, hList = self.ComputeBigH()
+        toll = np.zeros(self.graph.num_links) if toll is None else toll
+        H, hList = self.ComputeBigH(toll)
 
         Hs = [H]
-        hLists = hList
+        hLists = np.reshape(hList, (1, -1))
         gammas = []
         times = []
-        tolls = np.reshape(self.toll, (1, -1))
+        tolls = np.reshape(toll, (1, -1))
 
         print("Iteration: %d, H: %.1f" % (currIteration, H))
 
-        fig = plt.figure()
-        ax1 = fig.add_subplot(121)
-        plt.xlim((0, maxIteration))
-        ax1.scatter(0, H)
-
-        ax2 = fig.add_subplot(122)
-        plt.xlim((0, maxIteration))
-        plt.pause(0.00001)
+        fig, (ax) = plt.subplots(1, 1)
+        ax.set_xlim([0, maxIteration])
+        ax.scatter(np.zeros(self.numSample), hList)
+        plt.pause(0.05)
 
         while currIteration < maxIteration:
 
             startTime = time.time()
             currIteration = currIteration + 1
 
-            grad = self.ComputeGradient(self.toll)
+            grad = self.ComputeGradient(toll)
 
             gamma = 0.001 / currIteration
             step = grad * gamma
             maxMagStep = np.max(np.abs(step))
-            step = step / maxMagStep
+            normStep = step / maxMagStep
 
-            self.toll = self.toll - step
-            self.toll[self.toll<0] = 0
+            toll = toll - normStep
+            toll[toll<0] = 0
 
-            tolls = np.vstack((tolls, np.reshape(self.toll, (1, -1))))
+            tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
 
             prevH = copy(H)
-            H, hList = self.ComputeBigH()
+            H, hList = self.ComputeBigH(toll)
             
             Hs.append(H)
             hLists = np.vstack((hLists, hList))
@@ -158,10 +160,10 @@ class ScenarioApproachManager:
             times.append(tElapsed)
             gammas.append(gamma)
 
-            ax1.plot(range(len(Hs)), Hs)
-            ax2.plot(range(len(Hs)), hLists)
-            plt.pause(0.00001)
+            plt.clf()
+            ax.plot(range(len(Hs)), hLists)
+            plt.pause(0.05)
 
-            if abs(prevH - H) < 200: break
+            if abs(prevH - H) < 300: break
 
         return Hs, tolls, gammas, times, hLists

@@ -9,6 +9,8 @@ from GraphManager import *
 pathFolder = '/home/onion/SiouxFalls'
 nameProject = 'SiouxFalls.sqlite'
 
+os.makedirs("TempData", exist_ok=True) 
+
 project, demand = InitProject(pathFolder, nameProject)
 graphManager = GraphManager(project, demand)
 
