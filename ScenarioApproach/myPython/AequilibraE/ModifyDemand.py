@@ -16,8 +16,8 @@ demand.load(join(dmndFolder, 'demand.omx'))
 demand.computational_view(['matrix'])
 baseDemand = demand.matrix_view
 
-numSample = 10
-randRange = 0.2
+numSample = 30
+randRange = 0.005
 
 for s in range(numSample):
     randCoeff = (np.random.rand(baseDemand.shape[0], baseDemand.shape[1]) - 0.5) * 2 * randRange + 1

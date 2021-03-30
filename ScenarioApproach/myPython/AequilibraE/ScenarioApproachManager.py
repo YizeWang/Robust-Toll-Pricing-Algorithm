@@ -252,7 +252,7 @@ class ScenarioApproachManager:
             gammas.append(gamma)
             times.append(tElapsed)
             tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
-            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.1f}, dH: {4:.1f}, SupportSet: {5}'.format(currIteration, H, tElapsed, gamma, H-prevH, indSampleList))
+            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.8f}, dH: {4:.1f}, SupportSet: {5}'.format(currIteration, H, tElapsed, gamma, H-prevH, indSampleList))
             indSampleList.clear()
             
             if abs(prevH - H) < 300: break
