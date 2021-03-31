@@ -238,7 +238,8 @@ class ScenarioApproachManager:
 
                 tollTry = toll - normStep
                 tollTry[tollTry<0] = 0
-                toll = ((toll*10).astype(np.intc)).astype(np.double)/10
+
+                tollTry = np.round(tollTry, decimals=2)
 
                 H, hList, indMaxH = self.ComputeBigH(tollTry)
                 if indMaxH not in indSampleList:
