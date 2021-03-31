@@ -58,4 +58,19 @@ ax3.set_ylabel("Social Cost")
 ax3.set_title("Rounding Impact on Convergence")
 ax3.legend()
 
+# figure 4 number of traffic assignments #
+numScenario = 10
+x = np.array(range(0, numScenario)) + 1
+y1 = 2 * numScenario
+y2 = 0.5* (np.power(x, 2) + x)
+
+fig4 = plt.figure(4)
+ax4 = fig4.add_subplot(111)
+ax4.hlines(y1, min(x), max(x), label='Normal given {} Scenarios'.format(numScenario), color='r')
+ax4.plot(x, y2, label='Greedy Method', color='b')
+ax4.set_xlabel("# Support Constraints")
+ax4.set_ylabel("# Traffic Assignments")
+ax4.set_title("Normal and Greedy Gradient Comparison")
+ax4.legend()
+
 plt.show()
