@@ -5,7 +5,7 @@ from os.path import join
 from ScenarioApproachManager import *
 
 
-numSample = 10
+numSample = 5
 
 pathFolder = '/home/onion/SiouxFalls'
 nameProject = 'SiouxFalls.sqlite'

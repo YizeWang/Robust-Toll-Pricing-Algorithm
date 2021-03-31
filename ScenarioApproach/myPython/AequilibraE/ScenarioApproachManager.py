@@ -234,7 +234,7 @@ class ScenarioApproachManager:
                 gamma = 0.001 / currIteration
                 step = grad * gamma
                 maxMagStep = np.max(np.abs(step))
-                normStep = step / maxMagStep
+                normStep = step if maxMagStep < 1 else step / maxMagStep
 
                 tollTry = toll - normStep
                 tollTry[tollTry<0] = 0
