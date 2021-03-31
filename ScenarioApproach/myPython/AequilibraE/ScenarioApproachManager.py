@@ -231,13 +231,14 @@ class ScenarioApproachManager:
 
             while True:
                 grad = self.GreedyComputeGradient(indSampleList, toll)
-                gamma = 0.001 / currIteration
+                gamma = 0.001 / (currIteration * 2)
                 step = grad * gamma
                 maxMagStep = np.max(np.abs(step))
                 normStep = step if maxMagStep < 1 else step / maxMagStep
 
                 tollTry = toll - normStep
                 tollTry[tollTry<0] = 0
+                toll = ((toll*10).astype(np.intc)).astype(np.double)/10
 
                 H, hList, indMaxH = self.ComputeBigH(tollTry)
                 if indMaxH not in indSampleList:
@@ -252,10 +253,10 @@ class ScenarioApproachManager:
             gammas.append(gamma)
             times.append(tElapsed)
             tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
-            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.8f}, dH: {4:.1f}, SupportSet: {5}'.format(currIteration, H, tElapsed, gamma, H-prevH, indSampleList))
+            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.8f}, MaxMagStep: {4:.6f}, dH: {5:.1f}, SupportSet: {6}'.format(currIteration, H, tElapsed, gamma, maxMagStep, H-prevH, indSampleList))
             indSampleList.clear()
             
-            if abs(prevH - H) < 300: break
+            if abs(prevH - H) < 500: break
             prevH = copy(H)
 
         return Hs, tolls, gammas, times, hLists
