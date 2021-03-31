@@ -30,7 +30,6 @@ obj1 = iter(lineObjects1 + [costNashObject1, costOptObject1])
 leg1 = tuple('Sample ' + str(i) for i in range(hLists200.shape[1])) + ('Nomial Nash Cost', 'Nomail Opt Cost')
 ax1.legend(obj1, leg1, fontsize=8)
 
-
 ## figure 2 ##
 fig2 = plt.figure(2)
 ax2 = fig2.add_subplot(111)
@@ -43,5 +42,20 @@ costOptObject2 = ax2.hlines(costOpt, 0, itSV[-1], color='k', linestyle='dashed',
 obj2 = iter(lineObjects2 + [costNashObject2, costOptObject2])
 leg2 = tuple('Sample ' + str(i) for i in range(hListsSV.shape[1])) + ('Nomial Nash Cost', 'Nomail Opt Cost')
 ax2.legend(obj2, leg2)
+
+## figure 3 Decimal Comparison ##
+Hs0 = np.genfromtxt(join(currPath, "HsNoRound.csv"), delimiter=',')
+Hs1 = np.genfromtxt(join(currPath, "HsRound1.csv"),  delimiter=',')
+Hs2 = np.genfromtxt(join(currPath, "HsRound2.csv"),  delimiter=',')
+
+fig3 = plt.figure(3)
+ax3 = fig3.add_subplot(111)
+ax3.plot(range(len(Hs0)), Hs0, label='No Rounding')
+ax3.plot(range(len(Hs1)), Hs1, label='Rounding to 0.1')
+ax3.plot(range(len(Hs2)), Hs2, label='Rounding to 0.01')
+ax3.set_xlabel("Number of Iteration")
+ax3.set_ylabel("Social Cost")
+ax3.set_title("Rounding Impact on Convergence")
+ax3.legend()
 
 plt.show()
