@@ -3,9 +3,10 @@ import sys
 import numpy as np
 import time
 from TrafficAssigner import TrafficAssigner
+from os.path import join
 
 
-maxIteration = 100
+maxIteration = 200
 pathCurrFolder = os.path.abspath(os.getcwd())
 pathExecutable = "/home/onion/Repo/frank-wolfe-traffic/Build/Release/Launchers/AssignTraffic"
 pathDataFolder = "/home/onion/Repo/Differential_Pricing/Locations/SiouxFalls"
@@ -19,4 +20,12 @@ TA.SetExecutablePath(pathExecutable)
 TA.SetMaxIteration(maxIteration)
 TA.SetObjective(objective)
 
-print(TA.AssignTraffic(np.zeros(76)))
+TA.GenSample(100, 0.02)
+
+Hs, tolls, gammas, times, hLists = TA.GreedyGradientDescent()
+
+np.savetxt(join("Temp", "Hs.csv"),     Hs,     delimiter=',')
+np.savetxt(join("Temp", "tolls.csv"),  tolls,  delimiter=',')
+np.savetxt(join("Temp", "gammas.csv"), gammas, delimiter=',')
+np.savetxt(join("Temp", "times.csv"),  times,  delimiter=',')
+np.savetxt(join("Temp", "hLists.csv"), hLists, delimiter=',')

@@ -1,7 +1,9 @@
 import os
+import time
 import subprocess
 import numpy as np
 import pandas as pd
+from copy import copy
 
 
 class TrafficAssigner:
@@ -10,19 +12,23 @@ class TrafficAssigner:
         self.pathExecutable = None
         self.pathTempFolder = None
         self.maxIteration = None
-        self.edgeData = None
+        self.pathDemandData = None
+        self.pathEdgeData = None
         self.demandData = None
+        self.edgeData = None
         self.tempEdgeData = None
         self.objective = None
         self.pathFlowData = None
-        self.pathDemandData = None
-        self.pathEdgeData = None
+        self.numSample = None
+        self.listOD = []
+        self.numEdges = None
 
     def SetDataFolderPath(self, pathDataFolder: str) -> None:
         self.pathEdgeData = os.path.join(pathDataFolder, "edges.csv")
         self.pathDemandData = os.path.join(pathDataFolder, "od.csv")
         self.edgeData = pd.read_csv(self.pathEdgeData, delimiter=',')
         self.demandData = pd.read_csv(self.pathDemandData, delimiter=',')
+        self.numEdges = len(self.edgeData)
 
     def SetTempFolderPath(self, pathTempFolder: str) -> None:
         self.pathTempFolder = pathTempFolder
@@ -47,11 +53,123 @@ class TrafficAssigner:
         edges.length = lengthModified
         edges.to_csv(self.tempEdgeData, index=False)
 
-    def AssignTraffic(self, toll: np.array) -> None:
+    def AssignTraffic(self, toll: np.array, indSample: int=None) -> None:
         self.ImposeToll(toll)
-        
-        args = f'-n {str(self.maxIteration)} -i {self.tempEdgeData} -od {self.pathDemandData} -o {self.pathTempFolder} -obj {self.objective}'.split(' ')
+        pathDemandData = self.pathDemandData if indSample is None else self.listOD[indSample]
+
+        args = f'-n {str(self.maxIteration)} -i {self.tempEdgeData} -od {pathDemandData} -o {self.pathTempFolder} -obj {self.objective}'.split(' ')
         subprocess.run([self.pathExecutable] + args)
         flow = pd.read_csv(self.pathFlowData, skiprows=1, delimiter=',')
 
         return flow.flow.to_numpy()
+
+    def SocialCost(self, flow: np.array) -> float:
+        FFT = np.divide(self.edgeData.length, self.edgeData.speed) * 0.06
+        termLinear = np.multiply(FFT, flow)
+        TB = np.multiply(FFT, self.edgeData.b)
+        base = np.divide(flow, self.edgeData.capacity)
+        poly = np.power(base, self.edgeData.power)
+        termPoly = np.multiply(np.multiply(TB, poly), flow)
+
+        return np.sum(termLinear + termPoly)
+
+    def GenSample(self, numSample: int, randRange: float) -> None:
+        self.numSample = numSample
+        numDmnd = len(self.demandData)
+
+        for s in range(numSample):
+            randCoeff = (np.random.rand(numDmnd) - 0.5) * 2 * randRange + 1
+            randDemand = np.multiply(randCoeff, self.demandData.volume)
+
+            randData = self.demandData.copy()
+            randData.volume = randDemand
+
+            pathRandData = os.path.join(self.pathTempFolder, 'od'+str(s)+'.csv')
+            randData.to_csv(pathRandData, index=False)
+            self.listOD.append(pathRandData)
+
+    def ComputeBigH(self, toll: np.array, indSampleList: list=None):
+        hList = np.zeros(self.numSample)
+        indSampleList = range(self.numSample) if indSampleList is None else indSampleList
+
+        for indSample in indSampleList:
+            flow = self.AssignTraffic(toll, indSample)
+            hList[indSample] = self.SocialCost(flow)
+
+        return np.max(hList), hList, np.argmax(hList)
+
+    def ComputeGradient(self, toll: np.array, indSampleList: list, deltaToll=0.1):
+        grad = np.zeros(self.numEdges, dtype=np.double)
+
+        for m in range(self.numEdges):
+            minusToll = copy(toll)
+            plusToll = copy(toll)
+            minusToll[m] = max(minusToll[m]-deltaToll, 0)
+            plusToll[m] = plusToll[m] + deltaToll
+
+            minusH, _, _ = self.ComputeBigH(minusToll, indSampleList)
+            plusH, _, _ = self.ComputeBigH(plusToll, indSampleList)
+
+            num = plusH - minusH
+            den = deltaToll * 2 if minusToll[m] > 0 else deltaToll + toll[m]
+
+            gradient = num / den
+            grad[m] = gradient
+
+        return grad
+
+    def GreedyGradientDescent(self, initToll: np.array=None):
+        maxIteration = 5
+        currIteration = 0
+
+        toll = np.zeros(self.numEdges) if initToll is None else initToll
+        H, hList, _ = self.ComputeBigH(toll)
+        prevH = copy(H)
+
+        Hs = [H]
+        hLists = np.reshape(hList, (1, -1))
+        gammas = []
+        times = []
+        tolls = np.reshape(toll, (1, -1))
+
+        while currIteration < maxIteration:
+            startTime = time.time()
+            currIteration = currIteration + 1
+
+            indSampleList = []
+            H, hList, indMaxH = self.ComputeBigH(toll)
+            indSampleList.append(indMaxH)
+
+            gamma = 0.001 / (currIteration * 2)
+
+            while True:
+                grad = self.ComputeGradient(toll, indSampleList)
+                step = grad * gamma
+                maxMagStep = np.max(np.abs(step))
+                normStep = step / maxMagStep
+
+                tollTry = toll - normStep
+                tollTry[tollTry<0] = 0
+
+                tollTry = np.round(tollTry, decimals=2)
+
+                H, hList, indMaxH = self.ComputeBigH(tollTry)
+                if indMaxH not in indSampleList:
+                    indSampleList.append(indMaxH)
+                else:
+                    toll = tollTry
+                    break
+
+            Hs.append(H)
+            hLists = np.vstack((hLists, hList))
+            tElapsed = float(time.time()-startTime)
+            gammas.append(gamma)
+            times.append(tElapsed)
+            tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
+            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.8f}, MaxMagStep: {4:.6f}, dH: {5:.1f}, SupportSet: {6}'.format(currIteration, H, tElapsed, gamma, maxMagStep, H-prevH, indSampleList))
+            indSampleList.clear()
+            
+            if abs(prevH - H) < 200: break
+            prevH = copy(H)
+
+        return Hs, tolls, gammas, times, hLists
