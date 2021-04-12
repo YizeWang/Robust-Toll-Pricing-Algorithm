@@ -12,6 +12,7 @@ pathExecutable = "/home/onion/Repo/frank-wolfe-traffic/Build/Release/Launchers/A
 pathDataFolder = "/home/onion/Repo/Differential_Pricing/Locations/SiouxFalls"
 pathTempFolder = os.path.join(pathCurrFolder, "Temp")
 objective = 'user_eq'
+# objective = 'sys_opt'
 
 TA = TrafficAssigner()
 TA.SetDataFolderPath(pathDataFolder)
@@ -20,7 +21,7 @@ TA.SetExecutablePath(pathExecutable)
 TA.SetMaxIteration(maxIteration)
 TA.SetObjective(objective)
 
-TA.GenSample(100, 0.02)
+TA.GenSample(10, 0.02)
 
 Hs, tolls, gammas, times, hLists = TA.GreedyGradientDescent()
 

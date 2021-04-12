@@ -119,8 +119,9 @@ class TrafficAssigner:
         return grad
 
     def GreedyGradientDescent(self, initToll: np.array=None):
-        maxIteration = 5
+        maxIteration = 1000
         currIteration = 0
+        numToConverge = 0
 
         toll = np.zeros(self.numEdges) if initToll is None else initToll
         H, hList, _ = self.ComputeBigH(toll)
@@ -145,8 +146,10 @@ class TrafficAssigner:
             while True:
                 grad = self.ComputeGradient(toll, indSampleList)
                 step = grad * gamma
+                maxMagGrad = np.max(np.abs(grad))
                 maxMagStep = np.max(np.abs(step))
-                normStep = step / maxMagStep
+                normStep = step if np.max(np.abs(step)) < 1 else step / maxMagStep
+                magNormStep = np.max(np.abs(normStep))
 
                 tollTry = toll - normStep
                 tollTry[tollTry<0] = 0
@@ -166,10 +169,14 @@ class TrafficAssigner:
             gammas.append(gamma)
             times.append(tElapsed)
             tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
-            print('Iteration: {0}, H: {1:.1f}, Time: {2:.1f}, Gamma: {3:.8f}, MaxMagStep: {4:.6f}, dH: {5:.1f}, SupportSet: {6}'.format(currIteration, H, tElapsed, gamma, maxMagStep, H-prevH, indSampleList))
+            print('Iteration: {0:3d}, H: {1:10.1f}, Time: {2:5.1f}, Gamma: {3:8f}, MagNormStep: {4:6.3f}, dH: {5:8.1f}, MaxMagGrad: {6:8.1f} SupportSet: {7}'.format(currIteration, H, tElapsed, gamma, magNormStep, H-prevH, maxMagGrad,indSampleList))
             indSampleList.clear()
             
-            if abs(prevH - H) < 200: break
+            if abs(prevH - H) < 200:
+                if numToConverge > 5: break
+                else: numToConverge += 1
+            else: numToConverge = 0
+
             prevH = copy(H)
 
         return Hs, tolls, gammas, times, hLists
