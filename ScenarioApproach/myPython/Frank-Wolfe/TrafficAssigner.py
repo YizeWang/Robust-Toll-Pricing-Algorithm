@@ -119,7 +119,7 @@ class TrafficAssigner:
         return grad
 
     def GreedyGradientDescent(self, initToll: np.array=None):
-        maxIteration = 1000
+        maxIteration = 100
         currIteration = 0
         numToConverge = 0
 
@@ -141,7 +141,7 @@ class TrafficAssigner:
             H, hList, indMaxH = self.ComputeBigH(toll)
             indSampleList.append(indMaxH)
 
-            gamma = 0.001 / (currIteration * 2)
+            gamma = 0.001 / (currIteration * 2) if currIteration < 20 else 0.04 / currIteration /currIteration
 
             while True:
                 grad = self.ComputeGradient(toll, indSampleList)

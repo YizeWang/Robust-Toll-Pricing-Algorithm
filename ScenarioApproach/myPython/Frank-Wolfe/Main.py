@@ -21,7 +21,7 @@ TA.SetExecutablePath(pathExecutable)
 TA.SetMaxIteration(maxIteration)
 TA.SetObjective(objective)
 
-TA.GenSample(10, 0.02)
+TA.GenSample(100, 0.01)
 
 Hs, tolls, gammas, times, hLists = TA.GreedyGradientDescent()
 
