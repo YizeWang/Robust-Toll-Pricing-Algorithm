@@ -2,11 +2,11 @@ import os
 import sys
 import numpy as np
 import time
-from TrafficAssigner import TrafficAssigner
+from FrankWolfe.TrafficAssigner import TrafficAssigner
 from os.path import join
 
 
-maxIteration = 200
+maxIteration = 300
 pathCurrFolder = os.path.abspath(os.getcwd())
 pathExecutable = "/home/onion/Repo/frank-wolfe-traffic/Build/Release/Launchers/AssignTraffic"
 pathDataFolder = "/home/onion/Repo/Differential_Pricing/Locations/SiouxFalls"
