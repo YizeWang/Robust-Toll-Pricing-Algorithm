@@ -3,10 +3,10 @@ import sys
 import time
 import numpy as np
 from os.path import join
-from FrankWolfe.TrafficAssigner import TrafficAssigner
+from TrafficAssigner import TrafficAssigner
 
 
-maxIteration = 300
+maxIteration = 200
 pathCurrFolder = os.path.abspath(os.getcwd())
 pathExecutable = "/home/onion/Repo/frank-wolfe-traffic/Build/Release/Launchers/AssignTraffic"
 pathDataFolder = "/home/onion/Repo/Differential_Pricing/Locations/SiouxFalls"
@@ -20,7 +20,7 @@ TA.SetExecutablePath(pathExecutable)
 TA.SetMaxIteration(maxIteration)
 TA.SetObjective(objective)
 
-TA.GenSample(50, 0.02)
+TA.GenSample(100, 0.02)
 
 PoAs, tolls, gammas, times, PoALists = TA.GreedyGradientDescentPoA()
 

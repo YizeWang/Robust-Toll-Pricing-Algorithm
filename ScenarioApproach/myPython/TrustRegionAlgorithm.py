@@ -1,13 +1,13 @@
 import os
-import numpy as np
 import time
-from datetime import datetime
+import numpy as np
 from scipy import sparse
-from scipy.sparse import csc_matrix, eye, lil_matrix, dok_matrix, diags, hstack, vstack
+from datetime import datetime
 from ParseTNTP import ModifyODs, ParseTNTP
 from scipy.optimize import Bounds, minimize
 from GetEqualityConstraints import GetEqualityConstraints
 from scipy.optimize import LinearConstraint, NonlinearConstraint
+from scipy.sparse import csc_matrix, eye, lil_matrix, dok_matrix, diags, hstack, vstack
 
 
 pathCurrFolder = os.path.abspath(os.getcwd())
@@ -130,7 +130,7 @@ nonlinearConstraint2 = NonlinearConstraint(fNonlinearConstraint2, 0.0, 0.0, jac=
 
 v0 = np.ones(XDim+tDim+uDim+lDim)
 result = minimize(Objective, v0, method='trust-constr', jac=Jacobian, hess=Hessian,
-               constraints=[linearConstraint, nonlinearConstraint1, nonlinearConstraint2],
-               options={'verbose': True, 'sparse_jacobian': True}, bounds=bounds)
+                  constraints=[linearConstraint, nonlinearConstraint1, nonlinearConstraint2],
+                  options={'verbose': True, 'sparse_jacobian': True}, bounds=bounds)
 
 print(result)

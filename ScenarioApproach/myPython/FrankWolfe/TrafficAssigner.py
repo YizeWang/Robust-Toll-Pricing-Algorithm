@@ -4,6 +4,7 @@ import subprocess
 import numpy as np
 import pandas as pd
 from copy import copy
+from hashlib import sha1
 
 
 class TrafficAssigner:
@@ -23,6 +24,7 @@ class TrafficAssigner:
         self.listOD = []
         self.optCosts = []
         self.numEdges = None
+        self.buffer = {}
 
     def SetDataFolderPath(self, pathDataFolder: str) -> None:
         self.pathEdgeData = os.path.join(pathDataFolder, "edges.csv")
@@ -55,13 +57,19 @@ class TrafficAssigner:
         edges.to_csv(self.tempEdgeData, index=False)
 
     def AssignTraffic(self, toll: np.array, indSample: int=None, objective: str=None) -> None:
-        if objective is None: objective = self.objective
         self.ImposeToll(toll)
+        if objective is None: objective = self.objective
         pathDemandData = self.pathDemandData if indSample is None else self.listOD[indSample]
+
+        if (sha1(toll).hexdigest(), indSample) in self.buffer:
+            return self.buffer[(sha1(toll).hexdigest(), indSample)]
 
         args = f'-n {str(self.maxIteration)} -i {self.tempEdgeData} -od {pathDemandData} -o {self.pathTempFolder} -obj {objective}'.split(' ')
         subprocess.run([self.pathExecutable] + args)
         flow = pd.read_csv(self.pathFlowData, skiprows=1, delimiter=',')
+        
+        if objective == 'user_eq':
+            self.buffer[(sha1(toll).hexdigest(), indSample)] = flow.flow.to_numpy()
 
         return flow.flow.to_numpy()
 
@@ -263,6 +271,7 @@ class TrafficAssigner:
                     toll = tollTry
                     break
 
+            self.buffer.clear()
             PoAs.append(PoA)
             PoALists = np.vstack((PoALists, PoAList))
             tElapsed = float(time.time()-startTime)
