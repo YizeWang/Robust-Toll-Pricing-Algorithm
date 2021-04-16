@@ -5,8 +5,20 @@ import pandas as pd
 
 class Graph:
     
-    pass
+    def __init__(self):
+        self.dataOD = None
+        self.dataNet = None
+        self.dataNode = None
 
+        self.nameNet = None
+        self.numEdge = None
+        self.numNode = None
+        self.numDmnd = None
+
+        self.T = None
+        self.B = None
+        self.P = None
+        self.C = None
 
 def ParseTNTP(pathDataFolder, nameNet):
 
@@ -37,7 +49,6 @@ def ParseTNTP(pathDataFolder, nameNet):
     G.C = np.array(dataNet.capacity,       dtype=np.double)
 
     return G
-
 
 def ModifyODs(G, numODs=0, scaleFactor=1.0):
 
