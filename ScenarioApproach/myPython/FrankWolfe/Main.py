@@ -3,7 +3,7 @@ import sys
 import time
 import numpy as np
 from os.path import join
-from TrafficAssigner import TrafficAssigner
+from FrankWolfe.TrafficAssigner import TrafficAssigner
 
 
 maxIteration = 300

@@ -178,7 +178,7 @@ class TrafficAssigner:
             H, hList, indMaxH = self.ComputeBigH(toll)
             indSampleList.append(indMaxH)
 
-            gamma = 0.001 / (currIteration * 2) if currIteration < 20 else 0.04 / currIteration /currIteration
+            gamma = 0.001 / (currIteration * 2) if currIteration < 20 else 0.01 / currIteration / currIteration
 
             while True:
                 grad = self.ComputeGradient(toll, indSampleList)
