@@ -2,9 +2,37 @@ import os
 import time
 import subprocess
 import numpy as np
+from numpy.core.shape_base import stack
 import pandas as pd
 from copy import copy
 
+
+class TollElement:
+
+    def __init__(self, left, right, leftPoA, rightPoA) -> None:
+        self.__left = left
+        self.__right = right
+        self.__mid = np.round((right - left) / 2 + left, decimals=2)
+        self.__leftPoA = leftPoA
+        self.__rightPoA = rightPoA
+
+    def GetMid(self) -> float:
+        return self.__mid
+
+    def GetLeft(self) -> float:
+        return self.__left
+
+    def GetRight(self) -> float:
+        return self.__right
+
+    def GetLeftPoA(self) -> float:
+        return self.__leftPoA
+
+    def GetRightPoA(self) -> float:
+        return self.__rightPoA
+
+    def GetSum(self) -> float:
+        return self.__leftPoA + self.__rightPoA
 
 class TrafficAssigner:
 
@@ -255,6 +283,10 @@ class TrafficAssigner:
                 tollTry[tollTry<0] = 0
 
                 tollTry = np.round(tollTry, decimals=2)
+                tollTry = self.GetGoodToll(self, toll, tollTry, maxPts=32)
+
+                if tollTry is None:
+                    return PoAs, tolls, gammas, times, PoALists
 
                 PoA, PoAList, indMaxPoA = self.ComputePoAs(tollTry)
                 if indMaxPoA not in indSampleList:
@@ -280,3 +312,24 @@ class TrafficAssigner:
             prevPoA = copy(PoA)
 
         return PoAs, tolls, gammas, times, PoALists
+
+    def GetGoodToll(self, toll, tollTry, maxPts=32) -> float:
+        currPoA, _, _ = self.ComputePoAs(toll)
+        newPoA, _, _ = self.ComputePoAs(tollTry)
+        if currPoA > newPoA: return tollTry
+
+        list = list(TollElement(toll, tollTry, currPoA, newPoA))
+        for i in range(maxPts):
+            tollElement = list[0]  # todo: replace with stack
+            del list[0]
+            
+            newPoA, _, _ = self.ComputePoAs(tollElement.GetMid())
+            if newPoA < currPoA: return tollElement.GetMid()
+
+            leftPoA, rightPoA = tollElement.GetPoA()
+
+            list.append(TollElement(tollElement.GetLeft(), tollElement.GetMid(), leftPoA, newPoA))
+            list.append(TollElement(tollElement.GetMid(), tollElement.GetRight(), newPoA, rightPoA))
+            list = sorted(list, key=lambda x: x.GetSum())  # todo: replace with priority-queue
+
+        return None
