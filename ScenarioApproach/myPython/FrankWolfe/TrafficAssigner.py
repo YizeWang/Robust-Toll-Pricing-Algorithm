@@ -327,18 +327,54 @@ class TrafficAssigner:
         newPoA, _, _ = self.ComputePoAs(tollTry)
         if currPoA > newPoA: return tollTry
 
-        list = list(TollElement(toll, tollTry, currPoA, newPoA))
+        candidates = [TollElement(toll, tollTry, currPoA, newPoA)]
+
         for i in range(maxPts):
-            tollElement = list[0]  # todo: replace with stack
-            del list[0]
+            tollElement = candidates[0]  # todo: replace with stack
+            del candidates[0]
             
             newPoA, _, _ = self.ComputePoAs(tollElement.GetMid())
             if newPoA < currPoA: return tollElement.GetMid()
 
-            leftPoA, rightPoA = tollElement.GetPoA()
+            leftPoA = tollElement.GetLeftPoA()
+            rightPoA = tollElement.GetRightPoA()
 
-            list.append(TollElement(tollElement.GetLeft(), tollElement.GetMid(), leftPoA, newPoA))
-            list.append(TollElement(tollElement.GetMid(), tollElement.GetRight(), newPoA, rightPoA))
-            list = sorted(list, key=lambda x: x.GetSum())  # todo: replace with priority-queue
+            candidates.append(TollElement(tollElement.GetLeft(), tollElement.GetMid(), leftPoA, newPoA))
+            candidates.append(TollElement(tollElement.GetMid(), tollElement.GetRight(), newPoA, rightPoA))
+            candidates = sorted(candidates, key=lambda x: x.GetSum())  # todo: replace with priority-queue
 
         return None
+
+    def GenerateMultiStart(self, numInit: int):
+
+        zeroStart = np.zeros((1, self.numEdges))
+        multiStart = np.random.rand(numInit-1, self.numEdges)
+        self.__multiStart = np.vstack((zeroStart, multiStart))
+        self.__numInit = numInit
+
+    def MultiStart(self):
+        
+        indBest = None
+        PoABest = np.inf
+
+        PoAsOfMultiStart = []
+        tollOfMultiStart = []
+        PoAListsOfMultiStart = []
+
+        for i in range(self.__numInit):
+            print("Current initial point index: {}".format(i))
+            toll = self.__multiStart[i, :]
+
+            PoAs, tolls, gammas, times, PoALists = self.GreedyGradientDescentPoA(toll)
+            
+            PoAsOfMultiStart.append(PoAs)
+            tollOfMultiStart.append(tolls)
+            
+            if PoAs[-1] < PoABest:
+                PoABest = PoAs[-1]
+                indBest = i
+
+        return PoAsOfMultiStart
+
+
+
