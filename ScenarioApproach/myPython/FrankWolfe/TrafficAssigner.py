@@ -7,6 +7,33 @@ from copy import copy
 from hashlib import sha1
 
 
+class TollElement:
+
+    def __init__(self, left, right, leftPoA, rightPoA) -> None:
+        self.__left = left
+        self.__right = right
+        self.__mid = np.round((right - left) / 2 + left, decimals=2)
+        self.__leftPoA = leftPoA
+        self.__rightPoA = rightPoA
+
+    def GetMid(self) -> float:
+        return self.__mid
+
+    def GetLeft(self) -> float:
+        return self.__left
+
+    def GetRight(self) -> float:
+        return self.__right
+
+    def GetLeftPoA(self) -> float:
+        return self.__leftPoA
+
+    def GetRightPoA(self) -> float:
+        return self.__rightPoA
+
+    def GetSum(self) -> float:
+        return self.__leftPoA + self.__rightPoA
+
 class TrafficAssigner:
 
     def __init__(self):
@@ -186,7 +213,7 @@ class TrafficAssigner:
             H, hList, indMaxH = self.ComputeBigH(toll)
             indSampleList.append(indMaxH)
 
-            gamma = 0.001 / (currIteration * 2) if currIteration < 20 else 0.01 / currIteration / currIteration
+            gamma = 1000 / (currIteration * 2) if currIteration < 50 else 25000 / currIteration / currIteration
 
             while True:
                 grad = self.ComputeGradient(toll, indSampleList)
@@ -214,11 +241,12 @@ class TrafficAssigner:
             gammas.append(gamma)
             times.append(tElapsed)
             tolls = np.vstack((tolls, np.reshape(toll, (1, -1))))
-            print('Iteration: {0:3d}, H: {1:10.1f}, Time: {2:5.1f}, Gamma: {3:8f}, MagNormStep: {4:6.3f}, dH: {5:8.1f}, MaxMagGrad: {6:8.1f} SupportSet: {7}'.format(currIteration, H, tElapsed, gamma, magNormStep, H-prevH, maxMagGrad,indSampleList))
+            print('Iteration: {0:3d}, PoA: {1:10.9f}, Time: {2:5.1f}, Gamma: {3:8f}, MagNormStep: {4:6.3f}, dPoA: {5:10.9f}, MaxMagGrad: {6:8.7f} SupportSet: {7}'.format(currIteration, PoA, tElapsed, gamma, magNormStep, PoA-prevPoA, maxMagGrad,indSampleList))
             indSampleList.clear()
             
-            if abs(prevH - H) < 500:
-                if numToConverge > 5: break
+            if abs(prevPoA - PoA) < 0.0005:
+                if numToConverge > 10 and PoA - prevPoA > 0: break
+                elif numToConverge > 20: break
                 else: numToConverge += 1
             else: numToConverge = 0
 
@@ -263,6 +291,10 @@ class TrafficAssigner:
                 tollTry[tollTry<0] = 0
 
                 tollTry = np.round(tollTry, decimals=2)
+                tollTry = self.GetGoodToll(toll, tollTry)
+
+                if tollTry is None:
+                    return PoAs, tolls, gammas, times, PoALists
 
                 PoA, PoAList, indMaxPoA = self.ComputePoAs(tollTry)
                 if indMaxPoA not in indSampleList:
@@ -289,3 +321,24 @@ class TrafficAssigner:
             prevPoA = copy(PoA)
 
         return PoAs, tolls, gammas, times, PoALists
+
+    def GetGoodToll(self, toll, tollTry, maxPts=32) -> float:
+        currPoA, _, _ = self.ComputePoAs(toll)
+        newPoA, _, _ = self.ComputePoAs(tollTry)
+        if currPoA > newPoA: return tollTry
+
+        list = list(TollElement(toll, tollTry, currPoA, newPoA))
+        for i in range(maxPts):
+            tollElement = list[0]  # todo: replace with stack
+            del list[0]
+            
+            newPoA, _, _ = self.ComputePoAs(tollElement.GetMid())
+            if newPoA < currPoA: return tollElement.GetMid()
+
+            leftPoA, rightPoA = tollElement.GetPoA()
+
+            list.append(TollElement(tollElement.GetLeft(), tollElement.GetMid(), leftPoA, newPoA))
+            list.append(TollElement(tollElement.GetMid(), tollElement.GetRight(), newPoA, rightPoA))
+            list = sorted(list, key=lambda x: x.GetSum())  # todo: replace with priority-queue
+
+        return None

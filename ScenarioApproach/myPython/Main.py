@@ -54,4 +54,4 @@ with open(pathLogFile, 'wt') as logFile:
 
     logFile.close()
 
-pass
+os.system('shutdown -t 5')

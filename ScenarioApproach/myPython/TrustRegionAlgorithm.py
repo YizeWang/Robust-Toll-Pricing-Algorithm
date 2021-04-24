@@ -80,14 +80,14 @@ def fNonlinearConstraint1(v):
     return tmp1 - tmp2 + tmp3
 
 def JNonlinearConstraint1(v):
-    tmp1 = np.divide(np.multiply(G.T, G.B), np.multiply(G.P, G.C))
+    tmp1 = np.divide(np.multiply(np.multiply(G.T, G.B), G.P), G.C)
     tmp2 = np.power(np.divide(v[:M], G.C), G.P-1)
     tmp3 = np.multiply(tmp1, tmp2)
     J1 = diags(tmp3)
     J1 = vstack((J1, csc_matrix((XDim-xDim, xDim))))
     J1 = hstack((J1, csc_matrix((XDim, XDim-xDim))))
     J2 = eye(tDim)
-    J2 = vstack((J2, csc_matrix((XDim-xDim, xDim))))
+    J2 = vstack((J2, csc_matrix((XDim-xDim, tDim))))
     J3 = -eye(uDim)
     J4 = A.transpose()
     Jac = hstack((J1, J2, J3, J4))
@@ -128,9 +128,9 @@ linearConstraint = LinearConstraint(A@X, np.ravel(b), np.ravel(b))
 nonlinearConstraint1 = NonlinearConstraint(fNonlinearConstraint1, 0.0, 0.0, jac=JNonlinearConstraint1, hess=HNonlinearConstraint1)
 nonlinearConstraint2 = NonlinearConstraint(fNonlinearConstraint2, 0.0, 0.0, jac=JNonlinearConstraint2, hess=HNonlinearConstraint2)
 
-v0 = np.ones(XDim+tDim+uDim+lDim)
+v0 = np.zeros(XDim+tDim+uDim+lDim)
 result = minimize(Objective, v0, method='trust-constr', jac=Jacobian, hess=Hessian,
                   constraints=[linearConstraint, nonlinearConstraint1, nonlinearConstraint2],
-                  options={'verbose': True, 'sparse_jacobian': True}, bounds=bounds)
+                  options={'disp': True, 'sparse_jacobian': True, 'maxiter': 50000}, bounds=bounds)
 
 print(result)

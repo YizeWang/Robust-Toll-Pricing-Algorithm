@@ -29,3 +29,5 @@ np.savetxt(join("Temp", "tolls.csv"),    tolls,    delimiter=',')
 np.savetxt(join("Temp", "gammas.csv"),   gammas,   delimiter=',')
 np.savetxt(join("Temp", "times.csv"),    times,    delimiter=',')
 np.savetxt(join("Temp", "PoALists.csv"), PoALists, delimiter=',')
+
+os.system('shutdown -t 5')
