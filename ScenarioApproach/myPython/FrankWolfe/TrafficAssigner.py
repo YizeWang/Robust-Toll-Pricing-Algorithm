@@ -268,6 +268,7 @@ class TrafficAssigner:
         gammas = []
         times = []
         tolls = np.reshape(toll, (1, -1))
+        subsample = set()
 
         while currIteration < maxIteration:
             startTime = time.time()
@@ -276,6 +277,7 @@ class TrafficAssigner:
             indSampleList = []
             PoA, PoAList, indMaxPoA = self.ComputePoAs(toll)
             indSampleList.append(indMaxPoA)
+            subsample.add(indMaxPoA)
 
             gamma = 1000 / (currIteration * 2) if currIteration < 20 else 10000 / currIteration / currIteration
 
@@ -294,11 +296,12 @@ class TrafficAssigner:
                 tollTry = self.GetGoodToll(toll, tollTry)
 
                 if tollTry is None:
-                    return PoAs, tolls, gammas, times, PoALists
+                    return PoAs, tolls, gammas, times, PoALists, subsample
 
                 PoA, PoAList, indMaxPoA = self.ComputePoAs(tollTry)
                 if indMaxPoA not in indSampleList:
                     indSampleList.append(indMaxPoA)
+                    subsample.add(indMaxPoA)
                 else:
                     toll = tollTry
                     break
@@ -320,7 +323,7 @@ class TrafficAssigner:
 
             prevPoA = copy(PoA)
 
-        return PoAs, tolls, gammas, times, PoALists
+        return PoAs, tolls, gammas, times, PoALists, subsample
 
     def GetGoodToll(self, toll, tollTry, maxPts=32) -> float:
         currPoA, _, _ = self.ComputePoAs(toll)
@@ -360,12 +363,13 @@ class TrafficAssigner:
         PoAsOfMultiStart = []
         tollOfMultiStart = []
         PoAListsOfMultiStart = []
+        subsamples = []
 
         for i in range(self.__numInit):
             print("Current initial point index: {}".format(i))
             toll = self.__multiStart[i, :]
 
-            PoAs, tolls, gammas, times, PoALists = self.GreedyGradientDescentPoA(toll)
+            PoAs, tolls, gammas, times, PoALists, subsample = self.GreedyGradientDescentPoA(toll)
             
             PoAsOfMultiStart.append(PoAs)
             tollOfMultiStart.append(tolls)
@@ -373,8 +377,7 @@ class TrafficAssigner:
             if PoAs[-1] < PoABest:
                 PoABest = PoAs[-1]
                 indBest = i
+                subsampleBest = subsample
+                subsamples.append(subsample)
 
-        return PoAsOfMultiStart
-
-
-
+        return PoAsOfMultiStart, subsample, PoABest, subsample

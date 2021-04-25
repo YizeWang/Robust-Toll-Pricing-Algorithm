@@ -23,7 +23,7 @@ TA.SetExecutablePath(pathExecutable)
 TA.SetMaxIteration(maxIteration)
 TA.SetObjective(objective)
 
-TA.GenSample(1, 0.02)
+TA.GenSample(2, 0.02)
 
 # PoAs, tolls, gammas, times, PoALists = TA.GreedyGradientDescentPoA()
 
@@ -33,14 +33,24 @@ TA.GenSample(1, 0.02)
 # np.savetxt(join("Temp", "times.csv"),    times,    delimiter=',')
 # np.savetxt(join("Temp", "PoALists.csv"), PoALists, delimiter=',')
 
+start = time.time()
 TA.GenerateMultiStart(numMultiStart)
-PoAsOfMultiStart = TA.MultiStart()
+PoAsOfMultiStart, subsamples, PoABest, subsampleBest = TA.MultiStart()
+print('Best PoA: {}, Subsample: {}'.format(PoABest, subsampleBest))
+time = time.time() - start
 
 with open(join("Temp", "PoAsOfMultiStart.csv"), "w") as f:
     writer = csv.writer(f)
     writer.writerows(PoAsOfMultiStart)
 
-fp = FigurePlotter("Temp")
-fp.PlotPoAsOfMultiStart()
+# fp = FigurePlotter("Temp")
+# fp.PlotPoAsOfMultiStart()
 
-# os.system('shutdown -t 5')
+with open(join("Temp", "ElapsedTime.txt"), 'w') as f:
+    f.write(str(time))
+
+with open(join("Temp", "Subsample.txt"), 'w') as f:
+    for subsample in subsamples:
+        f.write(str(subsample)+'\n')
+
+os.system('shutdown -t 5')
