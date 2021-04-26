@@ -380,4 +380,4 @@ class TrafficAssigner:
                 subsampleBest = subsample
                 subsamples.append(subsample)
 
-        return PoAsOfMultiStart, subsample, PoABest, subsample
+        return PoAsOfMultiStart, subsamples, PoABest, subsampleBest
