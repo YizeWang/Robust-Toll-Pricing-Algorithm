@@ -9,7 +9,7 @@ from FigurePlotter import FigurePlotter
 
 
 maxIteration = 200
-numMultiStart = 20
+numMultiStart = 50
 pathCurrFolder = os.path.abspath(os.getcwd())
 pathExecutable = "/home/onion/Repo/frank-wolfe-traffic/Build/Release/Launchers/AssignTraffic"
 pathDataFolder = "/home/onion/Repo/Differential_Pricing/Locations/SiouxFalls"
@@ -33,24 +33,24 @@ TA.GenSample(100, 0.02)
 # np.savetxt(join("Temp", "times.csv"),    times,    delimiter=',')
 # np.savetxt(join("Temp", "PoALists.csv"), PoALists, delimiter=',')
 
-# start = time.time()
-# TA.GenerateMultiStart(numMultiStart)
-# PoAsOfMultiStart, subsamples, PoABest, subsampleBest = TA.MultiStart()
-# print('Best PoA: {}, Subsample: {}'.format(PoABest, subsampleBest))
-# time = time.time() - start
+start = time.time()
+TA.GenerateMultiStart(numMultiStart)
+PoAsOfMultiStart, subsamples, PoABest, subsampleBest = TA.MultiStart()
+print('Best PoA: {}, Subsample: {}'.format(PoABest, subsampleBest))
+time = time.time() - start
 
-# with open(join("Temp", "PoAsOfMultiStart.csv"), "w") as f:
-#     writer = csv.writer(f)
-#     writer.writerows(PoAsOfMultiStart)
+with open(join("Temp", "PoAsOfMultiStart.csv"), "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(PoAsOfMultiStart)
 
-fp = FigurePlotter("Temp")
-fp.PlotPoAsOfMultiStart()
+with open(join("Temp", "ElapsedTime.txt"), 'w') as f:
+    f.write(str(time))
 
-# with open(join("Temp", "ElapsedTime.txt"), 'w') as f:
-#     f.write(str(time))
+with open(join("Temp", "Subsample.txt"), 'w') as f:
+    for subsample in subsamples:
+        f.write(str(subsample)+'\n')
 
-# with open(join("Temp", "Subsample.txt"), 'w') as f:
-#     for subsample in subsamples:
-#         f.write(str(subsample)+'\n')
+# fp = FigurePlotter("Temp")
+# fp.PlotPoAsOfMultiStart()
 
-# os.system('shutdown -t 5')
+os.system('shutdown -t 5')
