@@ -373,11 +373,11 @@ class TrafficAssigner:
             
             PoAsOfMultiStart.append(PoAs)
             tollOfMultiStart.append(tolls)
+            subsamples.append(subsample)
             
             if PoAs[-1] < PoABest:
                 PoABest = PoAs[-1]
                 indBest = i
                 subsampleBest = subsample
-                subsamples.append(subsample)
 
         return PoAsOfMultiStart, subsamples, PoABest, subsampleBest
