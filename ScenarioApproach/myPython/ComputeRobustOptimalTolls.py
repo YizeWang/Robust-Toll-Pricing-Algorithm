@@ -37,7 +37,6 @@ m = gp.Model("Robust Toll Calculator")
 m.Params.OutputFlag = verbose
 m.Params.NonConvex = 2
 m.Params.Presolve = 2
-# m.Params.MIPFocus = 1
 
 # extract variable dimensions
 M = G.numEdge
