@@ -205,4 +205,4 @@ iteration,customization_time,query_time,line_search_time,total_time,obj_function
 198,0,0,0,0,2.7594e+08,4.61102e+08,
 199,0,0,0,0,2.7594e+08,4.61113e+08,
 200,0,0,0,0,2.7594e+08,4.6113e+08,
-Total time:,58
+Total time:,49
