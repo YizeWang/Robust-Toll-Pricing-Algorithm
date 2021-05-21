@@ -16,14 +16,14 @@ pathDataFolder = "/home/onion/Repo/Differential_Pricing/Locations/SiouxFalls"
 pathTempFolder = os.path.join(pathCurrFolder, "Temp")
 objective = 'user_eq'
 
-# TA = TrafficAssigner()
-# TA.SetDataFolderPath(pathDataFolder)
-# TA.SetTempFolderPath(pathTempFolder)
-# TA.SetExecutablePath(pathExecutable)
-# TA.SetMaxIteration(maxIteration)
-# TA.SetObjective(objective)
+TA = TrafficAssigner()
+TA.SetDataFolderPath(pathDataFolder)
+TA.SetTempFolderPath(pathTempFolder)
+TA.SetExecutablePath(pathExecutable)
+TA.SetMaxIteration(maxIteration)
+TA.SetObjective(objective)
 
-# TA.GenSample(100, 0.02)
+TA.GenSample(1, 0)
 
 # PoAs, tolls, gammas, times, PoALists = TA.GreedyGradientDescentPoA()
 
@@ -33,25 +33,21 @@ objective = 'user_eq'
 # np.savetxt(join("Temp", "times.csv"),    times,    delimiter=',')
 # np.savetxt(join("Temp", "PoALists.csv"), PoALists, delimiter=',')
 
-# start = time.time()
-# TA.GenerateMultiStart(numMultiStart)
-# PoAsOfMultiStart, subsamples, PoABest, subsampleBest = TA.MultiStart()
-# print('Best PoA: {}, Subsample: {}'.format(PoABest, subsampleBest))
-# time = time.time() - start
+start = time.time()
+TA.GenerateMultiStart(numMultiStart)
+PoAsOfMultiStart, subsamples, PoABest, subsampleBest = TA.MultiStart()
+print('Best PoA: {}, Subsample: {}'.format(PoABest, subsampleBest))
+time = time.time() - start
 
-# with open(join("Temp", "PoAsOfMultiStart.csv"), "w") as f:
-#     writer = csv.writer(f)
-#     writer.writerows(PoAsOfMultiStart)
+with open(join("Temp", "PoAsOfMultiStart.csv"), "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(PoAsOfMultiStart)
 
-# with open(join("Temp", "ElapsedTime.txt"), 'w') as f:
-#     f.write(str(time))
+with open(join("Temp", "ElapsedTime.txt"), 'w') as f:
+    f.write(str(time))
 
-# with open(join("Temp", "Subsample.txt"), 'w') as f:
-#     for subsample in subsamples:
-#         f.write(str(subsample)+'\n')
+with open(join("Temp", "Subsample.txt"), 'w') as f:
+    for subsample in subsamples:
+        f.write(str(subsample)+'\n')
 
-fp = FigurePlotter("Temp0.02")
-# fp.PlotPoAsOfMultiStart()
-fp.PlotConfidence()
-
-# os.system('shutdown -t 5')
+os.system('shutdown -t 5')

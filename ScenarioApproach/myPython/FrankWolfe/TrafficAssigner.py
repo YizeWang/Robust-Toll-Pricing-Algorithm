@@ -150,7 +150,7 @@ class TrafficAssigner:
 
         return np.max(PoAs), PoAs, np.argmax(PoAs)
 
-    def ComputeGradient(self, toll: np.array, indSampleList: list, deltaToll=0.05):
+    def ComputeGradient(self, toll: np.array, indSampleList: list, deltaToll=0.1):
         grad = np.zeros(self.numEdges, dtype=np.double)
 
         for m in range(self.numEdges):
@@ -170,7 +170,7 @@ class TrafficAssigner:
 
         return grad
 
-    def ComputeGradientPoA(self, toll: np.array, indSampleList: list, deltaToll=0.05):
+    def ComputeGradientPoA(self, toll: np.array, indSampleList: list, deltaToll=0.1):
         grad = np.zeros(self.numEdges, dtype=np.double)
 
         for m in range(self.numEdges):
