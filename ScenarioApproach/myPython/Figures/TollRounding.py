@@ -21,9 +21,9 @@ round1 = np.genfromtxt(pathDataRound1, delimiter=',')
 round2 = np.genfromtxt(pathDataRound2, delimiter=',')
 
 plt.plot(it, roundNo, label='No Rounding')
-plt.plot(it, round0, label='0 Decimal')
-plt.plot(it, round1, label='1 Decimal')
-plt.plot(it, round2, label='2 Decimal')
+plt.plot(it, round0, label='0 Decimal Place')
+plt.plot(it, round1, label='1 Decimal Place')
+plt.plot(it, round2, label='2 Decimal Place')
 
 plt.xlabel('Number of Iteration')
 plt.ylabel('Price of Anarchy')
