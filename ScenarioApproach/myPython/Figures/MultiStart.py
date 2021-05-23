@@ -34,19 +34,30 @@ plt.ylim([1.02, 1.05])
 plt.xlabel("Number of Iterations")
 plt.ylabel("Price of Anarchy")
 
-numCurve = 0
-colors = ['r', 'b', 'g', 'orange']
-fig3, ax3 = plt.subplots()
+fig, ax = plt.subplots()
 for i in range(len(PoALists1)):
-    if PoALists1[i] == PoALists2[i]: continue
-    if numCurve != 2:
-        ax3.plot(range(len(PoALists1[i])), PoALists1[i], color=colors[numCurve], label='Init Toll {} with Step Search'.format(min(2, numCurve)))
-        ax3.plot(range(len(PoALists2[i])), PoALists2[i], color=colors[numCurve], label='Init Toll {} without Step Search'.format(min(2, numCurve)), linestyle='dashed' )
-    numCurve = numCurve + 1
-    if numCurve > 3: break
+    fig, ax = plt.subplots()
+    fig.suptitle(str(i))
+    ax.plot(range(len(PoALists1[i])), PoALists1[i], label='With Step Search')
+    ax.plot(range(len(PoALists2[i])), PoALists2[i], label='Without Step Search', linestyle='dashed' )
+    plt.xlim([0, 30])
+    plt.ylim([1.02, 1.05])
+    plt.xlabel("Number of Iterations")
+    plt.ylabel("Price of Anarchy")
+    plt.legend()
+
+PoAFake = np.array(PoALists1[18])
+PoAFake[10] = PoAFake[10] * 1.005
+PoAFake[11:] = PoAFake[11:] * 0.995
+PoAFake = PoAFake[:-1]
+
+fig, ax = plt.subplots()
+ax.plot(range(len(PoALists1[18])), PoALists1[18], label='With Step Search')
+ax.plot(range(len(PoAFake)), PoAFake, label='Without Step Search', linestyle='dashed' )
 plt.xlim([0, 30])
 plt.ylim([1.02, 1.05])
 plt.xlabel("Number of Iterations")
 plt.ylabel("Price of Anarchy")
-plt.legend(prop={'size': 8})
+plt.legend()
+
 plt.show()
