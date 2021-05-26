@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 pathCurrFolder = os.path.abspath(os.getcwd())
-pathDataFolder = os.path.join(os.path.join(pathCurrFolder, "Figures"), "DataPerformanceComparison")
+pathDataFolder = os.path.join(os.path.join(pathCurrFolder, "Figures"), "DataTollValueComparison")
 
 pathDataT0 = os.path.join(pathDataFolder, 'MarginCostToll.csv')
 pathDataT1 = os.path.join(pathDataFolder, 'Toll1.csv')
@@ -21,9 +21,9 @@ print(np.max(T1))
 print(np.max(T2))
 
 plt.figure("Toll Value")
-plt.plot(indEdge, T0, label='MCT')
-plt.plot(indEdge, T1, label='Toll1')
-plt.plot(indEdge, T2, label='Toll2')
+plt.plot(indEdge, T0, label='MCT', color='tab:green')
+plt.plot(indEdge, T1, label='Toll1', color='m')
+plt.plot(indEdge, T2, label='Toll2', color='orange')
 plt.xlim([1, 76])
 plt.xticks(np.hstack((np.hstack(([1], np.arange(10,76,10))), 76)))
 plt.ylim([0, 60])
