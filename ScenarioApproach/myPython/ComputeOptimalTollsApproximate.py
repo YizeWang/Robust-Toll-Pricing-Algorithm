@@ -5,7 +5,7 @@ from GetNonZeroDictionary import *
 from ComputeSocialCost import *
 
 
-def ComputeOptimalTollsApproximate(G, sampleODs, pathSolFile, idxZero, idxNonZero, idxUsed, verbose=False):
+def ComputeOptimalTollsApproximate(G, sampleODs, idxZero, idxNonZero, idxUsed, verbose=False):
 
     # create a new model
     m = gp.Model("Approximate Toll Calculator")
