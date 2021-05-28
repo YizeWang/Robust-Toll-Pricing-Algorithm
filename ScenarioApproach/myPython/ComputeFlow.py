@@ -49,7 +49,7 @@ def ComputeFlow(G, ODs, toll=None, type='Nash', verbose=False):
     m.addConstrs(gp.quicksum(A[row, col] * z[col] for col in dictCols[row]) == b[row] / C0 for row in setRows)
 
     for i in range(xDim):
-        m.addGenConstrPow(z[i], y[i], PPlusOne[i], options="FuncPieces=-2 FuncPieceError=1e-4")  # y = z ^ (P + 1)
+        m.addGenConstrPow(z[i], y[i], PPlusOne[i])  # y = z ^ (P + 1)
 
     # obj = a * z ^ (P + 1) + c * z
     m.setObjective(gp.quicksum(a[i] * y[i] + c[i] * z[i] for i in range(xDim)))
