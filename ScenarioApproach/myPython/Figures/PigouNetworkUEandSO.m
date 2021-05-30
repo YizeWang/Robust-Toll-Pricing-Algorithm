@@ -2,6 +2,7 @@ clc
 close all
 clear all
 
+
 nameNetwork   = 'Pigou';
 pathDataFolder = '..\myRealData\';
 
@@ -16,10 +17,8 @@ flowEdges = [0.000001, 1.0] * 2;
 
 figure(1)
 plot(G, 'XData', X, 'YData', Y, 'EdgeLabel', labelEdges, 'NodeLabel', labelNodes, 'LineWidth', flowEdges, 'EdgeFontSize', 10.5);
-title("Pigou's Network (UE)", 'fontsize', 12)
 set(gca, 'xtick', [])
 set(gca, 'ytick', [])
-print -depsc -painters -tiff -r300 pigou_network_ue.eps
 
 X = G.Nodes.X;
 Y = G.Nodes.Y;
@@ -29,7 +28,5 @@ flowEdges = [0.5, 0.5] * 2;
 
 figure(2)
 plot(G, 'XData', X, 'YData', Y, 'EdgeLabel', labelEdges, 'NodeLabel', labelNodes, 'LineWidth', flowEdges, 'EdgeFontSize', 10.5);
-title("Pigou's Network (SO)", 'fontsize', 12)
 set(gca, 'xtick', [])
 set(gca, 'ytick', [])
-print -depsc -painters -tiff -r300 pigou_network_so.eps
