@@ -26,8 +26,8 @@ if variation == 0.05:
     divider2 = 1.020
     ylim = [0, 2000]
 elif variation == 0.20:
-    divider1 = 1.033711
-    divider2 = 1.02391096
+    divider1 = 1.034
+    divider2 = 1.024
     ylim = [0, 600]
 
 pathDataT1 = os.path.join(pathDataFolder, 'CostToll1.csv')
@@ -56,9 +56,9 @@ print(np.sum(PoAToll1>divider1))
 print(np.sum(PoAToll2>divider2))
 
 plt.figure()
-plt.hist(PoAToll1, bins=500, alpha=0.8, label="Toll1", color='m')
-plt.hist(PoAToll2, bins=500, alpha=0.8, label="Toll2", color='orange')
-plt.hist(PoAUserEq, bins=500, alpha=0.8, label="Toll-Free", color='tab:blue')
+plt.hist(PoAToll1, bins=500, alpha=0.8, label="Toll1", color='m', zorder=1)
+plt.hist(PoAToll2, bins=500, alpha=0.8, label="Toll2", color='orange', zorder=2)
+plt.hist(PoAUserEq, bins=500, alpha=0.8, label="Toll-Free", color='tab:blue', zorder=0)
 plt.axvline(divider1, color="m", linestyle="dashed", alpha=0.5)
 plt.axvline(divider2, color="orange", linestyle="dashed", alpha=0.5)
 plt.xlabel('Price of Anarchy')
