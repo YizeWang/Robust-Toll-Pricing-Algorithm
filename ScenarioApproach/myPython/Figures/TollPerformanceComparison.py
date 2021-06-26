@@ -6,7 +6,8 @@ from os.path import join
 import matplotlib.pyplot as plt
 
 
-variation = 0.20
+variation = 0.05
+areAllTaxable = False
 
 pathCurrFolder = os.path.abspath(os.getcwd())
 pathDataFolder = join(join(pathCurrFolder, "Figures"), "DataTollPerformanceComparison")
@@ -56,6 +57,18 @@ print(np.sum(PoAToll1>divider1))
 print(np.sum(PoAToll2>divider2))
 
 plt.figure()
+
+if not areAllTaxable and variation == 0.05:
+    pathDataTH = os.path.join(pathDataFolder, 'CostTollH.csv')
+    CostTollH = np.genfromtxt(pathDataTH, delimiter=',')
+    PoAHalf = np.divide(CostTollH, CostSysOpt)
+    PoAHalf = np.delete(PoAHalf, PoAHalf<lb)
+    PoAHalf = np.delete(PoAHalf, PoAHalf>ub)
+    dividerHalf = 1.03152
+    print(np.sum(PoAHalf>dividerHalf))
+    plt.hist(PoAHalf, bins=500, alpha=0.8, label="Toll (Half Tollable)", color='green', zorder=3)
+    plt.axvline(dividerHalf, color="green", linestyle="dashed", alpha=0.5)
+
 plt.hist(PoAToll1, bins=500, alpha=0.8, label="Toll1", color='m', zorder=1)
 plt.hist(PoAToll2, bins=500, alpha=0.8, label="Toll2", color='orange', zorder=2)
 plt.hist(PoAUserEq, bins=500, alpha=0.8, label="Toll-Free", color='tab:blue', zorder=0)
