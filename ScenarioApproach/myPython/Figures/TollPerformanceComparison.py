@@ -66,8 +66,8 @@ if not areAllTaxable and variation == 0.05:
     PoAHalf = np.delete(PoAHalf, PoAHalf>ub)
     dividerHalf = 1.03152
     print(np.sum(PoAHalf>dividerHalf))
-    plt.hist(PoAHalf, bins=500, alpha=0.8, label="Toll (Half Tollable)", color='green', zorder=3)
-    plt.axvline(dividerHalf, color="green", linestyle="dashed", alpha=0.5)
+    plt.hist(PoAHalf, bins=500, alpha=0.8, label="Toll (Half Tollable)", color='tab:red', zorder=3)
+    plt.axvline(dividerHalf, color="tab:red", linestyle="dashed", alpha=0.5)
 
 plt.hist(PoAToll1, bins=500, alpha=0.8, label="Toll1", color='m', zorder=1)
 plt.hist(PoAToll2, bins=500, alpha=0.8, label="Toll2", color='orange', zorder=2)
