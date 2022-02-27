@@ -10,7 +10,7 @@ pathCurrFolder = os.path.abspath(os.getcwd())
 pathDataFolder = join(pathCurrFolder, os.pardir, "DataDemandVariationAndSubsample")
 
 xlim = [0.20, 0.45]
-ylim = [1.0, 1.06]
+ylim = [1.00, 1.06]
 xRange = np.linspace(1, 20, 100, endpoint=True)
 eRange = np.linspace(0.2, 0.6, 100, endpoint=True)
 demandVariations = [0.05, 0.20]
@@ -71,18 +71,26 @@ for i, demandVariation in enumerate(demandVariations):
     if demandVariation == 0.05:
         x_orange, y_orange = 0.295330961610537, 1.0199250649522302
         plt.scatter([x_orange], [y_orange], s=80, color='orange', zorder=10)
-        plt.scatter([x_orange], [y_orange], s=1000, facecolors='none', edgecolors='orange', zorder=10)
+        plt.text(x_orange, y_orange-0.005, "(0.295, 1.020)", color='orange', fontsize=32, ha='center',va='bottom')
         x_magenta, y_magenta = 0.240255973901323, 1.0368548593662308
         plt.scatter([x_magenta], [y_magenta], s=80, color='magenta', zorder=10)
-        plt.scatter([x_magenta], [y_magenta], s=1000, facecolors='none', edgecolors='magenta', zorder=10)
+        plt.text(x_magenta, y_magenta+0.005, "(0.240, 1.037)", color='magenta', fontsize=32, ha='center',va='top')
+
+    if demandVariation == 0.20:
+        x_brown, y_brown = 0.295330961610537, 1.0239206515672628
+        plt.scatter([x_brown], [y_brown], s=80, color='tab:brown', zorder=10)
+        plt.text(x_brown, y_brown-0.005, "(0.295, 1.024)", color='tab:brown', fontsize=32, ha='center',va='bottom')
+        x_green, y_green = 0.240255973901323, 1.033711796836078
+        plt.scatter([x_green], [y_green], s=80, color='tab:green', zorder=10)
+        plt.text(x_green, y_green+0.005, "(0.240, 1.034)", color='tab:green', fontsize=32, ha='center',va='top')
 
     plt.xlabel(r'Reliability Parameter $\epsilon$', fontsize=36)
     plt.ylabel(r'Best Worst-Case PoA $\mathcal{P}^*$', fontsize=36)
     plt.xticks(np.arange(xlim[0], xlim[1] + sys.float_info.epsilon, step=0.05))
+    plt.yticks(np.arange(ylim[0], ylim[1] + sys.float_info.epsilon, step=0.01))
     plt.xlim(xlim)
     plt.ylim(ylim)
     plt.xticks(fontsize=32)
     plt.yticks(fontsize=32)
-    plt.legend()
 
 plt.show()

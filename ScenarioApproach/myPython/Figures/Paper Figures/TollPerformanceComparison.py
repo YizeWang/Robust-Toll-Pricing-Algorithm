@@ -5,7 +5,7 @@ import matplotlib.font_manager as font_manager
 import matplotlib.pyplot as plt
 import numpy as np
 
-variation = 0.05
+variation = 0.20
 areAllTaxable = False
 
 pathCurrFolder = os.path.abspath(os.getcwd())
@@ -69,11 +69,11 @@ if not areAllTaxable and variation == 0.05:
     plt.hist(PoAHalf, bins=500, alpha=0.8, label="Toll (Half Tollable)", color='tab:red', zorder=3)
     plt.axvline(dividerHalf, color="tab:red", linestyle="dashed", alpha=0.5)
 
-plt.hist(PoAToll1, bins=500, alpha=0.8, label="Toll1", color='m', zorder=1)
-plt.hist(PoAToll2, bins=500, alpha=0.8, label="Toll2", color='orange', zorder=2)
+plt.hist(PoAToll1, bins=500, alpha=0.8, label="Toll3", color='tab:green', zorder=1)
+plt.hist(PoAToll2, bins=500, alpha=0.8, label="Toll4", color='tab:brown', zorder=2)
 plt.hist(PoAUserEq, bins=500, alpha=0.8, label="Toll-Free", color='tab:blue', zorder=0)
-plt.axvline(divider1, color="m", linestyle="dashed", alpha=0.5)
-plt.axvline(divider2, color="orange", linestyle="dashed", alpha=0.5)
+plt.axvline(divider1, color="tab:green", linestyle="dashed", alpha=0.5)
+plt.axvline(divider2, color="tab:brown", linestyle="dashed", alpha=0.5)
 plt.xlabel('Price of Anarchy $\mathcal{P}$', fontsize=36)
 plt.ylabel('Number of Scenarios $N$', fontsize=36)
 plt.xlim([lb, ub])
